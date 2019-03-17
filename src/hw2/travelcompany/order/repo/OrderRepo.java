@@ -1,6 +1,6 @@
 package hw2.travelcompany.order.repo;
 
-import hw2.travelcompany.common.business.repo.BaseRepo;
+import hw2.travelcompany.common.solutions.repo.BaseRepo;
 import hw2.travelcompany.order.domain.Order;
 import hw2.travelcompany.order.search.OrderSearchCondition;
 

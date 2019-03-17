@@ -1,11 +1,11 @@
 package hw2.travelcompany.common.business.search;
 
-public abstract class BaseSearchCondition {
-    protected Long id;
+public abstract class BaseSearchCondition <ID>{
+    protected ID id;
     protected OrderDirection orderDirection = OrderDirection.ASC;
     protected OrderType orderType = OrderType.SIMPLE;
 
-    public Long getId() {
+    public ID getId() {
         return id;
     }
 
@@ -25,7 +25,7 @@ public abstract class BaseSearchCondition {
         this.orderType = orderType;
     }
 
-    public void setId(Long id) {
+    public void setId(ID id) {
         this.id = id;
     }
 

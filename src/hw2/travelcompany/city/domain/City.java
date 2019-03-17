@@ -3,7 +3,7 @@ package hw2.travelcompany.city.domain;
 import hw2.travelcompany.common.business.domain.BaseDomain;
 import hw2.travelcompany.country.domain.Country;
 
-public class City extends BaseDomain {
+public class City extends BaseDomain <Long>{
     private String name;
     private int population;
     private boolean isCapital;

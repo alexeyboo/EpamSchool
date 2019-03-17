@@ -18,7 +18,7 @@ public final class CommonComparatorHolder {
         }
     };
 
-    private static Comparator<Integer> comparatorForNullableIntegers = new Comparator<>() {
+    private static Comparator<Integer> comparatorForNullableIntegers = new Comparator<Integer>() {
         public int compare(Integer i1, Integer i2) {
             if (i1 == null && i2 == null) {
                 return 0;

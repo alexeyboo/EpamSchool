@@ -1,6 +1,6 @@
 package hw2.travelcompany.country.repo;
 
-import hw2.travelcompany.common.business.repo.BaseRepo;
+import hw2.travelcompany.common.solutions.repo.BaseRepo;
 import hw2.travelcompany.country.domain.Country;
 import hw2.travelcompany.country.search.CountrySearchCondition;
 

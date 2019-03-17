@@ -4,16 +4,17 @@ import hw2.travelcompany.city.domain.City;
 import hw2.travelcompany.common.business.domain.BaseDomain;
 
 import java.util.Arrays;
+import java.util.List;
 
-public class Country extends BaseDomain {
+public class Country extends BaseDomain <Long> {
     private String name;
     private String language;
-    private City[] cities;
+    private List<City> cities;
 
     public Country() {
     }
 
-    public void setCities(City[] cities) {
+    public void setCities(List<City> cities) {
         this.cities = cities;
     }
 
@@ -30,7 +31,7 @@ public class Country extends BaseDomain {
         this.language = language;
     }
 
-    public City[] getCities() {
+    public List<City> getCities() {
         return cities;
     }
 

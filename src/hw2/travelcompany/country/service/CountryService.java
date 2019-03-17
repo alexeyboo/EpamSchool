@@ -1,6 +1,6 @@
 package hw2.travelcompany.country.service;
 
-import hw2.travelcompany.common.business.service.BaseService;
+import hw2.travelcompany.common.solutions.service.BaseService;
 import hw2.travelcompany.country.domain.Country;
 import hw2.travelcompany.country.search.CountrySearchCondition;
 
