@@ -3,14 +3,20 @@ package hw2.travelcompany.city.domain;
 import hw2.travelcompany.common.business.domain.BaseDomain;
 import hw2.travelcompany.country.domain.Country;
 
-public class City extends BaseDomain <Long>{
-    private String name;
-    private int population;
-    private boolean isCapital;
-    private Country country;
-    private Climate climate;
+public abstract class City extends BaseDomain <Long>{
+    protected String name;
+    protected int population;
+    protected boolean isCapital;
+    protected Country country;
+    protected Climate climate;
+    protected CityDiscriminator discriminator;
+
+    public CityDiscriminator getDiscriminator() {
+        return discriminator;
+    }
 
     public City() {
+        initDiscriminator();
     }
 
     public Country getCountry() {
@@ -40,7 +46,7 @@ public class City extends BaseDomain <Long>{
 
     @Override
     public String toString() {
-        return "City{" +
+        return discriminator + "City" +
                 "name='" + name + '\'' +
                 ", population=" + population +
                 ", isCapital=" + isCapital +
@@ -48,14 +54,6 @@ public class City extends BaseDomain <Long>{
                 ", id=" + id +
                 ", climate=" + climate +
                 '}';
-    }
-
-    public City(String name, int population, boolean isCapital, Country[] countries, Climate climate) {
-        this.name = name;
-        this.population = population;
-        this.isCapital = isCapital;
-        this.country = country;
-        this.climate = climate;
     }
 
     public String getName() {
@@ -82,6 +80,6 @@ public class City extends BaseDomain <Long>{
         this.isCapital = isCapital;
     }
 
-
+    protected abstract void initDiscriminator();
 
 }

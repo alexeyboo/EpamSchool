@@ -6,12 +6,8 @@ import hw2.travelcompany.common.solutions.repo.BaseRepo;
 
 import java.util.List;
 
-public interface CityRepo extends BaseRepo {
-    void add(City city);
+public interface CityRepo extends BaseRepo <City, Long>{
 
-    City findById(long id);
+    List<? extends City> search(CitySearchCondition searchCondition);
 
-    List<City> search(CitySearchCondition searchCondition);
-
-    void update(City city);
 }

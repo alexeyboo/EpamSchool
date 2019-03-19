@@ -1,16 +1,26 @@
 package hw2.travelcompany.city.search;
 
+import hw2.travelcompany.city.domain.CityDiscriminator;
 import hw2.travelcompany.city.domain.Climate;
 import hw2.travelcompany.common.business.search.BaseSearchCondition;
 import hw2.travelcompany.country.domain.Country;
 
-public class CitySearchCondition extends BaseSearchCondition {
+public class CitySearchCondition extends BaseSearchCondition <Long>{
     private String name;
     private Integer population;
     private Boolean isCapital;
     private Country country;
     private Climate climate;
     private CityOrderByField orderByField;
+    private CityDiscriminator cityDiscriminator;
+
+    public CityDiscriminator getCityDiscriminator() {
+        return cityDiscriminator;
+    }
+
+    public void setCityDiscriminator(CityDiscriminator modelDiscriminator) {
+        this.cityDiscriminator = modelDiscriminator;
+    }
 
     public String getName() {
         return name;

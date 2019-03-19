@@ -1,9 +1,8 @@
 package hw2.travelcompany.city.domain;
 
 public enum Climate {
-    POLAR("cold winter, cold summer"),
-    CONTINENTAL("cold winter, warm summer"),
-    TEMPERATE("hot summer, warm winter"),
+    POLAR("cold summer, cold winter"),
+    TEMPERATE("warm summer, cold winter"),
     ARID("hot summer, warm winter"),
     TROPICAL("hot summer, hot winter");
 

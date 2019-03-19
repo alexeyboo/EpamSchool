@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum CityDiscriminator {
-    TYPE_ONE, TYPE_TWO;
+    BEACH, SKI_RESORT, SIGHTSEE, BEACH_N_SKI_RESORT, BEACH_N_SIGHTSEE, SIGHTSEE_N_SKI_RESORT, BEACH_N_SKI_RESORT_N_SIGHTSEE;
 
     static Map<String, CityDiscriminator> stringCityDiscriminatorMap = new HashMap<>();
 

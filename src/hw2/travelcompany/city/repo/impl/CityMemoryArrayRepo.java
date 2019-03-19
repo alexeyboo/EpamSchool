@@ -1,8 +1,13 @@
 package hw2.travelcompany.city.repo.impl;
 
 import hw2.travelcompany.city.domain.City;
+import hw2.travelcompany.city.domain.CityDiscriminator;
+import hw2.travelcompany.city.domain.typesofcities.BeachCity;
 import hw2.travelcompany.city.repo.CityRepo;
 import hw2.travelcompany.city.search.CitySearchCondition;
+import hw2.travelcompany.city.search.BeachCitySearchCondition;
+import hw2.travelcompany.city.search.SightseeCitySearchCondition;
+import hw2.travelcompany.city.search.SkiResortCitySearchCondition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +23,7 @@ public class CityMemoryArrayRepo implements CityRepo {
     private int cityIndex = 0;
     private CityOrderingComponent orderingComponent = new CityOrderingComponent();
 
+    @Override
     public void add(City city) {
         if (cityIndex == cities.length) {
             City[] newCities = new City[cities.length * 2];
@@ -28,30 +34,61 @@ public class CityMemoryArrayRepo implements CityRepo {
         cityIndex++;
     }
 
-    public City findById(long id) {
-        Integer cityIndex = findCityIndexById(id);
-        if (cityIndex != null) {
-            return cities[cityIndex];
-        }
-        return null;
-    }
-
     @Override
-    public List<City> search(CitySearchCondition searchCondition) {
+    public List<? extends City> search(CitySearchCondition searchCondition) {
         if (searchCondition.getId() != null)
             return Collections.singletonList(findById(searchCondition.getId()));
         else {
             List<City> result = doSearch(searchCondition);
-            boolean needOrdering = !result.isEmpty() && searchCondition.needOrdering();
+            CityDiscriminator modelDiscriminator = searchCondition.getCityDiscriminator();
 
-            if (needOrdering) {
-                orderingComponent.applyOrdering(result, searchCondition);
+            switch (modelDiscriminator) {
+                case BEACH: {
+                    return doBeachCitySearch((BeachCitySearchCondition) searchCondition, result);
+                }
+                case SIGHTSEE: {
+                    return doSightseeCitySearch((SightseeCitySearchCondition) searchCondition, result);
+                }
+                case SKI_RESORT: {
+                    return doSkiResortCitySearch((SkiResortCitySearchCondition) searchCondition, result);
+                }
             }
-            return result;
+//
+//            boolean needOrdering = !result.isEmpty() && searchCondition.needOrdering();
+//
+//            if (needOrdering) {
+//                orderingComponent.applyOrdering(result, searchCondition);
+//            }
+//            return result;
         }
     }
 
-    public List<City> doSearch(CitySearchCondition searchCondition) {
+    private List<BeachCity> doBeachCitySearch(BeachCitySearchCondition searchCondition, List<City> cities) {
+        BeachCity[] foundCities = new BeachCity[cities.size()];
+        int resultIndex = 0;
+
+        for (City city : cities) {
+            if (CityDiscriminator.BEACH.equals(city.getDiscriminator())) {
+                BeachCity beachCity = (BeachCity) city;
+                boolean found = true;
+                if (searchCondition.searchByNumOfBeaches()) {
+                    found = searchCondition.getNumOfBeaches().equals(beachCity.getNumOfBeaches());
+                }
+                if (found) {
+                    foundCities[resultIndex] = beachCity;
+                    resultIndex++;
+                }
+            }
+        }
+        if (resultIndex > 0) {
+            BeachCity toReturn[] = new BeachCity[resultIndex];
+            System.arraycopy(foundCities, 0, toReturn, 0, resultIndex);
+            return new ArrayList<>(Arrays.asList(toReturn));
+        }
+        return Collections.emptyList();
+    }
+
+    private List<City> doSearch(CitySearchCondition searchCondition) {
         boolean searchByName = isBlank(searchCondition.getName());
         boolean searchByClimate = (searchCondition.getClimate() != null);
         boolean searchByCountry = (searchCondition.getCountry() != null);
@@ -91,8 +128,28 @@ public class CityMemoryArrayRepo implements CityRepo {
         return Collections.emptyList();
     }
 
+
     @Override
     public void update(City city) {
+
+    }
+
+    @Override
+    public City findById(Long id) {
+        Integer cityIndex = findCityIndexById(id);
+        if (cityIndex != null) {
+            return cities[cityIndex];
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Integer cityIndex = findCityIndexById(id);
+
+        if (cityIndex != null) {
+            deleteCityByIndex(cityIndex);
+        }
 
     }
 
@@ -102,15 +159,14 @@ public class CityMemoryArrayRepo implements CityRepo {
             deleteCityByIndex(foundIndex);
     }
 
-    public void deleteById(long id) {
-        Integer foundIndex = findCityIndexById(id);
-        if (foundIndex != null)
-            deleteCityByIndex(foundIndex);
-    }
-
     public void printAll() {
         for (City city : cities)
             System.out.println(city);
+    }
+
+    @Override
+    public List<City> findAll() {
+        return null;
     }
 
     private void deleteCityByIndex(int index) {

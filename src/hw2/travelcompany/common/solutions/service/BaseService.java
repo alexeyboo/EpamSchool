@@ -1,5 +1,7 @@
 package hw2.travelcompany.common.solutions.service;
 
+import hw2.travelcompany.common.business.exception.TravelCompanyUncheckedException;
+
 import java.util.List;
 
 public interface BaseService <TYPE, ID>{
@@ -10,7 +12,7 @@ public interface BaseService <TYPE, ID>{
 
     TYPE findById(ID id);
 
-    void deleteById(long id);
+    void deleteById(ID id) throws TravelCompanyUncheckedException;
 
     void delete(TYPE entity);
 
