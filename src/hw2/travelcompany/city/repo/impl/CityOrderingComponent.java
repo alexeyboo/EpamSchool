@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CityOrderingComponent {
 
-    public void applyOrdering(List<City> cities, CitySearchCondition citySearchCondition) {
+    public void applyOrdering(List<? extends City> cities, CitySearchCondition citySearchCondition) {
         Comparator<City> cityComparator = null;
         CityOrderByField field = citySearchCondition.getOrderByField();
         switch (citySearchCondition.getOrderType()) {

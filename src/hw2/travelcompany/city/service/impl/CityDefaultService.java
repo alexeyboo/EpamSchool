@@ -15,22 +15,25 @@ public class CityDefaultService implements CityService {
         this.cityRepo = cityRepo;
     }
 
-    public void add(City city) {
+    @Override
+    public void insert(City city) {
         cityRepo.add(city);
     }
 
+    @Override
     public City findById(Long id) {
         return cityRepo.findById(id);
     }
 
-    public void deleteCity(City city) {
+    @Override
+    public void delete(City city) {
         if (city.getId() != null) {
             this.deleteById(city.getId());
         }
     }
 
     @Override
-    public List<City> search(CitySearchCondition searchCondition) {
+    public List<? extends City> search(CitySearchCondition searchCondition) {
         return cityRepo.search(searchCondition);
     }
 
@@ -39,12 +42,17 @@ public class CityDefaultService implements CityService {
         if (city.getId() != null)
             cityRepo.update(city);
     }
-
+    @Override
     public void deleteById(Long id) {
         cityRepo.deleteById(id);
     }
-
+    @Override
     public void printAll() {
         cityRepo.printAll();
+    }
+
+    @Override
+    public List<City> findAll() {
+        return cityRepo.findAll();
     }
 }

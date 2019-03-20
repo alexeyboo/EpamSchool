@@ -1,6 +1,10 @@
 package hw2.travelcompany.city.repo.impl;
 
 import hw2.travelcompany.city.domain.City;
+import hw2.travelcompany.city.domain.SkiResortable;
+import hw2.travelcompany.city.domain.typesofcities.BeachCity;
+import hw2.travelcompany.city.domain.typesofcities.SightseeCity;
+import hw2.travelcompany.city.domain.typesofcities.SkiResortCity;
 import hw2.travelcompany.city.search.CityOrderByField;
 
 import java.util.*;
@@ -59,6 +63,52 @@ public final class CityComparatorComponent {
         comparatorByField.put(COUNTRY, getComparatorForCountryField());
         comparatorByField.put(CLIMATE, getComparatorForClimateField());
         comparatorByField.put(IS_CAPITAL, getComparatorForIsCapitalField());
+        comparatorByField.put(NUM_OF_BEACHES, getComparatorForNumOfBeachesField());
+        comparatorByField.put(NUM_OF_SIGHTS, getComparatorForNumOfSightsField());
+        comparatorByField.put(NUM_OF_SKIRESORTS, getComparatorForNumOfSkiResortsField());
+    }
+
+    private static Comparator<City> getComparatorForNumOfBeachesField() {
+        return new Comparator<City>() {
+            @Override
+            public int compare(City o1, City o2) {
+                BeachCity c1 = (BeachCity) o1;
+                BeachCity c2 = (BeachCity) o2;
+                if (c1.getNumOfBeaches() > c2.getNumOfBeaches())
+                    return 1;
+                if (c1.getNumOfBeaches() == c2.getNumOfBeaches())
+                    return 0;
+                return -1;
+            }
+        };
+    }
+    private static Comparator<City> getComparatorForNumOfSightsField() {
+        return new Comparator<City>() {
+            @Override
+            public int compare(City o1, City o2) {
+                SightseeCity c1 = (SightseeCity) o1;
+                SightseeCity c2 = (SightseeCity) o2;
+                if (c1.getNumOfSights() > c2.getNumOfSights())
+                    return 1;
+                if (c1.getNumOfSights() == c2.getNumOfSights())
+                    return 0;
+                return -1;
+            }
+        };
+    }
+    private static Comparator<City> getComparatorForNumOfSkiResortsField() {
+        return new Comparator<City>() {
+            @Override
+            public int compare(City o1, City o2) {
+                SkiResortCity c1 = (SkiResortCity) o1;
+                SkiResortCity c2 = (SkiResortCity) o2;
+                if (c1.getNumOfSkiResorts() > c2.getNumOfSkiResorts())
+                    return 1;
+                if (c1.getNumOfSkiResorts() == c2.getNumOfSkiResorts())
+                    return 0;
+                return -1;
+            }
+        };
     }
 
     private static Comparator<City> getComparatorForIsCapitalField() {

@@ -3,6 +3,8 @@ package hw2.travelcompany.city.repo.impl;
 import hw2.travelcompany.city.domain.City;
 import hw2.travelcompany.city.domain.CityDiscriminator;
 import hw2.travelcompany.city.domain.typesofcities.BeachCity;
+import hw2.travelcompany.city.domain.typesofcities.SightseeCity;
+import hw2.travelcompany.city.domain.typesofcities.SkiResortCity;
 import hw2.travelcompany.city.repo.CityRepo;
 import hw2.travelcompany.city.search.CitySearchCondition;
 import hw2.travelcompany.city.search.BeachCitySearchCondition;
@@ -39,27 +41,34 @@ public class CityMemoryArrayRepo implements CityRepo {
         if (searchCondition.getId() != null)
             return Collections.singletonList(findById(searchCondition.getId()));
         else {
-            List<City> result = doSearch(searchCondition);
+            List<City> middleResult = doSearch(searchCondition);
+            List<? extends City> result;
             CityDiscriminator modelDiscriminator = searchCondition.getCityDiscriminator();
 
             switch (modelDiscriminator) {
                 case BEACH: {
-                    return doBeachCitySearch((BeachCitySearchCondition) searchCondition, result);
+                    result = doBeachCitySearch((BeachCitySearchCondition) searchCondition, middleResult);
+                    break;
                 }
                 case SIGHTSEE: {
-                    return doSightseeCitySearch((SightseeCitySearchCondition) searchCondition, result);
+                    result = doSightseeCitySearch((SightseeCitySearchCondition) searchCondition, middleResult);
+                    break;
                 }
                 case SKI_RESORT: {
-                    return doSkiResortCitySearch((SkiResortCitySearchCondition) searchCondition, result);
+                    result = doSkiResortCitySearch((SkiResortCitySearchCondition) searchCondition, middleResult);
+                    break;
+                }
+                default: {
+                    result = middleResult;
                 }
             }
-//
-//            boolean needOrdering = !result.isEmpty() && searchCondition.needOrdering();
-//
-//            if (needOrdering) {
-//                orderingComponent.applyOrdering(result, searchCondition);
-//            }
-//            return result;
+
+            boolean needOrdering = !result.isEmpty() && searchCondition.needOrdering();
+
+            if (needOrdering) {
+                orderingComponent.applyOrdering(result, searchCondition);
+            }
+            return result;
         }
     }
 
@@ -82,6 +91,56 @@ public class CityMemoryArrayRepo implements CityRepo {
         }
         if (resultIndex > 0) {
             BeachCity toReturn[] = new BeachCity[resultIndex];
+            System.arraycopy(foundCities, 0, toReturn, 0, resultIndex);
+            return new ArrayList<>(Arrays.asList(toReturn));
+        }
+        return Collections.emptyList();
+    }
+
+    private List<SightseeCity> doSightseeCitySearch(SightseeCitySearchCondition searchCondition, List<City> cities) {
+        SightseeCity[] foundCities = new SightseeCity[cities.size()];
+        int resultIndex = 0;
+
+        for (City city : cities) {
+            if (CityDiscriminator.SIGHTSEE.equals(city.getDiscriminator())) {
+                SightseeCity sightseeCity = (SightseeCity) city;
+                boolean found = true;
+                if (searchCondition.searchByNumOfSights()) {
+                    found = searchCondition.getNumOfSights().equals(sightseeCity.getNumOfSights());
+                }
+                if (found) {
+                    foundCities[resultIndex] = sightseeCity;
+                    resultIndex++;
+                }
+            }
+        }
+        if (resultIndex > 0) {
+            SightseeCity toReturn[] = new SightseeCity[resultIndex];
+            System.arraycopy(foundCities, 0, toReturn, 0, resultIndex);
+            return new ArrayList<>(Arrays.asList(toReturn));
+        }
+        return Collections.emptyList();
+    }
+
+    private List<SkiResortCity> doSkiResortCitySearch(SkiResortCitySearchCondition searchCondition, List<City> cities) {
+        SkiResortCity[] foundCities = new SkiResortCity[cities.size()];
+        int resultIndex = 0;
+
+        for (City city : cities) {
+            if (CityDiscriminator.SKI_RESORT.equals(city.getDiscriminator())) {
+                SkiResortCity skiResortCity = (SkiResortCity) city;
+                boolean found = true;
+                if (searchCondition.searchByNumOfSkiResorts()) {
+                    found = searchCondition.getNumOfSkiResorts().equals(skiResortCity.getNumOfSkiResorts());
+                }
+                if (found) {
+                    foundCities[resultIndex] = skiResortCity;
+                    resultIndex++;
+                }
+            }
+        }
+        if (resultIndex > 0) {
+            SkiResortCity toReturn[] = new SkiResortCity[resultIndex];
             System.arraycopy(foundCities, 0, toReturn, 0, resultIndex);
             return new ArrayList<>(Arrays.asList(toReturn));
         }
