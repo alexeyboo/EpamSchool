@@ -1,7 +1,5 @@
 package hw2.travelcompany.common.business.repo.memory;
 
-import hw2.travelcompany.city.domain.City;
-
 import java.util.Comparator;
 
 public final class CommonComparatorHolder {

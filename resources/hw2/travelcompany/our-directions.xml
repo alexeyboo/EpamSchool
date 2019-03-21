@@ -1,0 +1,49 @@
+<our-directions>
+    <countries>
+        <country>
+            <name>Russia</name>
+            <language>Russian</language>
+            <cities>
+                <city type="BEACH_N_SKI_RESORT">
+                    <name>Sochi</name>
+                    <population>500000</population>
+                    <isCapital>false</isCapital>
+                    <climate>TROPICAL</climate>
+                    <numOfBeaches>2</numOfBeaches>
+                    <numOfSkiResorts>2</numOfSkiResorts>
+                </city>
+            </cities>
+        </country>
+
+
+        <country>
+            <name>USA</name>
+            <language>English</language>
+            <cities>
+                <city type="SIGHTSEE">
+                    <name>New York</name>
+                    <population>10000000</population>
+                    <isCapital>false</isCapital>
+                    <climate>TEMPERATE</climate>
+                    <numOfSights>20</numOfSights>
+                </city>
+            </cities>
+        </country>
+
+        <country>
+            <name>Brazil</name>
+            <language>Portuguese</language>
+            <cities>
+                <city type="BEACH_N_SIGHT">
+                    <name>Rio de Janeiro</name>
+                    <population>Big like a gym</population>
+                    <isCapital>false</isCapital>
+                    <climate>TROPICAL</climate>
+                    <numOfBeaches>5</numOfBeaches>
+                    <numOfSights>2</numOfSights>
+                </city>
+            </cities>
+        </country>
+
+    </countries>
+</our-directions>

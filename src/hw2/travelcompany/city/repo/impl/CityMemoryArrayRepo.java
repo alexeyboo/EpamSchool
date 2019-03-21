@@ -58,6 +58,30 @@ public class CityMemoryArrayRepo implements CityRepo {
                     result = doSkiResortCitySearch((SkiResortCitySearchCondition) searchCondition, middleResult);
                     break;
                 }
+
+                case BEACH_N_SIGHTSEE: {
+                    result = doBeachCitySearch((BeachCitySearchCondition) searchCondition, middleResult);
+                    result = doSightseeCitySearch((SightseeCitySearchCondition) searchCondition, result);
+                    break;
+                }
+
+                case BEACH_N_SKI_RESORT: {
+                    result = doBeachCitySearch((BeachCitySearchCondition) searchCondition, middleResult);
+                    result = doSkiResortCitySearch((SkiResortCitySearchCondition) searchCondition, result);
+                    break;
+                }
+
+                case SIGHTSEE_N_SKI_RESORT: {
+                    result = doSightseeCitySearch((SightseeCitySearchCondition) searchCondition, middleResult);
+                    result = doSkiResortCitySearch((SkiResortCitySearchCondition) searchCondition, result);
+                    break;
+                }
+                case BEACH_N_SKI_RESORT_N_SIGHTSEE: {
+                    result = doBeachCitySearch((BeachCitySearchCondition) searchCondition, middleResult);
+                    result = doSkiResortCitySearch((SkiResortCitySearchCondition) searchCondition, result);
+                    result = doSightseeCitySearch((SightseeCitySearchCondition) searchCondition, result);
+                    break;
+                }
                 default: {
                     result = middleResult;
                 }
@@ -72,7 +96,7 @@ public class CityMemoryArrayRepo implements CityRepo {
         }
     }
 
-    private List<BeachCity> doBeachCitySearch(BeachCitySearchCondition searchCondition, List<City> cities) {
+    private List<BeachCity> doBeachCitySearch(BeachCitySearchCondition searchCondition, List<? extends City> cities) {
         BeachCity[] foundCities = new BeachCity[cities.size()];
         int resultIndex = 0;
 
@@ -97,7 +121,7 @@ public class CityMemoryArrayRepo implements CityRepo {
         return Collections.emptyList();
     }
 
-    private List<SightseeCity> doSightseeCitySearch(SightseeCitySearchCondition searchCondition, List<City> cities) {
+    private List<SightseeCity> doSightseeCitySearch(SightseeCitySearchCondition searchCondition, List<? extends City> cities) {
         SightseeCity[] foundCities = new SightseeCity[cities.size()];
         int resultIndex = 0;
 
@@ -122,7 +146,7 @@ public class CityMemoryArrayRepo implements CityRepo {
         return Collections.emptyList();
     }
 
-    private List<SkiResortCity> doSkiResortCitySearch(SkiResortCitySearchCondition searchCondition, List<City> cities) {
+    private List<SkiResortCity> doSkiResortCitySearch(SkiResortCitySearchCondition searchCondition, List<? extends City> cities) {
         SkiResortCity[] foundCities = new SkiResortCity[cities.size()];
         int resultIndex = 0;
 

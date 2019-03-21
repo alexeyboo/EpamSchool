@@ -13,12 +13,12 @@ import java.util.List;
 
 import static hw2.travelcompany.storage.initor.exception.InitDataExceptionMeta.PARSE_CITY_DISCRIMINATOR_ERROR;
 
-public class DataSourceIoTxtFileFromResourcesReader implements DataSourceReader<List<Country>> {
+public class DataSourceIoTxtFileFromResourcesReader implements FileParser <List<Country>> {
 
     private static final String COUNTRY_PLACEHOLDER = "Country:";
 
     @Override
-    public List<Country> getDataFromFile(String file) throws Exception {
+    public List<Country> parseFile(String file) throws Exception {
         List<String> fileAsList = readFileToList(file);
 
         List<Country> result = new ArrayList<>();
@@ -64,6 +64,7 @@ public class DataSourceIoTxtFileFromResourcesReader implements DataSourceReader<
             } else if (TypeTwoCity.class.getClass().equals(city.getClass())) {
                 appendTypeTwoCityAttributes((TypeTwoCity) city, attrs, attrIndex);
             }
+
             country.getCities().add(city);
         }
         return country;
