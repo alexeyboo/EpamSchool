@@ -20,13 +20,13 @@ public class CountryDefaultService implements CountryService {
     }
 
 
-    public void add(Country country) {
+    public void insert(Country country) {
         if (country != null) {
             countryRepo.add(country);
             if (country.getCities() != null) {
                 for (City city : country.getCities()) {
                     if (city != null) {
-                        cityRepo.add(city);
+                        cityRepo.insert(city);
                     }
                 }
             }
@@ -67,6 +67,11 @@ public class CountryDefaultService implements CountryService {
 
     public void printAll() {
         countryRepo.printAll();
+    }
+
+    @Override
+    public List<Country> findAll() {
+        return null;
     }
 
 }

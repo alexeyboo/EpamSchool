@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface BaseRepo <TYPE, ID>{
 
-    void add(TYPE entity);
+    void insert(TYPE entity);
 
     void update(TYPE entity);
 

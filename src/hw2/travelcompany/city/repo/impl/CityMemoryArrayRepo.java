@@ -18,6 +18,7 @@ import java.util.List;
 
 import static hw2.travelcompany.common.solutions.utils.StringUtils.isBlank;
 import static hw2.travelcompany.storage.Storage.cities;
+import static hw2.travelcompany.storage.Storage.countries;
 import static java.lang.Math.abs;
 
 public class CityMemoryArrayRepo implements CityRepo {
@@ -26,7 +27,7 @@ public class CityMemoryArrayRepo implements CityRepo {
     private CityOrderingComponent orderingComponent = new CityOrderingComponent();
 
     @Override
-    public void add(City city) {
+    public void insert(City city) {
         if (cityIndex == cities.length) {
             City[] newCities = new City[cities.length * 2];
             System.arraycopy(cities, 0, newCities, 0, cities.length);
@@ -249,7 +250,7 @@ public class CityMemoryArrayRepo implements CityRepo {
 
     @Override
     public List<City> findAll() {
-        return null;
+        return new ArrayList<>(Arrays.asList(cities));
     }
 
     private void deleteCityByIndex(int index) {

@@ -2,11 +2,11 @@ package hw2.travelcompany.user.service;
 
 import hw2.travelcompany.common.solutions.service.BaseService;
 import hw2.travelcompany.user.domain.User;
+import hw2.travelcompany.user.search.UserSearchCondition;
 
-public interface UserService extends BaseService {
-    void add(User user);
+import java.util.List;
 
-    User findById(Long id);
+public interface UserService extends BaseService <User, Long> {
 
-    void delete(User user);
+    List<? extends User> search(UserSearchCondition searchCondition);
 }

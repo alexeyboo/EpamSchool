@@ -12,16 +12,17 @@ import java.util.List;
 import static hw2.travelcompany.common.solutions.utils.StringUtils.isBlank;
 import static hw2.travelcompany.storage.Storage.cities;
 import static hw2.travelcompany.storage.Storage.citiesList;
+import static hw2.travelcompany.storage.Storage.countriesList;
 import static java.lang.Math.abs;
 
 public class CityMemoryCollectionRepo implements CityRepo {
     @Override
-    public void add(City city) {
+    public void insert(City city) {
         citiesList.add(city);
     }
 
     @Override
-    public City findById(long id) {
+    public City findById(Long id) {
         return findCityById(id);
     }
 
@@ -67,7 +68,7 @@ public class CityMemoryCollectionRepo implements CityRepo {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         City found = findCityById(id);
         if (found != null)
             citiesList.remove(found);
@@ -79,6 +80,12 @@ public class CityMemoryCollectionRepo implements CityRepo {
             System.out.println(city);
         }
     }
+
+    @Override
+    public List<City> findAll() {
+        return citiesList;
+    }
+
     private City findCityById(long cityId) {
         for (City city: citiesList) {
             if (city.getId().equals(cityId))

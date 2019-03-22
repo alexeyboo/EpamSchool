@@ -9,7 +9,7 @@ import java.util.List;
 public interface CountryRepo extends BaseRepo {
     void add(Country country);
 
-    Country findById(long id);
+    Country findById(Long id);
 
     List<Country> search(CountrySearchCondition searchCondition);
 

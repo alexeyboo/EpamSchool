@@ -6,8 +6,8 @@ import hw2.travelcompany.country.search.CountrySearchCondition;
 
 import java.util.List;
 
-public interface CountryService extends BaseService {
-    void add(Country country);
+public interface CountryService extends BaseService <Country, Long>{
+    void insert(Country country);
 
     Country findById(Long id);
 

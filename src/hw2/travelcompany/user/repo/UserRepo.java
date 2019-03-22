@@ -2,9 +2,11 @@ package hw2.travelcompany.user.repo;
 
 import hw2.travelcompany.common.solutions.repo.BaseRepo;
 import hw2.travelcompany.user.domain.User;
+import hw2.travelcompany.user.search.UserSearchCondition;
 
-public interface UserRepo extends BaseRepo {
-    void add(User user);
+import java.util.List;
 
-    User findById(long id);
+public interface UserRepo extends BaseRepo <User, Long>{
+
+    List<? extends User> search(UserSearchCondition searchCondition);
 }

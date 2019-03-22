@@ -1,4 +1,4 @@
-package hw2.travelcompany.storage.initor.datasourcereader;
+package hw2.travelcompany.storage.initor.datasourcereader.xml.sax;
 
 import hw2.travelcompany.city.domain.*;
 import hw2.travelcompany.city.domain.typesofcities.*;
@@ -112,17 +112,17 @@ public class CountriesWithCitiesSaxHandler extends DefaultHandler {
                 break;
             }
             case "numOfBeaches": {
-                getBeachable().setNumOfBeaches(Integer.parseInt(content.toString()));
+                getLastBeachable().setNumOfBeaches(Integer.parseInt(content.toString()));
                 content.setLength(0);
                 break;
             }
             case "numOfSkiResorts": {
-                getSkiResortable().setNumOfSkiResorts(Integer.parseInt(content.toString()));
+                getLastSkiResortable().setNumOfSkiResorts(Integer.parseInt(content.toString()));
                 content.setLength(0);
                 break;
             }
             case "numOfSights": {
-                getSightseeable().setNumOfSights(Integer.parseInt(content.toString()));
+                getLastSightseeable().setNumOfSights(Integer.parseInt(content.toString()));
                 content.setLength(0);
                 break;
             }
@@ -130,13 +130,13 @@ public class CountriesWithCitiesSaxHandler extends DefaultHandler {
         }
     }
 
-    private Beachable getBeachable() {
+    private Beachable getLastBeachable() {
         return (Beachable) getLast(cities);
     }
-    private SkiResortable getSkiResortable() {
+    private SkiResortable getLastSkiResortable() {
         return (SkiResortable) getLast(cities);
     }
-    private Sightseeable getSightseeable() {
+    private Sightseeable getLastSightseeable() {
         return (Sightseeable) getLast(cities);
     }
 

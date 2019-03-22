@@ -13,9 +13,9 @@ public class UserDefaultService implements UserService {
     }
 
     @Override
-    public void add(User user) {
+    public void insert(User user) {
         if (user != null) {
-            userRepo.add(user);
+            userRepo.insert(user);
         }
     }
 

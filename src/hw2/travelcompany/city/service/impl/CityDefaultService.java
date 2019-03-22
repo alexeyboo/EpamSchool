@@ -17,7 +17,7 @@ public class CityDefaultService implements CityService {
 
     @Override
     public void insert(City city) {
-        cityRepo.add(city);
+        cityRepo.insert(city);
     }
 
     @Override
