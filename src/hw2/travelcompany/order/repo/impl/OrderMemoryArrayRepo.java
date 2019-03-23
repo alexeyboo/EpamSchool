@@ -9,25 +9,25 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static hw2.travelcompany.storage.Storage.orders;
+import static hw2.travelcompany.storage.Storage.ordersArray;
 
 public class OrderMemoryArrayRepo implements OrderRepo {
     private int orderIndex = 0;
 
     public void add(Order order) {
-        if (orderIndex == orders.length) {
-            Order[] newOrders = new Order[orders.length * 2];
-            System.arraycopy(orders, 0, newOrders, 0, orders.length);
-            orders = newOrders;
+        if (orderIndex == ordersArray.length) {
+            Order[] newOrders = new Order[ordersArray.length * 2];
+            System.arraycopy(ordersArray, 0, newOrders, 0, ordersArray.length);
+            ordersArray = newOrders;
         }
-        orders[orderIndex] = order;
+        ordersArray[orderIndex] = order;
         orderIndex++;
     }
 
     public Order findById(long id) {
         Integer orderIndex = findIndexById(id);
         if (orderIndex != null) {
-            return orders[orderIndex];
+            return ordersArray[orderIndex];
         }
         return null;
     }
@@ -47,10 +47,10 @@ public class OrderMemoryArrayRepo implements OrderRepo {
         boolean searchByCountry = searchCondition.getCountry() != null;
         boolean searchByPrice = searchCondition.getPrice() != null;
 
-        Order[] result = new Order[orders.length];
+        Order[] result = new Order[ordersArray.length];
         int resultIndex = 0;
 
-        for (Order order : orders) {
+        for (Order order : ordersArray) {
             if (order != null) {
                 boolean found = true;
                 if (searchByCity) {
@@ -115,30 +115,30 @@ public class OrderMemoryArrayRepo implements OrderRepo {
     }
 
     public void printAll() {
-        for (Order order : orders) {
+        for (Order order : ordersArray) {
             System.out.println(order);
         }
     }
 
     private void deleteOrderByIndex(Integer orderIndex) {
-        Order[] newOrders = new Order[orders.length - 1];
-        System.arraycopy(orders, 0, newOrders, 0, orderIndex);
-        System.arraycopy(orders, orderIndex + 1, newOrders, orderIndex, orders.length - orderIndex);
-        orders = newOrders;
+        Order[] newOrders = new Order[ordersArray.length - 1];
+        System.arraycopy(ordersArray, 0, newOrders, 0, orderIndex);
+        System.arraycopy(ordersArray, orderIndex + 1, newOrders, orderIndex, ordersArray.length - orderIndex);
+        ordersArray = newOrders;
         orderIndex--;
     }
 
     private Integer findIndexById(Long id) {
-        for (int i = 0; i < orders.length; i++) {
-            if (orders[i].getId().equals(id))
+        for (int i = 0; i < ordersArray.length; i++) {
+            if (ordersArray[i].getId().equals(id))
                 return i;
         }
         return null;
     }
 
     private Integer findIndexByEntity(Order order) {
-        for (int i = 0; i < orders.length; i++) {
-            if (orders[i].equals(order))
+        for (int i = 0; i < ordersArray.length; i++) {
+            if (ordersArray[i].equals(order))
                 return i;
         }
         return null;

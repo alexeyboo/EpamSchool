@@ -1,37 +1,20 @@
 package hw2.travelcompany.country.repo.impl;
 
 import hw2.travelcompany.country.domain.Country;
-import hw2.travelcompany.country.search.CountryOrderByField;
+import hw2.travelcompany.country.search.CountrySortByField;
 import hw2.travelcompany.country.search.CountrySearchCondition;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class CountryOrderingComponent {
-//    class MyComparable implements Comparable<String> {
-//
-//        private String srcString;
-//        private boolean invert = false;
-//
-//        public MyComparable(String srcString) {
-//            this.srcString = srcString;
-//        }
-//
-//        @Override
-//        public int compareTo(String o) {
-//            if (invert) {
-//                return (-1) * this.srcString.compareTo(o);
-//            } else {
-//                return this.srcString.compareTo(o);
-//            }
-//        }
-//    }
-    public void applyOrdering(List<Country> countries, CountrySearchCondition countrySearchCondition) {
+public class CountrySortingComponent {
+
+    public void applySorting(List<Country> countries, CountrySearchCondition countrySearchCondition) {
         Comparator<Country> countryComparator = null;
 
-        CountryOrderByField field = countrySearchCondition.getOrderByField();
-        switch (countrySearchCondition.getOrderType()) {
+        CountrySortByField field = countrySearchCondition.getSortByField();
+        switch (countrySearchCondition.getSortType()) {
             case SIMPLE:
                 countryComparator = CountryComparatorComponent.getInstance().getComparatorForField(field);
                 break;
@@ -41,7 +24,7 @@ public class CountryOrderingComponent {
         }
 
         if (countryComparator != null) {
-            switch (countrySearchCondition.getOrderDirection()) {
+            switch (countrySearchCondition.getSortDirection()) {
                 case ASC:
                     Collections.sort(countries, countryComparator);
                     break;

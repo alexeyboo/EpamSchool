@@ -1,9 +1,7 @@
 package hw2.travelcompany.country.search;
 
-import hw2.travelcompany.city.domain.City;
-
-public enum CountryOrderByField {
-    NAME("markname"), LANGUAGE("marklanguage");
+public enum CountrySortByField {
+    NAME("countryname"), LANGUAGE("countrylanguage");
 
     private String requestParamName;
 
@@ -11,7 +9,7 @@ public enum CountryOrderByField {
         return requestParamName;
     }
 
-    CountryOrderByField(String requestParamName) {
+    CountrySortByField(String requestParamName) {
         this.requestParamName = requestParamName;
     }
 }

@@ -1,21 +1,20 @@
 package hw2.travelcompany.city.repo.impl;
 
 import hw2.travelcompany.city.domain.City;
-import hw2.travelcompany.city.domain.SkiResortable;
 import hw2.travelcompany.city.domain.typesofcities.BeachCity;
 import hw2.travelcompany.city.domain.typesofcities.SightseeCity;
 import hw2.travelcompany.city.domain.typesofcities.SkiResortCity;
-import hw2.travelcompany.city.search.CityOrderByField;
+import hw2.travelcompany.city.search.CitySortByField;
 
 import java.util.*;
 
-import static hw2.travelcompany.city.search.CityOrderByField.*;
+import static hw2.travelcompany.city.search.CitySortByField.*;
 import static hw2.travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableStrings;
 
 public final class CityComparatorComponent {
     public static final CityComparatorComponent INSTANCE = new CityComparatorComponent();
-    private static Map<CityOrderByField, Comparator<City>> comparatorByField = new HashMap<>();
-    private static Set<CityOrderByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays.asList(NAME, POPULATION, COUNTRY, CLIMATE, IS_CAPITAL));
+    private static Map<CitySortByField, Comparator<City>> comparatorByField = new HashMap<>();
+    private static Set<CitySortByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays.asList(NAME, POPULATION, COUNTRY, CLIMATE, IS_CAPITAL));
 
     public static CityComparatorComponent getInstance() {
         return INSTANCE;
@@ -24,11 +23,11 @@ public final class CityComparatorComponent {
     private CityComparatorComponent() {
     }
 
-    public Comparator<City> getComparatorForField(CityOrderByField field) {
+    public Comparator<City> getComparatorForField(CitySortByField field) {
         return comparatorByField.get(field);
     }
 
-    public Comparator<City> getComplexComparator(CityOrderByField field) {
+    public Comparator<City> getComplexComparator(CitySortByField field) {
         return new Comparator<City>() {
             @Override
             public int compare(City o1, City o2) {
@@ -39,7 +38,7 @@ public final class CityComparatorComponent {
                     //if records have same order priority, i want to order them in their group
                     if (result == 0){
                         //loop through all possible sorting fields
-                        for (CityOrderByField otherField : fieldComparePriorityOrder) {
+                        for (CitySortByField otherField : fieldComparePriorityOrder) {
                             //if i haven't sorted by field which is taken from parameter in function, i do sorting
                             if (!otherField.equals(field)) {
                                 result = comparatorByField.get(otherField).compare(o1, o2);

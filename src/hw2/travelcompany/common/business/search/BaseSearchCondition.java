@@ -2,34 +2,34 @@ package hw2.travelcompany.common.business.search;
 
 public abstract class BaseSearchCondition <ID>{
     protected ID id;
-    protected OrderDirection orderDirection = OrderDirection.ASC;
-    protected OrderType orderType = OrderType.SIMPLE;
+    protected SortDirection sortDirection = SortDirection.ASC;
+    protected SortType sortType = SortType.SIMPLE;
 
     public ID getId() {
         return id;
     }
 
-    public OrderDirection getOrderDirection() {
-        return orderDirection;
+    public SortDirection getSortDirection() {
+        return sortDirection;
     }
 
-    public void setOrderDirection(OrderDirection orderDirection) {
-        this.orderDirection = orderDirection;
+    public void setSortDirection(SortDirection sortDirection) {
+        this.sortDirection = sortDirection;
     }
 
-    public OrderType getOrderType() {
-        return orderType;
+    public SortType getSortType() {
+        return sortType;
     }
 
-    public void setOrderType(OrderType orderType) {
-        this.orderType = orderType;
+    public void setSortType(SortType sortType) {
+        this.sortType = sortType;
     }
 
     public void setId(ID id) {
         this.id = id;
     }
 
-    public boolean needOrdering() {
-        return orderDirection != null && orderType != null;
+    public boolean needSorting() {
+        return sortDirection != null && sortType != null;
     }
 }

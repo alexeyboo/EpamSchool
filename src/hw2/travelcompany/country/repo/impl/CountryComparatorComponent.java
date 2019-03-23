@@ -1,23 +1,21 @@
 package hw2.travelcompany.country.repo.impl;
 
 import hw2.travelcompany.country.domain.Country;
-import hw2.travelcompany.country.search.CountryOrderByField;
+import hw2.travelcompany.country.search.CountrySortByField;
 
 import java.util.*;
 
 import static hw2.travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableStrings;
-import static hw2.travelcompany.country.search.CountryOrderByField.*;
+import static hw2.travelcompany.country.search.CountrySortByField.*;
 
 public final class CountryComparatorComponent {
     private static final CountryComparatorComponent INSTANCE = new CountryComparatorComponent();
-    private static Map<CountryOrderByField, Comparator<Country>> comparatorsByField = new HashMap<>();
-    private static Set<CountryOrderByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays.asList(NAME, LANGUAGE));
+    private static Map<CountrySortByField, Comparator<Country>> comparatorsByField = new HashMap<>();
+
+    //for complex
+    private static Set<CountrySortByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays.asList(NAME, LANGUAGE));
 
     private CountryComparatorComponent() {
-    }
-
-    public static CountryComparatorComponent getInstance() {
-        return INSTANCE;
     }
 
     static {
@@ -25,11 +23,15 @@ public final class CountryComparatorComponent {
         comparatorsByField.put(LANGUAGE, getComparatorForLanguageField());
     }
 
-    public Comparator<Country> getComparatorForField(CountryOrderByField field) {
+    public static CountryComparatorComponent getInstance() {
+        return INSTANCE;
+    }
+
+    public Comparator<Country> getComparatorForField(CountrySortByField field) {
         return comparatorsByField.get(field);
     }
 
-    public Comparator<Country> getComplexComparator(CountryOrderByField field) {
+    public Comparator<Country> getComplexComparator(CountrySortByField field) {
         return new Comparator<Country>() {
             @Override
             public int compare(Country o1, Country o2) {
@@ -38,17 +40,21 @@ public final class CountryComparatorComponent {
 
                 if (countryComparator != null) {
                     result = countryComparator.compare(o1, o2);
+
                     //if records have the same order priority, i want to order them in their group
                     if (result == 0) {
+
                         //loop through all possible sorting fields
-                        for (CountryOrderByField otherField : fieldComparePriorityOrder) {
+                        for (CountrySortByField otherField : fieldComparePriorityOrder) {
+
                             //if i haven't sorted by field which is taken from parameter in function, i do sorting
                             if (!otherField.equals(field)) {
                                 result = comparatorsByField.get(otherField).compare(o1, o2);
+
                                 //if sort result detected that records are not equal - we exit from loop
                                 //else continue
                                 if (result != 0) {
-                                    break;//continue???
+                                    break;
                                 }
                             }
                         }

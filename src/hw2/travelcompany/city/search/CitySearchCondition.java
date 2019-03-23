@@ -11,15 +11,15 @@ public class CitySearchCondition extends BaseSearchCondition <Long>{
     private Boolean isCapital;
     private Country country;
     private Climate climate;
-    private CityOrderByField orderByField;
+    private CitySortByField sortByField;
     private CityDiscriminator cityDiscriminator;
 
     public CityDiscriminator getCityDiscriminator() {
         return cityDiscriminator;
     }
 
-    public void setCityDiscriminator(CityDiscriminator modelDiscriminator) {
-        this.cityDiscriminator = modelDiscriminator;
+    public void setCityDiscriminator(CityDiscriminator cityDiscriminator) {
+        this.cityDiscriminator = cityDiscriminator;
     }
 
     public String getName() {
@@ -70,12 +70,12 @@ public class CitySearchCondition extends BaseSearchCondition <Long>{
         isCapital = capital;
     }
 
-    public CityOrderByField getOrderByField() {
-        return orderByField;
+    public CitySortByField getSortByField() {
+        return sortByField;
     }
 
-    public void setOrderByField(CityOrderByField orderByField) {
-        this.orderByField = orderByField;
+    public void setSortByField(CitySortByField sortByField) {
+        this.sortByField = sortByField;
     }
 
     public void setClimate(Climate climate) {
@@ -83,7 +83,7 @@ public class CitySearchCondition extends BaseSearchCondition <Long>{
     }
 
     @Override
-    public boolean needOrdering() {
-        return super.needOrdering() && orderByField != null;
+    public boolean needSorting() {
+        return super.needSorting() && sortByField != null;
     }
 }

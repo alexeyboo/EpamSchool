@@ -3,7 +3,7 @@ package hw2.travelcompany.user.repo.impl;
 import hw2.travelcompany.common.solutions.utils.ArrayUtils;
 import hw2.travelcompany.user.domain.User;
 import hw2.travelcompany.user.repo.UserRepo;
-import static hw2.travelcompany.storage.Storage.users;
+import static hw2.travelcompany.storage.Storage.usersArray;
 
 public class UserMemoryArrayRepo implements UserRepo {
 
@@ -11,12 +11,12 @@ public class UserMemoryArrayRepo implements UserRepo {
 
     @Override
     public void insert(User user) {
-        if (userIndex == users.length) {
-            User[] newUsers = new User[users.length * 2];
-            System.arraycopy(users, 0, newUsers, 0, users.length);
-            users = newUsers;
+        if (userIndex == usersArray.length) {
+            User[] newUsers = new User[usersArray.length * 2];
+            System.arraycopy(usersArray, 0, newUsers, 0, usersArray.length);
+            usersArray = newUsers;
         }
-        users[userIndex] = user;
+        usersArray[userIndex] = user;
         userIndex++;
     }
 
@@ -24,7 +24,7 @@ public class UserMemoryArrayRepo implements UserRepo {
     public User findById(Long id) {
         Integer userIndex = findUserByID(id);
         if (userIndex != null)
-            return users[userIndex];
+            return usersArray[userIndex];
         return null;
     }
 
@@ -39,28 +39,28 @@ public class UserMemoryArrayRepo implements UserRepo {
 
     @Override
     public void printAll() {
-        for (User user: users) {
+        for (User user: usersArray) {
             System.out.println(user);
         }
     }
 
     private Integer findUserByID(Long userId) {
-        for (int i = 0; i < users.length; i++) {
-            if (users[i].getId().equals(userId)) {
+        for (int i = 0; i < usersArray.length; i++) {
+            if (usersArray[i].getId().equals(userId)) {
                 return i;
             }
         }
         return null;
     }
     private Integer findUserIndexById(Long id) {
-        for (int i = 0; i < users.length; i++) {
-            if (users[i].getId().equals(id))
+        for (int i = 0; i < usersArray.length; i++) {
+            if (usersArray[i].getId().equals(id))
                 return i;
         }
         return null;
     }
     private void deleteUserByIndex(Integer userIndex) {
-        ArrayUtils.removeElement(users, userIndex);
+        ArrayUtils.removeElement(usersArray, userIndex);
         userIndex--;
     }
 

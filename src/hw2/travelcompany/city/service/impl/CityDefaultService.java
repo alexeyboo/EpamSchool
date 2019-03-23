@@ -3,26 +3,25 @@ package hw2.travelcompany.city.service.impl;
 import hw2.travelcompany.city.domain.City;
 import hw2.travelcompany.city.repo.CityRepo;
 import hw2.travelcompany.city.search.CitySearchCondition;
-import hw2.travelcompany.city.service.CityService;
 
 import java.util.List;
 
-public class CityDefaultService implements CityService {
+public class CityDefaultService implements hw2.travelcompany.city.service.CityService {
 
-    private final CityRepo cityRepo;
+    private final CityRepo cityService;
 
-    public CityDefaultService(CityRepo cityRepo) {
-        this.cityRepo = cityRepo;
+    public CityDefaultService(CityRepo cityService) {
+        this.cityService = cityService;
     }
 
     @Override
     public void insert(City city) {
-        cityRepo.insert(city);
+        cityService.insert(city);
     }
 
     @Override
     public City findById(Long id) {
-        return cityRepo.findById(id);
+        return cityService.findById(id);
     }
 
     @Override
@@ -34,25 +33,25 @@ public class CityDefaultService implements CityService {
 
     @Override
     public List<? extends City> search(CitySearchCondition searchCondition) {
-        return cityRepo.search(searchCondition);
+        return cityService.search(searchCondition);
     }
 
     @Override
     public void update(City city) {
         if (city.getId() != null)
-            cityRepo.update(city);
+            cityService.update(city);
     }
     @Override
     public void deleteById(Long id) {
-        cityRepo.deleteById(id);
+        cityService.deleteById(id);
     }
     @Override
     public void printAll() {
-        cityRepo.printAll();
+        cityService.printAll();
     }
 
     @Override
     public List<City> findAll() {
-        return cityRepo.findAll();
+        return cityService.findAll();
     }
 }

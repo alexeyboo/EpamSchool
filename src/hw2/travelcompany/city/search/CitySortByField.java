@@ -1,10 +1,6 @@
 package hw2.travelcompany.city.search;
 
-import hw2.travelcompany.city.domain.City;
-import hw2.travelcompany.city.domain.Climate;
-import hw2.travelcompany.country.domain.Country;
-
-public enum CityOrderByField {
+public enum CitySortByField {
     NAME("cityname"), POPULATION("citypopulation"),
     IS_CAPITAL("cityiscapital"), COUNTRY("citycountries"), CLIMATE("cityclimate"),
     NUM_OF_BEACHES("numofbeaches"), NUM_OF_SIGHTS("numofsights"), NUM_OF_SKIRESORTS("numofskiresorts");
@@ -13,7 +9,7 @@ public enum CityOrderByField {
         return requestParamName;
     }
 
-    CityOrderByField(String requestParamName) {
+    CitySortByField(String requestParamName) {
         this.requestParamName = requestParamName;
 
     }

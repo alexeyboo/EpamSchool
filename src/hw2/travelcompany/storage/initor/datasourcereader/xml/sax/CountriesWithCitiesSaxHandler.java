@@ -27,7 +27,7 @@ public class CountriesWithCitiesSaxHandler extends DefaultHandler {
 //        path.add(qName);
 
         switch (qName) {
-            case "countries": {
+            case "countriesArray": {
                 countries = new ArrayList<>();
                 break;
             }
@@ -36,7 +36,7 @@ public class CountriesWithCitiesSaxHandler extends DefaultHandler {
                 nameForCountryWasSet = false;
                 break;
             }
-            case "cities": {
+            case "citiesArray": {
                 cities = new ArrayList<>();
                 break;
             }

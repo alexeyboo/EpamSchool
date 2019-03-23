@@ -6,7 +6,6 @@ import hw2.travelcompany.country.search.CountrySearchCondition;
 import hw2.travelcompany.storage.SequenceGenerator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,17 +14,22 @@ import static hw2.travelcompany.storage.Storage.countriesList;
 
 public class CountryMemoryCollectionRepo implements CountryRepo {
 
-    private CountryOrderingComponent orderingComponent = new CountryOrderingComponent();
+    private CountrySortingComponent orderingComponent = new CountrySortingComponent();
 
     @Override
-    public void add(Country country) {
+    public void insert(Country country) {
         country.setId(SequenceGenerator.getNextValue());
         countriesList.add(country);
     }
 
     @Override
-    public Country findById(long id) {
+    public Country findById(Long id) {
         return findCountryById(id);
+    }
+
+    @Override
+    public void update(Country country) {
+
     }
 
     @Override
@@ -34,9 +38,9 @@ public class CountryMemoryCollectionRepo implements CountryRepo {
             return Collections.singletonList(findById(searchCondition.getId()));
         } else {
             List<Country> result = doSearch(searchCondition);
-            boolean needOrdering = !result.isEmpty() && searchCondition.needOrdering();
+            boolean needOrdering = !result.isEmpty() && searchCondition.needSorting();
             if (needOrdering) {
-                orderingComponent.applyOrdering(result, searchCondition);
+                orderingComponent.applySorting(result, searchCondition);
             }
             return result;
         }
@@ -44,29 +48,21 @@ public class CountryMemoryCollectionRepo implements CountryRepo {
 
 
     public List<Country> doSearch(CountrySearchCondition searchCondition) {
-        boolean searchByName = isNotBlank(searchCondition.getName());
-        boolean searchByLanguage = isNotBlank(searchCondition.getLanguage());
-        boolean searchByCity = (searchCondition.getCity() != null);
+
         List<Country> result = new ArrayList<>();
 
         for (Country country : countriesList) {
             if (country != null) {
                 boolean found = true;
 
-                if (searchByName) {
+                if (searchCondition.searchByName()) {
                     found = searchCondition.getName().equals(country.getName());
                 }
-                if (found && searchByLanguage) {
+                if (found && searchCondition.searchByLanguage()) {
                     found = searchCondition.getLanguage().equals(country.getLanguage());
                 }
-                if (found && searchByCity) {
-                    for (int i = 0; i < country.getCities().length; i++) {
-                        if (searchCondition.getCity().equals(country.getCities()[i])) {
-                            found = true;
-                            break;
-                        }
-                        found = false;
-                    }
+                if (found && searchCondition.searchByCity()) {
+                    found = country.getCities().contains(searchCondition.getCity());
                 }
                 if (found) {
                     result.add(country);
@@ -76,16 +72,14 @@ public class CountryMemoryCollectionRepo implements CountryRepo {
         return result;
     }
 
-    @Override
-    public void update(Country country) {
 
-    }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         Country found = findCountryById(id);
-        if (found != null)
+        if (found != null) {
             countriesList.remove(found);
+        }
     }
 
     @Override
@@ -95,11 +89,16 @@ public class CountryMemoryCollectionRepo implements CountryRepo {
         }
     }
 
-    private Country findCountryById(long countryId) {
-        for (Country country : countriesList) {
-            if (Long.valueOf(countryId).equals(country.getId()))
-                return country;
+    @Override
+    public List<Country> findAll() {
+        return countriesList;
+    }
 
+    private Country findCountryById(long id) {
+        for (Country country : countriesList) {
+            if (Long.valueOf(id).equals(country.getId())) {
+                return country;
+            }
         }
         return null;
     }

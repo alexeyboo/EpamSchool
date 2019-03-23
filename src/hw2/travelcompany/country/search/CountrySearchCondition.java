@@ -3,11 +3,24 @@ package hw2.travelcompany.country.search;
 import hw2.travelcompany.city.domain.City;
 import hw2.travelcompany.common.business.search.BaseSearchCondition;
 
-public class CountrySearchCondition extends BaseSearchCondition {
+import static hw2.travelcompany.common.solutions.utils.StringUtils.isNotBlank;
+
+public class CountrySearchCondition extends BaseSearchCondition <Long>{
+
     private String name;
     private String language;
     private City city;
-    private CountryOrderByField orderByField;
+    private CountrySortByField sortByField;
+
+    public boolean searchByName(){
+        return isNotBlank(name);
+    }
+    public boolean searchByLanguage(){
+        return isNotBlank(language);
+    }
+    public boolean searchByCity(){
+        return city != null;
+    }
 
     public String getName() {
         return name;
@@ -33,16 +46,16 @@ public class CountrySearchCondition extends BaseSearchCondition {
         this.city = city;
     }
 
-    public CountryOrderByField getOrderByField() {
-        return orderByField;
+    public CountrySortByField getSortByField() {
+        return sortByField;
     }
 
-    public void setOrderByField(CountryOrderByField orderByField) {
-        this.orderByField = orderByField;
+    public void setSortByField(CountrySortByField sortByField) {
+        this.sortByField = sortByField;
     }
 
     @Override
-    public boolean needOrdering() {
-        return super.needOrdering() && orderByField != null;
+    public boolean needSorting() {
+        return super.needSorting() && sortByField != null;
     }
 }

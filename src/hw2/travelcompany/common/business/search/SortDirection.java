@@ -1,5 +1,5 @@
 package hw2.travelcompany.common.business.search;
 
-public enum OrderDirection {
+public enum SortDirection {
     ASC, DESC
 }

@@ -25,7 +25,7 @@ public class ServiceSupplier {
         return INSTANCE;
     }
 
-    public ServiceSupplier(StorageType storageType) {
+    private ServiceSupplier(StorageType storageType) {
         initServiceFactory(storageType);
     }
 
@@ -34,7 +34,7 @@ public class ServiceSupplier {
             case MEMORY_ARRAY: {
                 serviceFactory = new MemoryArrayServiceFactory();
             }
-            case MEMORY_COLLECTION: {
+            default: {
                 serviceFactory = new MemoryCollectionServiceFactory();
             }
         }

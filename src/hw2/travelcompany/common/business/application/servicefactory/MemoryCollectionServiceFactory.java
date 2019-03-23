@@ -24,10 +24,11 @@ public class MemoryCollectionServiceFactory implements ServiceFactory {
     private OrderRepo orderRepo = new OrderMemoryCollectionRepo();
     private UserRepo userRepo = new UserMemoryCollectionRepo();
 
-    private CountryService countryService = new CountryDefaultService(countryRepo, cityRepo);
+
     private CityService cityService = new CityDefaultService(cityRepo);
     private OrderService orderService = new OrderDefaultService(orderRepo);
     private UserService userService = new UserDefaultService(userRepo);
+    private CountryService countryService = new CountryDefaultService(countryRepo, cityService, orderRepo);
 
     @Override
     public CountryService getCountryService() {

@@ -69,7 +69,7 @@ public class UserOrdersToTextFileReport implements ReportComponent {
         List<String> reportData = new ArrayList<>();
 
         List<Order> orders = orderService.getOrdersByUser(user.getId());
-        reportData.add("Total orders: " + orders.size());
+        reportData.add("Total ordersArray: " + orders.size());
         
         if (!orders.isEmpty()) {
             reportData.add("Orders");

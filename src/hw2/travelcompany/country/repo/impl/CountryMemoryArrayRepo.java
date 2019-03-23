@@ -11,32 +11,35 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static hw2.travelcompany.common.solutions.utils.StringUtils.isNotBlank;
-import static hw2.travelcompany.storage.Storage.countries;
+import static hw2.travelcompany.storage.Storage.countriesArray;
 
 public class CountryMemoryArrayRepo implements CountryRepo {
 
     private int countryIndex = 0;
-    private static final Country[] EMPTY_COUNTRIES_ARR = new Country[0];
-    private CountryOrderingComponent orderingComponent = new CountryOrderingComponent();
+    private CountrySortingComponent orderingComponent = new CountrySortingComponent();
 
     @Override
-    public void add(Country country) {
-        if (countryIndex == countries.length) {
-            Country[] newCountries = new Country[countries.length * 2];
-            System.arraycopy(countries, 0, newCountries, 0, countries.length);
-            countries = newCountries;
+    public void insert(Country country) {
+        if (countryIndex == countriesArray.length) {
+            Country[] newCountries = new Country[countriesArray.length * 2];
+            System.arraycopy(countriesArray, 0, newCountries, 0, countriesArray.length);
+            countriesArray = newCountries;
         }
-        countries[countryIndex] = country;
+        countriesArray[countryIndex] = country;
         country.setId(SequenceGenerator.getNextValue());
         countryIndex++;
     }
 
     @Override
-    public Country findById(long id) {
-        Integer countryIndex = findIndexById(id);
+    public void update(Country country) {
+
+    }
+
+    @Override
+    public Country findById(Long id) {
+        Integer countryIndex = findCountryIndexById(id);
         if (countryIndex != null) {
-            return countries[countryIndex];
+            return countriesArray[countryIndex];
         }
         return null;
     }
@@ -47,36 +50,28 @@ public class CountryMemoryArrayRepo implements CountryRepo {
             return Collections.singletonList(findById(searchCondition.getId()));
         } else {
             List<Country> result = doSearch(searchCondition);
-            boolean needOrdering = !result.isEmpty() && searchCondition.needOrdering();
+            boolean needOrdering = !result.isEmpty() && searchCondition.needSorting();
 
             if (needOrdering) {
-                orderingComponent.applyOrdering(result, searchCondition);
+                orderingComponent.applySorting(result, searchCondition);
             }
             return result;
         }
     }
 
     public List<Country> doSearch(CountrySearchCondition searchCondition) {
-        boolean searchByName = isNotBlank(searchCondition.getName());
-        boolean searchByLanguage = isNotBlank(searchCondition.getLanguage());
-        boolean searchByCity = searchCondition.getCity() != null;
-        Country[] result = new Country[countries.length];
+
+        Country[] result = new Country[countriesArray.length];
         int resultIndex = 0;
-        for (Country country : countries) {
+        for (Country country : countriesArray) {
             if (country != null) {
                 boolean found = true;
-                if (searchByName)
+                if (searchCondition.searchByName())
                     found = searchCondition.getName().equals(country.getName());
-                if (found && searchByLanguage)
+                if (found && searchCondition.searchByLanguage())
                     found = searchCondition.getLanguage().equals(country.getLanguage());
-                if (found && searchByCity) {
-                    for (int i = 0; i < country.getCities().length; i++) {
-                        if (searchCondition.getCity().equals(country.getCities()[i])) {
-                            found = true;
-                            break;
-                        }
-                        found = false;
-                    }
+                if (found && searchCondition.searchByCity()) {
+                    found = country.getCities().contains(searchCondition.getCity());
                 }
                 if (found) {
                     result[resultIndex] = country;
@@ -92,33 +87,38 @@ public class CountryMemoryArrayRepo implements CountryRepo {
         return Collections.emptyList();
     }
 
-    @Override
-    public void update(Country country) {
 
-    }
 
     @Override
-    public void deleteById(long id) {
-        Integer countryIndex = findIndexById(id);
-        if (countryIndex != null)
+    public void deleteById(Long id) {
+        Integer countryIndex = findCountryIndexById(id);
+        if (countryIndex != null) {
             deleteCountryByIndex(countryIndex);
-    }
-
-    @Override
-    public void printAll() {
-        for (Country country : countries) {
-            System.out.println(country);
         }
     }
 
     private void deleteCountryByIndex(Integer index) {
-        ArrayUtils.removeElement(countries, index);
+        ArrayUtils.removeElement(countriesArray, index);
         countryIndex--;
     }
 
-    private Integer findIndexById(Long id) {
-        for (int i = 0; i < countries.length; i++) {
-            if (countries[i].getId().equals(id))
+    @Override
+    public void printAll() {
+        for (Country country : countriesArray) {
+            System.out.println(country);
+        }
+    }
+
+    @Override
+    public List<Country> findAll() {
+        return new ArrayList<>(Arrays.asList(countriesArray));
+    }
+
+
+
+    private Integer findCountryIndexById(long id) {
+        for (int i = 0; i < countriesArray.length; i++) {
+            if (countriesArray[i].getId().equals(id))
                 return i;
         }
         return null;

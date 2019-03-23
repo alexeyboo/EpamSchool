@@ -32,7 +32,7 @@ public class CountriesWithCitiesXmlDomParser implements FileParser<List<Country>
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
         Document doc = documentBuilder.parse(new File(file));
 
-        Node root = doc.getElementsByTagName("countries").item(0);
+        Node root = doc.getElementsByTagName("countriesArray").item(0);
         NodeList xmlCountries = ((Element) root).getElementsByTagName("country");
 
         List<Country> parsedCountries = new ArrayList<>();
@@ -58,9 +58,9 @@ public class CountriesWithCitiesXmlDomParser implements FileParser<List<Country>
                             country.setLanguage(countryInner.getTextContent());
                             break;
                         }
-                        case "cities": {
+                        case "citiesArray": {
                             country.setCities(new ArrayList<>());
-                            NodeList xmlCities = ((Element) countryInner).getElementsByTagName("cities");
+                            NodeList xmlCities = ((Element) countryInner).getElementsByTagName("citiesArray");
 
                             for (int k = 0; k < xmlCities.getLength(); k++) {
                                 Element xmlCity = (Element) xmlCities.item(i);

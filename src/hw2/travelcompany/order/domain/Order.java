@@ -30,10 +30,10 @@ public class Order extends BaseDomain {
         this.cities = cities;
     }
 
-//    public Order(ArrayList<User> users, ArrayList<Country> countries) {
-//        this.users = users;
-//        this.countries = countries;
-//        calculateThePrice(users, countries);
+//    public Order(ArrayList<User> usersArray, ArrayList<Country> countriesArray) {
+//        this.usersArray = usersArray;
+//        this.countriesArray = countriesArray;
+//        calculateThePrice(usersArray, countriesArray);
 //    }
 
     public int getPrice() {
@@ -57,9 +57,9 @@ public class Order extends BaseDomain {
         return "Order{" +
                 "id=" + id +
                 ", price=" + price +
-                ", users=" + (users == null ? null : Arrays.asList(users)) +
-                ", countries=" + (countries == null ? null : Arrays.asList(countries)) +
-                ", cities=" + (cities == null ? null : Arrays.asList(cities)) +
+                ", usersArray=" + (users == null ? null : Arrays.asList(users)) +
+                ", countriesArray=" + (countries == null ? null : Arrays.asList(countries)) +
+                ", citiesArray=" + (cities == null ? null : Arrays.asList(cities)) +
                 '}';
     }
 }

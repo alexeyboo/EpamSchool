@@ -14,4 +14,6 @@ public interface OrderRepo extends BaseRepo {
     List<Order> search(OrderSearchCondition searchCondition);
 
     void update(Order order);
+
+    int countByCountry(Long id);
 }

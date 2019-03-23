@@ -6,12 +6,8 @@ import hw2.travelcompany.country.search.CountrySearchCondition;
 
 import java.util.List;
 
-public interface CountryRepo extends BaseRepo {
-    void add(Country country);
+public interface CountryRepo extends BaseRepo <Country, Long> {
 
-    Country findById(Long id);
+    List<? extends Country> search(CountrySearchCondition searchCondition);
 
-    List<Country> search(CountrySearchCondition searchCondition);
-
-    void update(Country country);
 }

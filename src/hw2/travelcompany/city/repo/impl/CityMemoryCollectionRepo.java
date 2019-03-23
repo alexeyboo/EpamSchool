@@ -5,14 +5,12 @@ import hw2.travelcompany.city.repo.CityRepo;
 import hw2.travelcompany.city.search.CitySearchCondition;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static hw2.travelcompany.common.solutions.utils.StringUtils.isBlank;
-import static hw2.travelcompany.storage.Storage.cities;
+import static hw2.travelcompany.storage.Storage.citiesArray;
 import static hw2.travelcompany.storage.Storage.citiesList;
-import static hw2.travelcompany.storage.Storage.countriesList;
 import static java.lang.Math.abs;
 
 public class CityMemoryCollectionRepo implements CityRepo {
@@ -37,7 +35,7 @@ public class CityMemoryCollectionRepo implements CityRepo {
         boolean searchByCapital = (searchCondition.isCapital() != null);
 
         List<City> result = new ArrayList<>();
-        for (City city : cities) {
+        for (City city : citiesArray) {
             if (city != null) {
                 boolean found = true;
                 if (searchByName)

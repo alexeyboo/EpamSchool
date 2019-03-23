@@ -17,23 +17,23 @@ import java.util.Collections;
 import java.util.List;
 
 import static hw2.travelcompany.common.solutions.utils.StringUtils.isBlank;
-import static hw2.travelcompany.storage.Storage.cities;
-import static hw2.travelcompany.storage.Storage.countries;
+import static hw2.travelcompany.storage.Storage.citiesArray;
+
 import static java.lang.Math.abs;
 
 public class CityMemoryArrayRepo implements CityRepo {
 
     private int cityIndex = 0;
-    private CityOrderingComponent orderingComponent = new CityOrderingComponent();
+    private CitySortingComponent sortingComponent = new CitySortingComponent();
 
     @Override
     public void insert(City city) {
-        if (cityIndex == cities.length) {
-            City[] newCities = new City[cities.length * 2];
-            System.arraycopy(cities, 0, newCities, 0, cities.length);
-            cities = newCities;
+        if (cityIndex == citiesArray.length) {
+            City[] newCities = new City[citiesArray.length * 2];
+            System.arraycopy(citiesArray, 0, newCities, 0, citiesArray.length);
+            citiesArray = newCities;
         }
-        cities[cityIndex] = city;
+        citiesArray[cityIndex] = city;
         cityIndex++;
     }
 
@@ -44,9 +44,9 @@ public class CityMemoryArrayRepo implements CityRepo {
         else {
             List<City> middleResult = doSearch(searchCondition);
             List<? extends City> result;
-            CityDiscriminator modelDiscriminator = searchCondition.getCityDiscriminator();
+            CityDiscriminator cityDiscriminator = searchCondition.getCityDiscriminator();
 
-            switch (modelDiscriminator) {
+            switch (cityDiscriminator) {
                 case BEACH: {
                     result = doBeachCitySearch((BeachCitySearchCondition) searchCondition, middleResult);
                     break;
@@ -88,10 +88,10 @@ public class CityMemoryArrayRepo implements CityRepo {
                 }
             }
 
-            boolean needOrdering = !result.isEmpty() && searchCondition.needOrdering();
+            boolean needSorting = !result.isEmpty() && searchCondition.needSorting();
 
-            if (needOrdering) {
-                orderingComponent.applyOrdering(result, searchCondition);
+            if (needSorting) {
+                sortingComponent.applySorting(result, searchCondition);
             }
             return result;
         }
@@ -179,9 +179,9 @@ public class CityMemoryArrayRepo implements CityRepo {
         boolean searchByPopulation = (searchCondition.getPopulation() != null);
         boolean searchByCapital = (searchCondition.isCapital() != null);
 
-        City[] result = new City[cities.length];
+        City[] result = new City[citiesArray.length];
         int resultIndex = 0;
-        for (City city : cities) {
+        for (City city : citiesArray) {
             if (city != null) {
                 boolean found = true;
                 if (searchByName)
@@ -222,7 +222,7 @@ public class CityMemoryArrayRepo implements CityRepo {
     public City findById(Long id) {
         Integer cityIndex = findCityIndexById(id);
         if (cityIndex != null) {
-            return cities[cityIndex];
+            return citiesArray[cityIndex];
         }
         return null;
     }
@@ -244,34 +244,34 @@ public class CityMemoryArrayRepo implements CityRepo {
     }
 
     public void printAll() {
-        for (City city : cities)
+        for (City city : citiesArray)
             System.out.println(city);
     }
 
     @Override
     public List<City> findAll() {
-        return new ArrayList<>(Arrays.asList(cities));
+        return new ArrayList<>(Arrays.asList(citiesArray));
     }
 
     private void deleteCityByIndex(int index) {
-        City[] newCities = new City[cities.length - 1];
-        System.arraycopy(cities, 0, newCities, 0, index);
-        System.arraycopy(cities, index + 1, newCities, index, cities.length - index);
-        cities = newCities;
+        City[] newCities = new City[citiesArray.length - 1];
+        System.arraycopy(citiesArray, 0, newCities, 0, index);
+        System.arraycopy(citiesArray, index + 1, newCities, index, citiesArray.length - index);
+        citiesArray = newCities;
         cityIndex--;
     }
 
     private Integer findCityIndexByEntity(City city) {
-        for (int i = 0; i < cities.length; i++) {
-            if (cities[i].equals(city))
+        for (int i = 0; i < citiesArray.length; i++) {
+            if (citiesArray[i].equals(city))
                 return i;
         }
         return null;
     }
 
     private Integer findCityIndexById(Long cityId) {
-        for (int i = 0; i < cities.length; i++) {
-            if (cities[i].getId().equals(cityId))
+        for (int i = 0; i < citiesArray.length; i++) {
+            if (citiesArray[i].getId().equals(cityId))
                 return i;
         }
         return null;

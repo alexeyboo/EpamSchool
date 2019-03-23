@@ -53,11 +53,11 @@ public class Country extends BaseDomain <Long> {
 
     @Override
     public String toString() {
-        return "Country{" +
+        return "\nCountry\n" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", language='" + language + '\'' +
-                ", cities=" + getCitiesAsStr() +
+                ", \ncitiesArray:\n" + getCitiesAsStr() +
                 '}';
     }
 
