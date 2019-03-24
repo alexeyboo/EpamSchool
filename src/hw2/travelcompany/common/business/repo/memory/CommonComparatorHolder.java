@@ -22,8 +22,22 @@ public final class CommonComparatorHolder {
                 return 0;
             } else if (i1 != null) {
                 return i1.compareTo(i2);
-            } else
+            } else {
                 return -1;
+            }
+
+        }
+    };
+
+    private static Comparator<Boolean> comparatorForNullableBooleans = new Comparator<Boolean>() {
+        public int compare(Boolean b1, Boolean b2) {
+            if (b1 == null && b2 == null) {
+                return 0;
+            } else if (b1 != null) {
+                return b1.compareTo(b2);
+            } else {
+                return -1;
+            }
         }
     };
 
@@ -36,5 +50,9 @@ public final class CommonComparatorHolder {
 
     public static Comparator<Integer> getComparatorForNullableIntegers() {
         return comparatorForNullableIntegers;
+    }
+
+    public static Comparator<Boolean> getComparatorForNullableBooleans() {
+        return comparatorForNullableBooleans;
     }
 }

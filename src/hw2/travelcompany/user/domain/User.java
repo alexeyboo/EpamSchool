@@ -3,16 +3,15 @@ package hw2.travelcompany.user.domain;
 import hw2.travelcompany.common.business.domain.BaseDomain;
 import hw2.travelcompany.order.domain.Order;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class User extends BaseDomain {
+public class User extends BaseDomain<Long> {
 
-    private Long id;
-    private String name;
+    private String firstName;
     private String lastName;
     private Passport passport;
     private ClientType clientType;
-    private ArrayList<Order> orders;
+    private List<Order> orders;
 
     public ClientType getClientType() {
         return clientType;
@@ -22,48 +21,30 @@ public class User extends BaseDomain {
         this.clientType = clientType;
     }
 
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setOrders(ArrayList<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
-
-
-    public void addOrders(Order... orders) {
-        for (int i = 0; i < orders.length; i++) {
-            this.orders.add(orders[i]);
-        }
-    }
-
-    public ArrayList<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public User(String name, String lastName) {
-        this.name = name;
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public User(String name, String lastName, Passport passport, ClientType clientType) {
-        this(name, lastName);
+    public User(String firstName, String lastName, Passport passport, ClientType clientType) {
+        this(firstName, lastName);
         this.passport = passport;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -80,5 +61,16 @@ public class User extends BaseDomain {
 
     public void setPassport(Passport passport) {
         this.passport = passport;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", passport=" + passport +
+                ", clientType=" + clientType +
+                '}';
     }
 }

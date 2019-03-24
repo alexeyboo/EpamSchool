@@ -53,8 +53,8 @@
 //
 //            String disciminatorAsStr = attrs[attrIndex++].trim();
 //            City city = createCityByDiscriminator(disciminatorAsStr);
-//            city.setName(attrs[attrIndex++].trim());
-//            city.setCapital(Boolean.parseBoolean(attrs[attrIndex++].trim()));
+//            city.setFirstName(attrs[attrIndex++].trim());
+//            city.setIsCapital(Boolean.parseBoolean(attrs[attrIndex++].trim()));
 //            city.setClimate(Climate.valueOf(attrs[attrIndex++].trim()));
 //            city.setCountry(country);
 //

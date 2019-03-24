@@ -1,6 +1,7 @@
 package hw2.travelcompany.storage.initor.datasourcereader.xml.sax;
 
 import hw2.travelcompany.city.domain.*;
+import hw2.travelcompany.city.domain.impl.*;
 import hw2.travelcompany.city.domain.typesofcities.*;
 import hw2.travelcompany.country.domain.Country;
 import org.xml.sax.Attributes;
@@ -27,7 +28,7 @@ public class CountriesWithCitiesSaxHandler extends DefaultHandler {
 //        path.add(qName);
 
         switch (qName) {
-            case "countriesArray": {
+            case "countries": {
                 countries = new ArrayList<>();
                 break;
             }
@@ -36,7 +37,7 @@ public class CountriesWithCitiesSaxHandler extends DefaultHandler {
                 nameForCountryWasSet = false;
                 break;
             }
-            case "citiesArray": {
+            case "cities": {
                 cities = new ArrayList<>();
                 break;
             }
@@ -101,8 +102,8 @@ public class CountriesWithCitiesSaxHandler extends DefaultHandler {
                 content.setLength(0);
                 break;
             }
-            case "isCapital": {
-                getLast(cities).setCapital(Boolean.parseBoolean(content.toString()));
+            case "getIsCapital": {
+                getLast(cities).setIsCapital(Boolean.parseBoolean(content.toString()));
                 content.setLength(0);
                 break;
             }

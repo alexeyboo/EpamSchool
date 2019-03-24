@@ -11,49 +11,8 @@ public abstract class City extends BaseDomain <Long>{
     protected Climate climate;
     protected CityDiscriminator discriminator;
 
-    public CityDiscriminator getDiscriminator() {
-        return discriminator;
-    }
-
     public City() {
         initDiscriminator();
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public Climate getClimate() {
-        return climate;
-    }
-
-    public void setClimate(Climate climate) {
-        this.climate = climate;
-    }
-
-    public Long getId() {
-        return id;
-
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return discriminator + "City" +
-                "name='" + name + '\'' +
-                ", population=" + population +
-                ", isCapital=" + isCapital +
-                ", country=" + country +
-                ", id=" + id +
-                ", climate=" + climate +
-                '}';
     }
 
     public String getName() {
@@ -72,12 +31,44 @@ public abstract class City extends BaseDomain <Long>{
         this.population = population;
     }
 
-    public boolean isCapital() {
+    public boolean getIsCapital() {
         return isCapital;
     }
 
-    public void setCapital(boolean isCapital) {
+    public void setIsCapital(boolean isCapital) {
         this.isCapital = isCapital;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public Climate getClimate() {
+        return climate;
+    }
+
+    public void setClimate(Climate climate) {
+        this.climate = climate;
+    }
+
+    public CityDiscriminator getDiscriminator() {
+        return discriminator;
+    }
+
+    @Override
+    public String toString() {
+        return discriminator +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", country=" + country +
+                ", isCapital=" + isCapital +
+                ", population=" + population +
+                ", climate=" + climate +
+                '}';
     }
 
     protected abstract void initDiscriminator();

@@ -25,7 +25,7 @@ public class MemoryCollectionServiceFactory implements ServiceFactory {
     private UserRepo userRepo = new UserMemoryCollectionRepo();
 
 
-    private CityService cityService = new CityDefaultService(cityRepo);
+    private CityService cityService = new CityDefaultService(cityRepo, orderRepo);
     private OrderService orderService = new OrderDefaultService(orderRepo);
     private UserService userService = new UserDefaultService(userRepo);
     private CountryService countryService = new CountryDefaultService(countryRepo, cityService, orderRepo);

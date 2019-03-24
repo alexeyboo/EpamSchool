@@ -1,6 +1,7 @@
 package hw2.travelcompany.storage.initor.datasourcereader.xml.dom;
 
 import hw2.travelcompany.city.domain.*;
+import hw2.travelcompany.city.domain.impl.*;
 import hw2.travelcompany.city.domain.typesofcities.*;
 import hw2.travelcompany.country.domain.Country;
 import hw2.travelcompany.storage.initor.datasourcereader.FileParser;
@@ -32,7 +33,7 @@ public class CountriesWithCitiesXmlDomParser implements FileParser<List<Country>
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
         Document doc = documentBuilder.parse(new File(file));
 
-        Node root = doc.getElementsByTagName("countriesArray").item(0);
+        Node root = doc.getElementsByTagName("countries").item(0);
         NodeList xmlCountries = ((Element) root).getElementsByTagName("country");
 
         List<Country> parsedCountries = new ArrayList<>();
@@ -58,9 +59,9 @@ public class CountriesWithCitiesXmlDomParser implements FileParser<List<Country>
                             country.setLanguage(countryInner.getTextContent());
                             break;
                         }
-                        case "citiesArray": {
+                        case "cities": {
                             country.setCities(new ArrayList<>());
-                            NodeList xmlCities = ((Element) countryInner).getElementsByTagName("citiesArray");
+                            NodeList xmlCities = ((Element) countryInner).getElementsByTagName("cities");
 
                             for (int k = 0; k < xmlCities.getLength(); k++) {
                                 Element xmlCity = (Element) xmlCities.item(i);
@@ -111,7 +112,7 @@ public class CountriesWithCitiesXmlDomParser implements FileParser<List<Country>
                                     }
                                     city.setCountry(country);
                                     city.setName(getOnlyElementTextContent(xmlCity, "name"));
-                                    city.setCapital(Boolean.parseBoolean(getOnlyElementTextContent(xmlCity, "isCapital")));
+                                    city.setIsCapital(Boolean.parseBoolean(getOnlyElementTextContent(xmlCity, "getIsCapital")));
                                     city.setClimate(Climate.valueOf(getOnlyElementTextContent(xmlCity, "climate")));
                                     city.setPopulation(Integer.parseInt(getOnlyElementTextContent(xmlCity, "population")));
                                 } else {

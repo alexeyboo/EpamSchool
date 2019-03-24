@@ -1,7 +1,7 @@
 package hw2.travelcompany.city.exception;
 
 public enum CityExceptionMeta {
-    DELETE_CITY_CONSTRAINT_ERROR(1, "Can't delete this city yet. The city is being used somewhere in ordersArray.");
+    DELETE_CITY_CONSTRAINT_ERROR(1, "Can't delete this city yet. The city is being used somewhere in orders.");
 
     private int code;
     private String description;

@@ -6,14 +6,15 @@ import hw2.travelcompany.order.search.OrderSearchCondition;
 
 import java.util.List;
 
-public interface OrderRepo extends BaseRepo {
-    void add(Order order);
+public interface OrderRepo extends BaseRepo <Order, Long>{
 
-    Order findById(long id);
+    List<Order> findByUserId(long userId);
+
+    void deleteByUserId(long userId);
 
     List<Order> search(OrderSearchCondition searchCondition);
 
-    void update(Order order);
+    int countByCountry(long countryId);
 
-    int countByCountry(Long id);
+    int countByCity(long cityId);
 }

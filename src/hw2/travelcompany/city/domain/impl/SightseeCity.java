@@ -1,8 +1,8 @@
-package hw2.travelcompany.city.domain.typesofcities;
+package hw2.travelcompany.city.domain.impl;
 
 import hw2.travelcompany.city.domain.City;
 import hw2.travelcompany.city.domain.CityDiscriminator;
-import hw2.travelcompany.city.domain.Sightseeable;
+import hw2.travelcompany.city.domain.typesofcities.Sightseeable;
 
 public class SightseeCity extends City implements Sightseeable {
 

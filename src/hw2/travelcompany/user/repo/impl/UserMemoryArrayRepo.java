@@ -1,5 +1,6 @@
 package hw2.travelcompany.user.repo.impl;
 
+import hw2.travelcompany.common.solutions.utils.ArrayUtils;
 import hw2.travelcompany.storage.SequenceGenerator;
 import hw2.travelcompany.user.domain.User;
 import hw2.travelcompany.user.repo.UserRepo;
@@ -11,16 +12,23 @@ import java.util.Collections;
 import java.util.List;
 
 import static hw2.travelcompany.storage.Storage.usersArray;
-import static hw2.travelcompany.storage.Storage.usersList;
 
-public class UserMemoryCollectionRepo implements UserRepo {
+public class UserMemoryArrayRepo implements UserRepo {
 
+    private int userIndex = 0;
     private UserSortingComponent sortingComponent = new UserSortingComponent();
+
 
     @Override
     public void insert(User user) {
-        usersList.add(user);
+        if (userIndex == usersArray.length) {
+            User[] newUsers = new User[usersArray.length * 2];
+            System.arraycopy(usersArray, 0, newUsers, 0, usersArray.length);
+            usersArray = newUsers;
+        }
+        usersArray[userIndex] = user;
         user.setId(SequenceGenerator.getNextValue());
+        userIndex++;
     }
 
     @Override
@@ -30,7 +38,11 @@ public class UserMemoryCollectionRepo implements UserRepo {
 
     @Override
     public User findById(Long id) {
-        return findUserById(id);
+        Integer userIndex = findUserIndexById(id);
+        if (userIndex != null) {
+            return usersArray[userIndex];
+        }
+        return null;
     }
 
     @Override
@@ -49,7 +61,8 @@ public class UserMemoryCollectionRepo implements UserRepo {
     }
 
     private List<? extends User> doSearch(UserSearchCondition searchCondition) {
-        List<User> result = new ArrayList<>();
+        User[] result = new User[usersArray.length];
+        int resultIndex = 0;
 
         for (User user : usersArray) {
             if (user != null) {
@@ -71,40 +84,52 @@ public class UserMemoryCollectionRepo implements UserRepo {
                     found = searchCondition.getOrder().equals(user.getClientType());
                 }
                 if (found) {
-                    result.add(user);
+                    result[resultIndex] = user;
+                    resultIndex++;
                 }
             }
         }
-        return result;
+        if (resultIndex > 0) {
+            User[] toReturn = new User[resultIndex];
+            System.arraycopy(result, 0, toReturn, 0, resultIndex);
+            return new ArrayList<>(Arrays.asList(toReturn));
+        }
+        return Collections.emptyList();
     }
 
     @Override
     public void deleteById(Long id) {
-        User found = findUserById(id);
+        Integer userIndex = findUserIndexById(id);
 
-        if (found != null) {
-            usersList.remove(found);
+        if (userIndex != null) {
+            deleteUserByIndex(userIndex);
         }
+    }
+
+    private void deleteUserByIndex(Integer userIndex) {
+        ArrayUtils.removeElement(usersArray, userIndex);
+        userIndex--;
     }
 
     @Override
     public void printAll() {
-        for (User user:usersList) {
+        for (User user : usersArray) {
             System.out.println(user);
         }
     }
 
-    private User findUserById(long id) {
-        for (User user : usersList) {
-            if (user.getId().equals(id))
-                return user;
+    private Integer findUserIndexById(Long id) {
+        for (int i = 0; i < usersArray.length; i++) {
+            if (usersArray[i].getId().equals(id)) {
+                return i;
+            }
         }
         return null;
     }
 
-
     @Override
     public List<User> findAll() {
-        return usersList;
+        return Arrays.asList(usersArray);
     }
+
 }

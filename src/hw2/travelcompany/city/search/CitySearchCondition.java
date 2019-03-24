@@ -5,6 +5,8 @@ import hw2.travelcompany.city.domain.Climate;
 import hw2.travelcompany.common.business.search.BaseSearchCondition;
 import hw2.travelcompany.country.domain.Country;
 
+import static hw2.travelcompany.common.solutions.utils.StringUtils.isNotBlank;
+
 public class CitySearchCondition extends BaseSearchCondition <Long>{
     private String name;
     private Integer population;
@@ -13,6 +15,50 @@ public class CitySearchCondition extends BaseSearchCondition <Long>{
     private Climate climate;
     private CitySortByField sortByField;
     private CityDiscriminator cityDiscriminator;
+    private Integer numOfBeaches;
+    private Integer numOfSights;
+    private Integer numOfSkiResorts;
+
+    public boolean searchByNumOfSkiResorts() {
+        return numOfSkiResorts != null;
+    }
+    public boolean searchByNumOfSights(){
+        return numOfSights != null;
+    }
+    public boolean searchByNumOfBeaches() {
+        return numOfBeaches != null;
+    }
+    public boolean searchByName() {return isNotBlank(name);}
+    public boolean searchByPopulation() {return population != null;}
+    public boolean searchByCapital() {return isCapital != null;}
+    public boolean searchByCountry() {return country != null;}
+    public boolean searchByClimate() {return climate != null;}
+
+    public Integer getNumOfSkiResorts() {
+        return numOfSkiResorts;
+    }
+
+    public void setNumOfSkiResorts(Integer numOfSkiResorts) {
+        this.numOfSkiResorts = numOfSkiResorts;
+    }
+
+    public Integer getNumOfSights() {
+        return numOfSights;
+    }
+
+    public void setNumOfSights(Integer numOfSights) {
+        this.numOfSights = numOfSights;
+    }
+
+
+
+    public Integer getNumOfBeaches() {
+        return numOfBeaches;
+    }
+
+    public void setNumOfBeaches(Integer numOfBeaches) {
+        this.numOfBeaches = numOfBeaches;
+    }
 
     public CityDiscriminator getCityDiscriminator() {
         return cityDiscriminator;

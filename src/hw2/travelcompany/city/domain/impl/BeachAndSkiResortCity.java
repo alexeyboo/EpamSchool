@@ -1,9 +1,9 @@
-package hw2.travelcompany.city.domain.typesofcities;
+package hw2.travelcompany.city.domain.impl;
 
-import hw2.travelcompany.city.domain.Beachable;
 import hw2.travelcompany.city.domain.City;
 import hw2.travelcompany.city.domain.CityDiscriminator;
-import hw2.travelcompany.city.domain.SkiResortable;
+import hw2.travelcompany.city.domain.typesofcities.Beachable;
+import hw2.travelcompany.city.domain.typesofcities.SkiResortable;
 
 public class BeachAndSkiResortCity extends City implements Beachable, SkiResortable {
 

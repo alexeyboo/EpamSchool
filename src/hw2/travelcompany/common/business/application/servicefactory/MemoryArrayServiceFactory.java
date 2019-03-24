@@ -26,7 +26,7 @@ public class MemoryArrayServiceFactory implements ServiceFactory{
 
     private OrderService orderService = new OrderDefaultService(orderRepo);
     private UserService userService = new UserDefaultService(userRepo);
-    private CityService cityService = new CityDefaultService(cityRepo);
+    private CityService cityService = new CityDefaultService(cityRepo, orderRepo);
     private CountryService countryService = new CountryDefaultService(countryRepo, cityService, orderRepo);
 
 
@@ -46,7 +46,7 @@ public class MemoryArrayServiceFactory implements ServiceFactory{
     }
 
     @Override
-    public hw2.travelcompany.city.service.CityService getCityService() {
+    public CityService getCityService() {
         return cityService;
     }
 }

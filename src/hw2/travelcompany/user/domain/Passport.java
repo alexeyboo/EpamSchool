@@ -2,7 +2,7 @@ package hw2.travelcompany.user.domain;
 
 import java.util.Date;
 
-public class Passport {
+public class Passport implements Comparable {
     private String serial;
     private String number;
     private Date dateOfIssue;
@@ -44,5 +44,23 @@ public class Passport {
                 ", number='" + number + '\'' +
                 ", dateOfIssue=" + dateOfIssue +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+
+        if (o instanceof Passport) {
+            int intSerial = Integer.parseInt(serial);
+            int oIntSerial = Integer.parseInt((((Passport) o).serial));
+            int intNumber = Integer.parseInt(number);
+            int oIntNumber = Integer.parseInt((((Passport) o).number));
+            int outPut;
+            if ((outPut = (intSerial - oIntSerial)) == 0) {
+                return intNumber - oIntNumber;
+            } else {
+                return outPut;
+            }
+        }
+        return -1;
     }
 }

@@ -5,7 +5,7 @@ import hw2.travelcompany.common.business.search.BaseSearchCondition;
 import hw2.travelcompany.country.domain.Country;
 import hw2.travelcompany.user.domain.User;
 
-public class OrderSearchCondition extends BaseSearchCondition {
+public class OrderSearchCondition extends BaseSearchCondition <Long>{
     private Integer price;
     private User user;
     private Country country;
@@ -41,5 +41,21 @@ public class OrderSearchCondition extends BaseSearchCondition {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public boolean searchByUser() {
+        return user != null;
+    }
+
+    public boolean searchByCity() {
+        return city != null;
+    }
+
+    public boolean searchByCountry() {
+        return country != null;
+    }
+
+    public boolean searchByPrice() {
+        return price != null;
     }
 }

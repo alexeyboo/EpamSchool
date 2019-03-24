@@ -1,6 +1,6 @@
-package hw2.travelcompany.city.domain;
+package hw2.travelcompany.city.domain.typesofcities;
 
 public interface SkiResortable {
     void setNumOfSkiResorts(int numSkiResorts);
-    Integer getNumOfSkiResorts();
+    int getNumOfSkiResorts();
 }

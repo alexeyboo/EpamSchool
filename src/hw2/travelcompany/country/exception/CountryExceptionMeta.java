@@ -1,7 +1,7 @@
 package hw2.travelcompany.country.exception;
 
 public enum CountryExceptionMeta {
-    DELETE_COUNTRY_CONSTRAINT_ERROR(1, "Can't delete country yet");
+    DELETE_COUNTRY_CONSTRAINT_ERROR(1, "Can't delete country yet. The country is being used somewhere in orders.");
 
     CountryExceptionMeta(int code, String description) {
         this.code = code;

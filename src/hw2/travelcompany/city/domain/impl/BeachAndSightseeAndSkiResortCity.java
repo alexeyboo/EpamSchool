@@ -1,6 +1,9 @@
-package hw2.travelcompany.city.domain.typesofcities;
+package hw2.travelcompany.city.domain.impl;
 
 import hw2.travelcompany.city.domain.*;
+import hw2.travelcompany.city.domain.typesofcities.Beachable;
+import hw2.travelcompany.city.domain.typesofcities.Sightseeable;
+import hw2.travelcompany.city.domain.typesofcities.SkiResortable;
 
 public class BeachAndSightseeAndSkiResortCity extends City implements Beachable, Sightseeable, SkiResortable {
 
@@ -34,6 +37,6 @@ public class BeachAndSightseeAndSkiResortCity extends City implements Beachable,
 
     @Override
     protected void initDiscriminator() {
-        discriminator = CityDiscriminator.BEACH_N_SKI_RESORT_N_SIGHTSEE;
+        discriminator = CityDiscriminator.BEACH_N_SIGHTSEE_N_SKI_RESORT;
     }
 }

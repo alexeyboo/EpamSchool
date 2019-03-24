@@ -7,59 +7,63 @@ import hw2.travelcompany.country.domain.Country;
 
 import java.util.Arrays;
 
-public class Order extends BaseDomain {
+public class Order extends BaseDomain <Long>{
 
     private int price;
-    private User[] users;
-    private Country[] countries;
-    private City[] cities;
+    private User user;
+    private Country country;
+    private City city;
+    private String description;
 
-    public void setPrice(int price) {
-        this.price = price;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUsers(User[] users) {
-        this.users = users;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-    public City[] getCities() {
-        return cities;
-    }
-
-    public void setCities(City[] cities) {
-        this.cities = cities;
-    }
-
-//    public Order(ArrayList<User> usersArray, ArrayList<Country> countriesArray) {
-//        this.usersArray = usersArray;
-//        this.countriesArray = countriesArray;
-//        calculateThePrice(usersArray, countriesArray);
-//    }
 
     public int getPrice() {
         return price;
     }
 
-    public User[] getUsers() {
-        return users;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public Country[] getCountries() {
-        return countries;
+    public User getUser() {
+        return user;
     }
 
-    public void setCountries(Country[] countries) {
-        this.countries = countries;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
-                ", price=" + price +
-                ", usersArray=" + (users == null ? null : Arrays.asList(users)) +
-                ", countriesArray=" + (countries == null ? null : Arrays.asList(countries)) +
-                ", citiesArray=" + (cities == null ? null : Arrays.asList(cities)) +
+                "price=" + price +
+                ", user=" + user +
+                ", country=" + country +
+                ", city=" + city +
+                ", description='" + description + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

@@ -1,8 +1,10 @@
 package hw2.travelcompany.order.repo.impl;
 
+import hw2.travelcompany.common.solutions.utils.ArrayUtils;
 import hw2.travelcompany.order.domain.Order;
 import hw2.travelcompany.order.repo.OrderRepo;
 import hw2.travelcompany.order.search.OrderSearchCondition;
+import hw2.travelcompany.storage.SequenceGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,17 +16,23 @@ import static hw2.travelcompany.storage.Storage.ordersArray;
 public class OrderMemoryArrayRepo implements OrderRepo {
     private int orderIndex = 0;
 
-    public void add(Order order) {
+    public void insert(Order order) {
         if (orderIndex == ordersArray.length) {
             Order[] newOrders = new Order[ordersArray.length * 2];
             System.arraycopy(ordersArray, 0, newOrders, 0, ordersArray.length);
             ordersArray = newOrders;
         }
         ordersArray[orderIndex] = order;
+        order.setId(SequenceGenerator.getNextValue());
         orderIndex++;
     }
 
-    public Order findById(long id) {
+    @Override
+    public void update(Order order) {
+
+    }
+
+    public Order findById(Long id) {
         Integer orderIndex = findIndexById(id);
         if (orderIndex != null) {
             return ordersArray[orderIndex];
@@ -33,19 +41,48 @@ public class OrderMemoryArrayRepo implements OrderRepo {
     }
 
     @Override
+    public void deleteById(Long id) {
+        Integer orderIndex = findIndexById(id);
+        if (orderIndex != null)
+            deleteOrderByIndex(orderIndex);
+    }
+
+    private void deleteOrderByIndex(Integer orderIndex) {
+        ArrayUtils.removeElement(ordersArray, orderIndex);
+        orderIndex--;
+    }
+
+    public void printAll() {
+        for (Order order : ordersArray) {
+            System.out.println(order);
+        }
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return new ArrayList<>(Arrays.asList(ordersArray));
+    }
+
+    private Integer findIndexById(long id) {
+        for (int i = 0; i < ordersArray.length; i++) {
+            if (ordersArray[i].getId().equals(id))
+                return i;
+        }
+        return null;
+    }
+
+
+
+    @Override
     public List<Order> search(OrderSearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
             return Collections.singletonList(findById(searchCondition.getId()));
         } else {
-            List<Order> result = doSearch(searchCondition);
+            return doSearch(searchCondition);
         }
     }
 
     private List<Order> doSearch(OrderSearchCondition searchCondition) {
-        boolean searchByUser = searchCondition.getUser() != null;
-        boolean searchByCity = searchCondition.getCity() != null;
-        boolean searchByCountry = searchCondition.getCountry() != null;
-        boolean searchByPrice = searchCondition.getPrice() != null;
 
         Order[] result = new Order[ordersArray.length];
         int resultIndex = 0;
@@ -53,34 +90,16 @@ public class OrderMemoryArrayRepo implements OrderRepo {
         for (Order order : ordersArray) {
             if (order != null) {
                 boolean found = true;
-                if (searchByCity) {
-                    for (int i = 0; i < order.getCities().length; i++) {
-                        if (searchCondition.getCity().equals(order.getCities()[i])) {
-                            found = true;
-                            break;
-                        }
-                        found = false;
-                    }
+                if (searchCondition.searchByCity()) {
+                    found = searchCondition.getCity().equals(order.getCity());
                 }
-                if (found && searchByUser) {
-                    for (int i = 0; i < order.getUsers().length; i++) {
-                        if (searchCondition.getUser().equals(order.getUsers()[i])) {
-                            found = true;
-                            break;
-                        }
-                        found = false;
-                    }
+                if (found && searchCondition.searchByUser()) {
+                    found = searchCondition.getUser().equals(order.getUser());
                 }
-                if (found && searchByCountry) {
-                    for (int i = 0; i < order.getCountries().length; i++) {
-                        if (searchCondition.getCountry().equals(order.getCountries()[i])) {
-                            found = true;
-                            break;
-                        }
-                        found = false;
-                    }
+                if (found && searchCondition.searchByCountry()) {
+                    found = searchCondition.getCountry().equals(order.getCountry());
                 }
-                if (found && searchByPrice) {
+                if (found && searchCondition.searchByPrice()) {
                     found = searchCondition.getPrice().equals(order.getPrice());
                 }
                 if (found) {
@@ -95,52 +114,49 @@ public class OrderMemoryArrayRepo implements OrderRepo {
             return new ArrayList<>(Arrays.asList(toReturn));
 
         }
+        return Collections.emptyList();
     }
 
     @Override
-    public void update(Order order) {
-
-    }
-
-    public void deleteById(long id) {
-        Integer orderIndex = findIndexById(id);
-        if (orderIndex != null)
-            deleteOrderByIndex(orderIndex);
-    }
-
-    public void deleteOrder(Order order) {
-        Integer orderIndex = findIndexByEntity(order);
-        if (orderIndex != null)
-            deleteOrderByIndex(orderIndex);
-    }
-
-    public void printAll() {
+    public int countByCity(long cityId) {
+        int count = 0;
         for (Order order : ordersArray) {
-            System.out.println(order);
+            if (order.getCity().getId().equals(cityId)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public int countByCountry(long countryId) {
+        int count = 0;
+        for (Order order : ordersArray) {
+            if (order.getCountry().getId().equals(countryId)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public List<Order> findByUserId(long userId) {
+        List<Order> foundOrders = new ArrayList<>();
+
+        for (Order order : ordersArray) {
+            if (order.getUser().getId().equals(userId)) {
+                foundOrders.add(order);
+            }
+        }
+        return foundOrders;
+    }
+
+    @Override
+    public void deleteByUserId(long userId) {
+        for (Order order : findByUserId(userId)) {
+            ArrayUtils.removeElement(ordersArray, findIndexById(order.getId()));
         }
     }
 
-    private void deleteOrderByIndex(Integer orderIndex) {
-        Order[] newOrders = new Order[ordersArray.length - 1];
-        System.arraycopy(ordersArray, 0, newOrders, 0, orderIndex);
-        System.arraycopy(ordersArray, orderIndex + 1, newOrders, orderIndex, ordersArray.length - orderIndex);
-        ordersArray = newOrders;
-        orderIndex--;
-    }
 
-    private Integer findIndexById(Long id) {
-        for (int i = 0; i < ordersArray.length; i++) {
-            if (ordersArray[i].getId().equals(id))
-                return i;
-        }
-        return null;
-    }
-
-    private Integer findIndexByEntity(Order order) {
-        for (int i = 0; i < ordersArray.length; i++) {
-            if (ordersArray[i].equals(order))
-                return i;
-        }
-        return null;
-    }
 }

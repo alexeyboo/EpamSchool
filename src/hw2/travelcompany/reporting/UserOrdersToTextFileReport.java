@@ -10,9 +10,7 @@ import hw2.travelcompany.user.service.UserService;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FilterWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class UserOrdersToTextFileReport implements ReportComponent {
@@ -93,7 +91,7 @@ public class UserOrdersToTextFileReport implements ReportComponent {
     private String userToReportLine(User user) {
         StringBuilder userAsStr = new StringBuilder();
         userAsStr.append("User:").append(LINE_SEPARATOR)
-                .append("Full name: ").append(user.getName())
+                .append("Full name: ").append(user.getFirstName())
                 .append(user.getLastName());
         return userAsStr.toString();
     }
