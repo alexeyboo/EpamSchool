@@ -81,8 +81,8 @@ public class UserOrdersToTextFileReport implements ReportComponent {
     private String orderToReportLine(Order order) {
         StringBuilder orderAsStr = new StringBuilder();
 
-        orderAsStr.append("Order: ").append("Countries: ").append(order.getCountries().toString())
-                                    .append("Cities: ").append(order.getCities().toString())
+        orderAsStr.append("Order: ").append("Country: ").append(order.getCountry().toString())
+                                    .append("City: ").append(order.getCity().toString())
                                     .append("Price: ").append(order.getPrice());
 
         return orderAsStr.toString();

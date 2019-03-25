@@ -2,8 +2,9 @@ package hw2.travelcompany.storage.initor;
 
 import hw2.travelcompany.country.domain.Country;
 import hw2.travelcompany.country.service.CountryService;
+import hw2.travelcompany.storage.initor.datasourcereader.xml.dom.CountriesWithCitiesXmlDomParser;
 import hw2.travelcompany.storage.initor.datasourcereader.xml.sax.CountriesWithCitiesXmlSaxParser;
-import hw2.travelcompany.storage.initor.datasourcereader.DataSourceIoTxtFileFromResourcesReader;
+//import hw2.travelcompany.storage.initor.datasourcereader.DataSourceIoTxtFileFromResourcesReader;
 import hw2.travelcompany.storage.initor.datasourcereader.FileParser;
 
 import java.util.List;
@@ -35,11 +36,12 @@ public class StorageInitor {
 
         switch (dataSourceType) {
             case TXT_FILE: {
-                //dataSourceReader = new DataSourceIoTxtFileFromResourcesReader();
+//                dataSourceReader = new DataSourceIoTxtFileFromResourcesReader();
                 break;
             }
             case XML_FILE: {
                 dataSourceReader = new CountriesWithCitiesXmlSaxParser();
+                //dataSourceReader = new CountriesWithCitiesXmlDomParser();
                 break;
             }
             case JSON_FILE: {
