@@ -1,0 +1,54 @@
+package travelcompany.storage.initor;
+
+import hw2.travelcompany.country.domain.Country;
+import hw2.travelcompany.country.service.CountryService;
+import hw2.travelcompany.storage.initor.datasourcereader.xml.dom.CountriesWithCitiesXmlDomParser;
+import hw2.travelcompany.storage.initor.datasourcereader.xml.sax.CountriesWithCitiesXmlSaxParser;
+//import hw2.travelcompany.storage.initor.datasourcereader.DataSourceIoTxtFileFromResourcesReader;
+import hw2.travelcompany.storage.initor.datasourcereader.FileParser;
+
+import java.util.List;
+
+public class StorageInitor {
+    private CountryService countryService;
+
+    public StorageInitor(CountryService countryService) {
+        this.countryService = countryService;
+    }
+
+    public enum DataSourceType {
+        TXT_FILE, XML_FILE, JSON_FILE;
+    }
+
+    public void initStorageWithCountriesAndCities(String filePath, DataSourceType dataSourceType) throws Exception {
+        List<Country> countriesToPersist = getCountriesFromStorage(filePath, dataSourceType);
+        
+        if (!countriesToPersist.isEmpty()) {
+            for (Country country : countriesToPersist) {
+                countryService.insert(country);
+            }
+        }
+    }
+
+    private List<Country> getCountriesFromStorage(String filePath, DataSourceType dataSourceType) throws Exception {
+
+        FileParser<List<Country>> dataSourceReader = null;
+
+        switch (dataSourceType) {
+            case TXT_FILE: {
+//                dataSourceReader = new DataSourceIoTxtFileFromResourcesReader();
+                break;
+            }
+            case XML_FILE: {
+                dataSourceReader = new CountriesWithCitiesXmlSaxParser();
+                //dataSourceReader = new CountriesWithCitiesXmlDomParser();
+                break;
+            }
+            case JSON_FILE: {
+                break;
+            }
+        }
+
+        return dataSourceReader.parseFile(filePath);
+    }
+}
