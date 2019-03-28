@@ -1,8 +1,14 @@
 package travelcompany.user.repo.impl;
 
+<<<<<<< HEAD
 import travelcompany.user.domain.User;
 import travelcompany.user.search.UserSearchCondition;
 import travelcompany.user.search.UserSortByField;
+=======
+import hw2.travelcompany.user.domain.User;
+import hw2.travelcompany.user.search.UserSearchCondition;
+import hw2.travelcompany.user.search.UserSortByField;
+>>>>>>> github/master
 
 import java.util.Comparator;
 import java.util.List;

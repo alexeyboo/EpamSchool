@@ -1,10 +1,18 @@
 package travelcompany.common.business.application.servicefactory;
 
+<<<<<<< HEAD
 import travelcompany.city.service.CityService;
 import travelcompany.common.business.application.StorageType;
 import travelcompany.country.service.CountryService;
 import travelcompany.order.service.OrderService;
 import travelcompany.user.service.UserService;
+=======
+import hw2.travelcompany.city.service.CityService;
+import travelcompany.common.business.application.StorageType;
+import hw2.travelcompany.country.service.CountryService;
+import hw2.travelcompany.order.service.OrderService;
+import hw2.travelcompany.user.service.UserService;
+>>>>>>> github/master
 
 public class ServiceSupplier {
     private static volatile ServiceSupplier INSTANCE;

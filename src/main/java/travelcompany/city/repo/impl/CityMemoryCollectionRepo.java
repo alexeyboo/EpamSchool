@@ -1,5 +1,9 @@
 package travelcompany.city.repo.impl;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> github/master
 import travelcompany.city.domain.City;
 import travelcompany.city.domain.CityDiscriminator;
 import travelcompany.city.domain.typesofcities.Beachable;
@@ -13,8 +17,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+<<<<<<< HEAD
 import static travelcompany.storage.Storage.citiesList;
 import static java.lang.Math.abs;
+=======
+import static java.lang.Math.abs;
+import static travelcompany.storage.Storage.citiesList;
+>>>>>>> github/master
 
 public class CityMemoryCollectionRepo implements CityRepo {
 

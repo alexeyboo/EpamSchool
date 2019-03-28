@@ -7,6 +7,7 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.InputStream;
 
 public class StaxReader implements AutoCloseable {
+
     private XMLStreamReader reader;
 
     private StaxReader(){

@@ -1,5 +1,9 @@
 package travelcompany.city.repo.impl;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> github/master
 import travelcompany.city.domain.City;
 import travelcompany.city.domain.CityDiscriminator;
 import travelcompany.city.domain.typesofcities.Beachable;
@@ -7,7 +11,10 @@ import travelcompany.city.domain.typesofcities.Sightseeable;
 import travelcompany.city.domain.typesofcities.SkiResortable;
 import travelcompany.city.repo.CityRepo;
 import travelcompany.city.search.CitySearchCondition;
+<<<<<<< HEAD
 import travelcompany.common.solutions.utils.ArrayUtils;
+=======
+>>>>>>> github/master
 import travelcompany.storage.SequenceGenerator;
 
 import java.util.ArrayList;
@@ -15,9 +22,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+<<<<<<< HEAD
 import static travelcompany.storage.Storage.citiesArray;
 
 import static java.lang.Math.abs;
+=======
+
+import static java.lang.Math.abs;
+import static travelcompany.storage.Storage.citiesArray;
+>>>>>>> github/master
 
 public class CityMemoryArrayRepo implements CityRepo {
 

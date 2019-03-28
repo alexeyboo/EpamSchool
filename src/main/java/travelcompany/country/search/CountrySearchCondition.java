@@ -1,9 +1,16 @@
 package travelcompany.country.search;
 
+<<<<<<< HEAD
 import travelcompany.city.domain.City;
 import travelcompany.common.business.search.BaseSearchCondition;
 
 import static travelcompany.common.solutions.utils.StringUtils.isNotBlank;
+=======
+import hw2.travelcompany.city.domain.City;
+import hw2.travelcompany.common.business.search.BaseSearchCondition;
+
+import static hw2.travelcompany.common.solutions.utils.StringUtils.isNotBlank;
+>>>>>>> github/master
 
 public class CountrySearchCondition extends BaseSearchCondition <Long>{
 

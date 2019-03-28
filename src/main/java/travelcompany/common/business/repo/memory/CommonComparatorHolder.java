@@ -1,4 +1,4 @@
-package hw2.travelcompany.common.business.repo.memory;
+package travelcompany.common.business.repo.memory;
 
 import java.util.Comparator;
 

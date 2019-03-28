@@ -25,7 +25,12 @@ public final class XmlStaxUtils {
             int eventType = reader.next();
 
             switch (eventType) {
+<<<<<<< HEAD
                 case XMLStreamConstants.CHARACTERS:
+=======
+                case XMLStreamConstants
+                        .CHARACTERS:
+>>>>>>> github/master
                 case XMLStreamConstants.CDATA: {
                     content.append(reader.getText());
                     break;

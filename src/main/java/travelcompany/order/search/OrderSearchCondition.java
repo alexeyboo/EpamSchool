@@ -1,9 +1,16 @@
 package travelcompany.order.search;
 
+<<<<<<< HEAD
 import travelcompany.city.domain.City;
 import travelcompany.common.business.search.BaseSearchCondition;
 import travelcompany.country.domain.Country;
 import travelcompany.user.domain.User;
+=======
+import hw2.travelcompany.city.domain.City;
+import hw2.travelcompany.common.business.search.BaseSearchCondition;
+import hw2.travelcompany.country.domain.Country;
+import hw2.travelcompany.user.domain.User;
+>>>>>>> github/master
 
 public class OrderSearchCondition extends BaseSearchCondition <Long>{
     private Integer price;

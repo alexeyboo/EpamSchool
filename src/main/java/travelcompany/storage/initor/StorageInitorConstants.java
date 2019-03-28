@@ -1,4 +1,4 @@
-package hw2.travelcompany.storage.initor;
+package travelcompany.storage.initor;
 
 public final class StorageInitorConstants {
 

@@ -1,9 +1,16 @@
 package travelcompany.order.service.impl;
 
+<<<<<<< HEAD
 import travelcompany.order.domain.Order;
 import travelcompany.order.repo.OrderRepo;
 import travelcompany.order.search.OrderSearchCondition;
 import travelcompany.order.service.OrderService;
+=======
+import hw2.travelcompany.order.domain.Order;
+import hw2.travelcompany.order.repo.OrderRepo;
+import hw2.travelcompany.order.search.OrderSearchCondition;
+import hw2.travelcompany.order.service.OrderService;
+>>>>>>> github/master
 
 import java.util.Collections;
 import java.util.List;
@@ -51,12 +58,20 @@ public class OrderDefaultService implements OrderService {
         return orderRepo.search(searchCondition);
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+>>>>>>> github/master
     public void deleteByUserId(Long userId) {
         if (userId != null) {
             orderRepo.deleteByUserId(userId);
         }
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+>>>>>>> github/master
     public List<Order> getOrdersByUser(Long userId) {
         if (userId != null) {
             return orderRepo.findByUserId(userId);

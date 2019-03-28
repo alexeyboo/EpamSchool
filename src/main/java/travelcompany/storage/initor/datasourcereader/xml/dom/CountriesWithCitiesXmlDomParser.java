@@ -1,11 +1,20 @@
 package travelcompany.storage.initor.datasourcereader.xml.dom;
 
+<<<<<<< HEAD
 import travelcompany.city.domain.*;
 import travelcompany.city.domain.impl.*;
 import travelcompany.city.domain.typesofcities.*;
 import travelcompany.country.domain.Country;
 import travelcompany.storage.initor.datasourcereader.FileParser;
 import travelcompany.storage.initor.exception.checked.InvalidCityDiscriminatorException;
+=======
+import hw2.travelcompany.city.domain.*;
+import hw2.travelcompany.city.domain.impl.*;
+import hw2.travelcompany.city.domain.typesofcities.*;
+import hw2.travelcompany.country.domain.Country;
+import hw2.travelcompany.storage.initor.datasourcereader.FileParser;
+import hw2.travelcompany.storage.initor.exception.checked.InvalidCityDiscriminatorException;
+>>>>>>> github/master
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -17,8 +26,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import static travelcompany.common.solutions.xml.dom.XmlDomUtils.getOnlyElementTextContent;
 import static travelcompany.storage.initor.exception.InitDataExceptionMeta.PARSE_CITY_DISCRIMINATOR_ERROR;
+=======
+import static hw2.travelcompany.common.solutions.xml.dom.XmlDomUtils.getOnlyElementTextContent;
+import static hw2.travelcompany.storage.initor.exception.InitDataExceptionMeta.PARSE_CITY_DISCRIMINATOR_ERROR;
+>>>>>>> github/master
 
 public class CountriesWithCitiesXmlDomParser implements FileParser<List<Country>> {
 

@@ -1,5 +1,6 @@
 package travelcompany.country.repo.impl;
 
+<<<<<<< HEAD
 import travelcompany.country.domain.Country;
 import travelcompany.country.search.CountrySortByField;
 
@@ -7,6 +8,15 @@ import java.util.*;
 
 import static travelcompany.common.business.repo.CommonComparatorHolder.getComparatorForNullableStrings;
 import static travelcompany.country.search.CountrySortByField.*;
+=======
+import hw2.travelcompany.country.domain.Country;
+import hw2.travelcompany.country.search.CountrySortByField;
+
+import java.util.*;
+
+import static hw2.travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableStrings;
+import static hw2.travelcompany.country.search.CountrySortByField.*;
+>>>>>>> github/master
 
 public final class CountryComparatorComponent {
     private static final CountryComparatorComponent INSTANCE = new CountryComparatorComponent();

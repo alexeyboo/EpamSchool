@@ -1,5 +1,6 @@
 package travelcompany.user.repo.impl;
 
+<<<<<<< HEAD
 import travelcompany.storage.SequenceGenerator;
 import travelcompany.user.domain.User;
 import travelcompany.user.repo.UserRepo;
@@ -11,6 +12,20 @@ import java.util.List;
 
 import static travelcompany.storage.Storage.usersArray;
 import static travelcompany.storage.Storage.usersList;
+=======
+import hw2.travelcompany.storage.SequenceGenerator;
+import hw2.travelcompany.user.domain.User;
+import hw2.travelcompany.user.repo.UserRepo;
+import hw2.travelcompany.user.search.UserSearchCondition;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static hw2.travelcompany.storage.Storage.usersArray;
+import static hw2.travelcompany.storage.Storage.usersList;
+>>>>>>> github/master
 
 public class UserMemoryCollectionRepo implements UserRepo {
 

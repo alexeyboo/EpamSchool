@@ -1,5 +1,9 @@
 package travelcompany.city.repo.impl;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> github/master
 import travelcompany.city.domain.City;
 import travelcompany.city.domain.typesofcities.Beachable;
 import travelcompany.city.domain.typesofcities.Sightseeable;
@@ -9,7 +13,14 @@ import travelcompany.city.search.CitySortByField;
 import java.util.*;
 
 import static travelcompany.city.search.CitySortByField.*;
+<<<<<<< HEAD
 import static travelcompany.common.business.repo.CommonComparatorHolder.*;
+=======
+import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableBooleans;
+import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableIntegers;
+import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableStrings;
+
+>>>>>>> github/master
 
 public final class CityComparatorComponent {
     public static final CityComparatorComponent INSTANCE = new CityComparatorComponent();
