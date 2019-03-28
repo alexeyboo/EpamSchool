@@ -1,6 +1,5 @@
 package travelcompany.user.repo.impl;
 
-<<<<<<< HEAD
 import travelcompany.user.domain.User;
 import travelcompany.user.search.UserSortByField;
 
@@ -8,16 +7,6 @@ import java.util.*;
 
 import static travelcompany.common.business.repo.CommonComparatorHolder.getComparatorForNullableStrings;
 import static travelcompany.user.search.UserSortByField.*;
-=======
-import com.sun.xml.internal.ws.server.sei.SEIInvokerTube;
-import hw2.travelcompany.user.domain.User;
-import hw2.travelcompany.user.search.UserSortByField;
-
-import java.util.*;
-
-import static hw2.travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableStrings;
-import static hw2.travelcompany.user.search.UserSortByField.*;
->>>>>>> github/master
 
 public class UserComporatorComponent {
 

@@ -1,9 +1,5 @@
 package travelcompany.city.repo.impl;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> github/master
 import travelcompany.city.domain.City;
 import travelcompany.city.domain.CityDiscriminator;
 import travelcompany.city.domain.typesofcities.Beachable;
@@ -11,10 +7,8 @@ import travelcompany.city.domain.typesofcities.Sightseeable;
 import travelcompany.city.domain.typesofcities.SkiResortable;
 import travelcompany.city.repo.CityRepo;
 import travelcompany.city.search.CitySearchCondition;
-<<<<<<< HEAD
+
 import travelcompany.common.solutions.utils.ArrayUtils;
-=======
->>>>>>> github/master
 import travelcompany.storage.SequenceGenerator;
 
 import java.util.ArrayList;
@@ -22,15 +16,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-<<<<<<< HEAD
+
 import static travelcompany.storage.Storage.citiesArray;
 
 import static java.lang.Math.abs;
-=======
-
-import static java.lang.Math.abs;
-import static travelcompany.storage.Storage.citiesArray;
->>>>>>> github/master
 
 public class CityMemoryArrayRepo implements CityRepo {
 
@@ -68,7 +57,7 @@ public class CityMemoryArrayRepo implements CityRepo {
         if (searchCondition.getId() != null)
             return Collections.singletonList(findById(searchCondition.getId()));
         else {
-            List<? extends City> result = doSearch(searchCondition);
+            List<City> result = doSearch(searchCondition);
 
             CityDiscriminator cityDiscriminator = searchCondition.getCityDiscriminator();
 
@@ -117,8 +106,8 @@ public class CityMemoryArrayRepo implements CityRepo {
         }
     }
 
-    private List<? extends City> doBeachableSearch(CitySearchCondition searchCondition, List<? extends City> cities) {
-        Beachable[] foundCities = new Beachable[cities.size()];
+    private List<City> doBeachableSearch(CitySearchCondition searchCondition, List<City> cities) {
+        City[] foundCities = new City[cities.size()];
         int resultIndex = 0;
 
         for (City city : cities) {
@@ -129,21 +118,21 @@ public class CityMemoryArrayRepo implements CityRepo {
                     found = searchCondition.getNumOfBeaches().equals(beachable.getNumOfBeaches());
                 }
                 if (found) {
-                    foundCities[resultIndex] = beachable;
+                    foundCities[resultIndex] = city;
                     resultIndex++;
                 }
             }
         }
         if (resultIndex > 0) {
-            Beachable toReturn[] = new Beachable[resultIndex];
+            City toReturn[] = new City[resultIndex];
             System.arraycopy(foundCities, 0, toReturn, 0, resultIndex);
-            return (List<? extends City>) new ArrayList<Beachable>(Arrays.asList(toReturn));
+            return Arrays.asList(toReturn);
         }
         return Collections.emptyList();
     }
 
-    private List<? extends City> doSightseeableSearch(CitySearchCondition searchCondition, List<? extends City> cities) {
-        Sightseeable[] foundCities = new Sightseeable[cities.size()];
+    private List<City> doSightseeableSearch(CitySearchCondition searchCondition, List<City> cities) {
+        City[] foundCities = new City[cities.size()];
         int resultIndex = 0;
 
         for (City city : cities) {
@@ -154,21 +143,21 @@ public class CityMemoryArrayRepo implements CityRepo {
                     found = searchCondition.getNumOfSights().equals(sightSeeable.getNumOfSights());
                 }
                 if (found) {
-                    foundCities[resultIndex] = sightSeeable;
+                    foundCities[resultIndex] = city;
                     resultIndex++;
                 }
             }
         }
         if (resultIndex > 0) {
-            Sightseeable toReturn[] = new Sightseeable[resultIndex];
+            City toReturn[] = new City[resultIndex];
             System.arraycopy(foundCities, 0, toReturn, 0, resultIndex);
-            return (List<? extends City>) new ArrayList<>(Arrays.asList(toReturn));
+            return Arrays.asList(toReturn);
         }
         return Collections.emptyList();
     }
 
-    private List<? extends City> doSkiResortableSearch(CitySearchCondition searchCondition, List<? extends City> cities) {
-        SkiResortable[] foundCities = new SkiResortable[cities.size()];
+    private List<City> doSkiResortableSearch(CitySearchCondition searchCondition, List<City> cities) {
+        City[] foundCities = new City[cities.size()];
         int resultIndex = 0;
 
         for (City city : cities) {
@@ -179,15 +168,15 @@ public class CityMemoryArrayRepo implements CityRepo {
                     found = searchCondition.getNumOfSkiResorts().equals(skiResortable.getNumOfSkiResorts());
                 }
                 if (found) {
-                    foundCities[resultIndex] = skiResortable;
+                    foundCities[resultIndex] = city;
                     resultIndex++;
                 }
             }
         }
         if (resultIndex > 0) {
-            SkiResortable toReturn[] = new SkiResortable[resultIndex];
+            City toReturn[] = new City[resultIndex];
             System.arraycopy(foundCities, 0, toReturn, 0, resultIndex);
-            return (List<? extends City>) new ArrayList<>(Arrays.asList(toReturn));
+            return Arrays.asList(toReturn);
         }
         return Collections.emptyList();
     }
@@ -261,6 +250,11 @@ public class CityMemoryArrayRepo implements CityRepo {
     @Override
     public List<City> findAll() {
         return new ArrayList<>(Arrays.asList(citiesArray));
+    }
+
+    @Override
+    public int countAll() {
+        return citiesArray.length;
     }
 
 }

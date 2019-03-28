@@ -1,15 +1,8 @@
 package travelcompany.country.domain;
 
-<<<<<<< HEAD
 import travelcompany.city.domain.City;
 import travelcompany.common.business.domain.BaseDomain;
 
-=======
-import hw2.travelcompany.city.domain.City;
-import hw2.travelcompany.common.business.domain.BaseDomain;
-
-import java.util.Arrays;
->>>>>>> github/master
 import java.util.List;
 
 public class Country extends BaseDomain <Long> {
@@ -63,8 +56,7 @@ public class Country extends BaseDomain <Long> {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", language='" + language + '\'' +
-                ", \ncitiesArray:\n" + getCitiesAsStr() +
-                '}';
+                ", \ncitiesArray:\n" + getCitiesAsStr();
     }
 
     private String getCitiesAsStr() {

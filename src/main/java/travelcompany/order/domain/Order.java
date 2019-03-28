@@ -1,18 +1,9 @@
 package travelcompany.order.domain;
 
-<<<<<<< HEAD
 import travelcompany.city.domain.City;
 import travelcompany.common.business.domain.BaseDomain;
 import travelcompany.user.domain.User;
 import travelcompany.country.domain.Country;
-=======
-import hw2.travelcompany.city.domain.City;
-import hw2.travelcompany.common.business.domain.BaseDomain;
-import hw2.travelcompany.user.domain.User;
-import hw2.travelcompany.country.domain.Country;
-
-import java.util.Arrays;
->>>>>>> github/master
 
 public class Order extends BaseDomain <Long>{
 

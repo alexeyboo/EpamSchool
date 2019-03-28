@@ -1,6 +1,5 @@
 package travelcompany.city.service.impl;
 
-<<<<<<< HEAD
 import travelcompany.city.domain.City;
 import travelcompany.city.exception.CityExceptionMeta;
 import travelcompany.city.exception.unchecked.DeleteCityException;
@@ -8,15 +7,6 @@ import travelcompany.city.repo.CityRepo;
 import travelcompany.city.search.CitySearchCondition;
 import travelcompany.city.service.CityService;
 import travelcompany.order.repo.OrderRepo;
-=======
-import hw2.travelcompany.city.domain.City;
-import hw2.travelcompany.city.exception.CityExceptionMeta;
-import hw2.travelcompany.city.exception.unchecked.DeleteCityException;
-import hw2.travelcompany.city.repo.CityRepo;
-import hw2.travelcompany.city.search.CitySearchCondition;
-import hw2.travelcompany.city.service.CityService;
-import hw2.travelcompany.order.repo.OrderRepo;
->>>>>>> github/master
 
 import java.util.List;
 
@@ -84,5 +74,10 @@ public class CityDefaultService implements CityService {
     @Override
     public List<City> findAll() {
         return cityRepo.findAll();
+    }
+
+    @Override
+    public int countAll() {
+        return cityRepo.countAll();
     }
 }

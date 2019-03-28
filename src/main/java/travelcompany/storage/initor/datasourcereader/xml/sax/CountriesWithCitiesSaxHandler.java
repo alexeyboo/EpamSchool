@@ -1,16 +1,11 @@
 package travelcompany.storage.initor.datasourcereader.xml.sax;
 
-<<<<<<< HEAD
+
 import travelcompany.city.domain.*;
 import travelcompany.city.domain.impl.*;
 import travelcompany.city.domain.typesofcities.*;
 import travelcompany.country.domain.Country;
-=======
-import hw2.travelcompany.city.domain.*;
-import hw2.travelcompany.city.domain.impl.*;
-import hw2.travelcompany.city.domain.typesofcities.*;
-import hw2.travelcompany.country.domain.Country;
->>>>>>> github/master
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -18,11 +13,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 import static travelcompany.common.solutions.utils.CollectionUtils.getLast;
-=======
-import static hw2.travelcompany.common.solutions.utils.CollectionUtils.getLast;
->>>>>>> github/master
 
 public class CountriesWithCitiesSaxHandler extends DefaultHandler {
     private StringBuilder content = new StringBuilder();

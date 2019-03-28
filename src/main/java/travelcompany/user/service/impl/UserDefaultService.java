@@ -2,13 +2,9 @@ package travelcompany.user.service.impl;
 
 import travelcompany.order.service.OrderService;
 import travelcompany.user.domain.User;
-<<<<<<< HEAD
 import travelcompany.user.repo.UserRepo;
 import travelcompany.user.search.UserSearchCondition;
 import travelcompany.user.service.UserService;
-=======
-import travelcompany.user.search.UserSearchCondition;
->>>>>>> github/master
 
 import java.util.List;
 
@@ -70,5 +66,10 @@ public class UserDefaultService implements UserService {
     @Override
     public List<User> findAll() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public int countAll() {
+        return userRepo.countAll();
     }
 }

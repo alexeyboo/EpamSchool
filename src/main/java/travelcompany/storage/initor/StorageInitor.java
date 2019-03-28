@@ -1,20 +1,11 @@
-<<<<<<< HEAD
-package hw2.travelcompany.storage.initor;
+package travelcompany.storage.initor;
 
 import travelcompany.country.domain.Country;
 import travelcompany.country.service.CountryService;
 import travelcompany.storage.initor.datasourcereader.FileParser;
+import travelcompany.storage.initor.datasourcereader.xml.dom.CountriesWithCitiesXmlDomParser;
+import travelcompany.storage.initor.datasourcereader.xml.sax.CountriesWithCitiesXmlSaxParser;
 import travelcompany.storage.initor.datasourcereader.xml.stax.CountriesWithCitiesXmlStaxParser;
-=======
-package travelcompany.storage.initor;
-
-import hw2.travelcompany.country.domain.Country;
-import hw2.travelcompany.country.service.CountryService;
-import hw2.travelcompany.storage.initor.datasourcereader.xml.dom.CountriesWithCitiesXmlDomParser;
-import hw2.travelcompany.storage.initor.datasourcereader.xml.sax.CountriesWithCitiesXmlSaxParser;
-//import hw2.travelcompany.storage.initor.datasourcereader.DataSourceIoTxtFileFromResourcesReader;
-import hw2.travelcompany.storage.initor.datasourcereader.FileParser;
->>>>>>> github/master
 
 import java.util.List;
 
@@ -49,14 +40,9 @@ public class StorageInitor {
                 break;
             }
             case XML_FILE: {
-<<<<<<< HEAD
-                //dataSourceReader = new CountriesWithCitiesXmlSaxParser();
-                //dataSourceReader = new CountriesWithCitiesXmlDomParser();
-                dataSourceReader = new CountriesWithCitiesXmlStaxParser();
-=======
                 dataSourceReader = new CountriesWithCitiesXmlSaxParser();
                 //dataSourceReader = new CountriesWithCitiesXmlDomParser();
->>>>>>> github/master
+                //dataSourceReader = new CountriesWithCitiesXmlStaxParser();
                 break;
             }
             case JSON_FILE: {

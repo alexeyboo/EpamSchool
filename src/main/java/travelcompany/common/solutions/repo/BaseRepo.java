@@ -16,9 +16,6 @@ public interface BaseRepo <TYPE, ID>{
 
     List<TYPE> findAll();
 
-<<<<<<< HEAD
     int countAll();
 
-=======
->>>>>>> github/master
 }

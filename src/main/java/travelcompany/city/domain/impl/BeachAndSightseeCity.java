@@ -1,9 +1,7 @@
 package travelcompany.city.domain.impl;
 
-import travelcompany.city.domain.City;
-import travelcompany.city.domain.CityDiscriminator;
-import travelcompany.city.domain.typesofcities.Beachable;
-import travelcompany.city.domain.typesofcities.Sightseeable;
+import travelcompany.city.domain.*;
+import travelcompany.city.domain.typesofcities.*;
 
 public class BeachAndSightseeCity extends City implements Beachable, Sightseeable {
 

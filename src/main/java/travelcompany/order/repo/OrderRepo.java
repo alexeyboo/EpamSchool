@@ -1,14 +1,8 @@
 package travelcompany.order.repo;
 
-<<<<<<< HEAD
 import travelcompany.common.solutions.repo.BaseRepo;
 import travelcompany.order.domain.Order;
 import travelcompany.order.search.OrderSearchCondition;
-=======
-import hw2.travelcompany.common.solutions.repo.BaseRepo;
-import hw2.travelcompany.order.domain.Order;
-import hw2.travelcompany.order.search.OrderSearchCondition;
->>>>>>> github/master
 
 import java.util.List;
 

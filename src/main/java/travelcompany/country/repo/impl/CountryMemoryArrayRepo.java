@@ -1,29 +1,17 @@
 package travelcompany.country.repo.impl;
 
-<<<<<<< HEAD
 import travelcompany.common.solutions.utils.ArrayUtils;
 import travelcompany.country.domain.Country;
 import travelcompany.country.repo.CountryRepo;
 import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.storage.SequenceGenerator;
-=======
-import hw2.travelcompany.common.solutions.utils.ArrayUtils;
-import hw2.travelcompany.country.domain.Country;
-import hw2.travelcompany.country.repo.CountryRepo;
-import hw2.travelcompany.country.search.CountrySearchCondition;
-import hw2.travelcompany.storage.SequenceGenerator;
->>>>>>> github/master
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-<<<<<<< HEAD
 import static travelcompany.storage.Storage.countriesArray;
-=======
-import static hw2.travelcompany.storage.Storage.countriesArray;
->>>>>>> github/master
 
 public class CountryMemoryArrayRepo implements CountryRepo {
 
@@ -126,6 +114,10 @@ public class CountryMemoryArrayRepo implements CountryRepo {
         return new ArrayList<>(Arrays.asList(countriesArray));
     }
 
+    @Override
+    public int countAll() {
+        return countriesArray.length;
+    }
 
 
     private Integer findCountryIndexById(long id) {

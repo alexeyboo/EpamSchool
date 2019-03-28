@@ -1,17 +1,9 @@
 package travelcompany.city.domain;
 
-<<<<<<< HEAD
 import travelcompany.common.business.domain.BaseDomain;
 import travelcompany.country.domain.Country;
 
 public abstract class City extends BaseDomain <Long>{
-=======
-
-import travelcompany.common.business.domain.BaseDomain;
-import travelcompany.country.domain.Country;
-
-public abstract class City extends BaseDomain<Long> {
->>>>>>> github/master
     protected String name;
     protected int population;
     protected boolean isCapital;

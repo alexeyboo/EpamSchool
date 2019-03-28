@@ -1,6 +1,6 @@
 package travelcompany.city.domain.impl;
 
-import travelcompany.city.domain.City;
+import travelcompany.city.domain.*;
 import travelcompany.city.domain.typesofcities.SkiResortable;
 
 public class SkiResortCity extends City implements SkiResortable {
@@ -17,6 +17,6 @@ public class SkiResortCity extends City implements SkiResortable {
 
     @Override
     protected void initDiscriminator() {
-
+        discriminator = CityDiscriminator.SKI_RESORT;
     }
 }

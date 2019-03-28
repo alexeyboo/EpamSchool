@@ -1,29 +1,18 @@
 package travelcompany.order.repo.impl;
 
-<<<<<<< HEAD
 import travelcompany.common.solutions.utils.ArrayUtils;
 import travelcompany.order.domain.Order;
 import travelcompany.order.repo.OrderRepo;
 import travelcompany.order.search.OrderSearchCondition;
 import travelcompany.storage.SequenceGenerator;
-=======
-import hw2.travelcompany.common.solutions.utils.ArrayUtils;
-import hw2.travelcompany.order.domain.Order;
-import hw2.travelcompany.order.repo.OrderRepo;
-import hw2.travelcompany.order.search.OrderSearchCondition;
-import hw2.travelcompany.storage.SequenceGenerator;
->>>>>>> github/master
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-<<<<<<< HEAD
+
 import static travelcompany.storage.Storage.ordersArray;
-=======
-import static hw2.travelcompany.storage.Storage.ordersArray;
->>>>>>> github/master
 
 public class OrderMemoryArrayRepo implements OrderRepo {
     private int orderIndex = 0;
@@ -73,6 +62,11 @@ public class OrderMemoryArrayRepo implements OrderRepo {
     @Override
     public List<Order> findAll() {
         return new ArrayList<>(Arrays.asList(ordersArray));
+    }
+
+    @Override
+    public int countAll() {
+        return ordersArray.length;
     }
 
     private Integer findIndexById(long id) {

@@ -1,12 +1,7 @@
 package travelcompany.user.domain;
 
-<<<<<<< HEAD
 import travelcompany.common.business.domain.BaseDomain;
 import travelcompany.order.domain.Order;
-=======
-import hw2.travelcompany.common.business.domain.BaseDomain;
-import hw2.travelcompany.order.domain.Order;
->>>>>>> github/master
 
 import java.util.List;
 

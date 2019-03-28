@@ -1,26 +1,15 @@
 package travelcompany.order.repo.impl;
 
-<<<<<<< HEAD
 import travelcompany.order.domain.Order;
 import travelcompany.order.repo.OrderRepo;
 import travelcompany.order.search.OrderSearchCondition;
 import travelcompany.storage.SequenceGenerator;
-=======
-import hw2.travelcompany.order.domain.Order;
-import hw2.travelcompany.order.repo.OrderRepo;
-import hw2.travelcompany.order.search.OrderSearchCondition;
-import hw2.travelcompany.storage.SequenceGenerator;
->>>>>>> github/master
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-<<<<<<< HEAD
 import static travelcompany.storage.Storage.ordersList;
-=======
-import static hw2.travelcompany.storage.Storage.ordersList;
->>>>>>> github/master
 
 public class OrderMemoryCollectionRepo implements OrderRepo {
     @Override
@@ -125,6 +114,11 @@ public class OrderMemoryCollectionRepo implements OrderRepo {
     @Override
     public List<Order> findAll() {
         return ordersList;
+    }
+
+    @Override
+    public int countAll() {
+        return ordersList.size();
     }
 
     @Override

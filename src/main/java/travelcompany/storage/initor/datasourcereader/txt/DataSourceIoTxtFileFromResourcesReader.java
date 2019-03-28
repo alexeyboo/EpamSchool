@@ -1,16 +1,13 @@
-<<<<<<< HEAD
 //package travelcompany.storage.initor.datasourcereader;
 //
 //import travelcompany.city.domain.*;
 //import travelcompany.country.domain.Country;
 //import travelcompany.storage.initor.exception.checked.InvalidCityDiscriminatorException;
-=======
 //package hw2.travelcompany.storage.initor.datasourcereader;
 //
 //import hw2.travelcompany.city.domain.*;
 //import hw2.travelcompany.country.domain.Country;
 //import hw2.travelcompany.storage.initor.exception.checked.InvalidCityDiscriminatorException;
->>>>>>> github/master
 //
 //import java.io.BufferedReader;
 //import java.io.IOException;
@@ -18,11 +15,8 @@
 //import java.util.ArrayList;
 //import java.util.List;
 //
-<<<<<<< HEAD
 //import static travelcompany.storage.initor.exception.InitDataExceptionMeta.PARSE_CITY_DISCRIMINATOR_ERROR;
-=======
 //import static hw2.travelcompany.storage.initor.exception.InitDataExceptionMeta.PARSE_CITY_DISCRIMINATOR_ERROR;
->>>>>>> github/master
 //
 //public class DataSourceIoTxtFileFromResourcesReader implements FileParser <List<Country>> {
 //

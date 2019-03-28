@@ -4,7 +4,6 @@ public abstract class BaseSearchCondition <ID>{
     protected ID id;
     protected SortDirection sortDirection = SortDirection.ASC;
     protected SortType sortType = SortType.SIMPLE;
-<<<<<<< HEAD
     protected Paginator paginator;
 
     public boolean shouldPaginate() {
@@ -18,9 +17,6 @@ public abstract class BaseSearchCondition <ID>{
     public void setPaginator(Paginator paginator) {
         this.paginator = paginator;
     }
-=======
->>>>>>> github/master
-
     public ID getId() {
         return id;
     }

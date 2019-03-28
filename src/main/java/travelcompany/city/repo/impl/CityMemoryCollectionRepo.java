@@ -1,9 +1,5 @@
 package travelcompany.city.repo.impl;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> github/master
 import travelcompany.city.domain.City;
 import travelcompany.city.domain.CityDiscriminator;
 import travelcompany.city.domain.typesofcities.Beachable;
@@ -17,13 +13,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-<<<<<<< HEAD
 import static travelcompany.storage.Storage.citiesList;
 import static java.lang.Math.abs;
-=======
-import static java.lang.Math.abs;
-import static travelcompany.storage.Storage.citiesList;
->>>>>>> github/master
+
 
 public class CityMemoryCollectionRepo implements CityRepo {
 
@@ -49,7 +41,7 @@ public class CityMemoryCollectionRepo implements CityRepo {
         if (searchCondition.getId() != null)
             return Collections.singletonList(findById(searchCondition.getId()));
         else {
-            List<? extends City> result = doSearch(searchCondition);
+            List<City> result = doSearch(searchCondition);
 
             CityDiscriminator cityDiscriminator = searchCondition.getCityDiscriminator();
 
@@ -98,8 +90,8 @@ public class CityMemoryCollectionRepo implements CityRepo {
         }
     }
 
-    private List<? extends City> doBeachableSearch(CitySearchCondition searchCondition, List<? extends City> cities) {
-        List<Beachable> foundCities = new ArrayList<>();
+    private List<City> doBeachableSearch(CitySearchCondition searchCondition, List<City> cities) {
+        List<City> foundCities = new ArrayList<>();
 
         for (City city : cities) {
             if (CityDiscriminator.BEACH.equals(city.getDiscriminator())) {
@@ -109,16 +101,16 @@ public class CityMemoryCollectionRepo implements CityRepo {
                     found = searchCondition.getNumOfBeaches().equals(beachable.getNumOfBeaches());
                 }
                 if (found) {
-                    foundCities.add(beachable);
+                    foundCities.add(city);
                 }
             }
         }
 
-        return (List<? extends City>)foundCities;
+        return foundCities;
     }
 
-    private List<? extends City> doSightseeableSearch(CitySearchCondition searchCondition, List<? extends City> cities) {
-        List<Sightseeable> foundCities = new ArrayList<>();
+    private List<City> doSightseeableSearch(CitySearchCondition searchCondition, List<City> cities) {
+        List<City> foundCities = new ArrayList<>();
 
         for (City city : cities) {
             if (CityDiscriminator.SIGHTSEE.equals(city.getDiscriminator())) {
@@ -128,15 +120,15 @@ public class CityMemoryCollectionRepo implements CityRepo {
                     found = searchCondition.getNumOfSights().equals(sightSeeable.getNumOfSights());
                 }
                 if (found) {
-                    foundCities.add(sightSeeable);
+                    foundCities.add(city);
                 }
             }
         }
-        return (List<? extends City>)foundCities;
+        return foundCities;
     }
 
-    private List<? extends City> doSkiResortableSearch(CitySearchCondition searchCondition, List<? extends City> cities) {
-        List<SkiResortable> foundCities = new ArrayList<>();
+    private List<City> doSkiResortableSearch(CitySearchCondition searchCondition, List<City> cities) {
+        List<City> foundCities = new ArrayList<>();
 
         for (City city : cities) {
             if (CityDiscriminator.SKI_RESORT.equals(city.getDiscriminator())) {
@@ -146,12 +138,12 @@ public class CityMemoryCollectionRepo implements CityRepo {
                     found = searchCondition.getNumOfSkiResorts().equals(skiResortable.getNumOfSkiResorts());
                 }
                 if (found) {
-                    foundCities.add(skiResortable);
+                    foundCities.add(city);
                 }
             }
         }
 
-        return (List<? extends City>) foundCities;
+        return foundCities;
     }
 
     private List<City> doSearch(CitySearchCondition searchCondition) {
@@ -201,6 +193,11 @@ public class CityMemoryCollectionRepo implements CityRepo {
     @Override
     public List<City> findAll() {
         return citiesList;
+    }
+
+    @Override
+    public int countAll() {
+        return citiesList.size();
     }
 
     private City findCityById(long cityId) {

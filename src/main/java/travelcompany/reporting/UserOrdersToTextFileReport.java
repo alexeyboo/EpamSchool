@@ -1,20 +1,11 @@
 package travelcompany.reporting;
 
-<<<<<<< HEAD
 import travelcompany.city.service.CityService;
 import travelcompany.country.service.CountryService;
 import travelcompany.order.domain.Order;
 import travelcompany.order.service.OrderService;
 import travelcompany.user.domain.User;
 import travelcompany.user.service.UserService;
-=======
-import hw2.travelcompany.city.service.CityService;
-import hw2.travelcompany.country.service.CountryService;
-import hw2.travelcompany.order.domain.Order;
-import hw2.travelcompany.order.service.OrderService;
-import hw2.travelcompany.user.domain.User;
-import hw2.travelcompany.user.service.UserService;
->>>>>>> github/master
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -74,14 +65,10 @@ public class UserOrdersToTextFileReport implements ReportComponent {
 
     private List<String> getOrderInformation(User user) {
         List<String> reportData = new ArrayList<>();
-
         List<Order> orders = orderService.getOrdersByUser(user.getId());
-<<<<<<< HEAD
         reportData.add("Total orders: " + orders.size());
-=======
         reportData.add("Total ordersArray: " + orders.size());
->>>>>>> github/master
-        
+
         if (!orders.isEmpty()) {
             reportData.add("Orders");
             for (Order order : orders) {

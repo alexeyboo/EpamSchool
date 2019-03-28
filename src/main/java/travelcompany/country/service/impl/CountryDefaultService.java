@@ -1,6 +1,5 @@
 package travelcompany.country.service.impl;
 
-<<<<<<< HEAD
 import travelcompany.city.domain.City;
 import travelcompany.city.service.CityService;
 import travelcompany.common.business.exception.TravelCompanyUncheckedException;
@@ -11,19 +10,6 @@ import travelcompany.country.repo.CountryRepo;
 import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.country.service.CountryService;
 import travelcompany.order.repo.OrderRepo;
-=======
-import hw2.travelcompany.city.domain.City;
-import hw2.travelcompany.city.repo.CityRepo;
-import hw2.travelcompany.city.service.CityService;
-import hw2.travelcompany.common.business.exception.TravelCompanyUncheckedException;
-import hw2.travelcompany.country.domain.Country;
-import hw2.travelcompany.country.exception.CountryExceptionMeta;
-import hw2.travelcompany.country.exception.unchecked.DeleteCountryException;
-import hw2.travelcompany.country.repo.CountryRepo;
-import hw2.travelcompany.country.search.CountrySearchCondition;
-import hw2.travelcompany.country.service.CountryService;
-import hw2.travelcompany.order.repo.OrderRepo;
->>>>>>> github/master
 
 import java.util.Collections;
 import java.util.List;
@@ -118,6 +104,11 @@ public class CountryDefaultService implements CountryService {
     @Override
     public List<Country> findAll() {
         return countryRepo.findAll();
+    }
+
+    @Override
+    public int countAll() {
+        return countryRepo.countAll();
     }
 
 }

@@ -1,20 +1,11 @@
 package travelcompany.user.search;
 
-<<<<<<< HEAD
 import travelcompany.common.business.search.BaseSearchCondition;
 import travelcompany.order.domain.Order;
 import travelcompany.user.domain.ClientType;
 import travelcompany.user.domain.Passport;
 
 import static travelcompany.common.solutions.utils.StringUtils.isNotBlank;
-=======
-import hw2.travelcompany.common.business.search.BaseSearchCondition;
-import hw2.travelcompany.order.domain.Order;
-import hw2.travelcompany.user.domain.ClientType;
-import hw2.travelcompany.user.domain.Passport;
-
-import static hw2.travelcompany.common.solutions.utils.StringUtils.isNotBlank;
->>>>>>> github/master
 
 public class UserSearchCondition extends BaseSearchCondition<Long> {
     private String firstName;

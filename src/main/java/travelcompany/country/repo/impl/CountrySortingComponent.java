@@ -1,14 +1,8 @@
 package travelcompany.country.repo.impl;
 
-<<<<<<< HEAD
 import travelcompany.country.domain.Country;
 import travelcompany.country.search.CountrySortByField;
 import travelcompany.country.search.CountrySearchCondition;
-=======
-import hw2.travelcompany.country.domain.Country;
-import hw2.travelcompany.country.search.CountrySortByField;
-import hw2.travelcompany.country.search.CountrySearchCondition;
->>>>>>> github/master
 
 import java.util.Collections;
 import java.util.Comparator;

@@ -1,13 +1,7 @@
 package travelcompany.city.repo.impl;
 
 import travelcompany.city.domain.City;
-<<<<<<< HEAD
-import travelcompany.city.search.CitySortByField;
-import travelcompany.city.search.CitySearchCondition;
-=======
-import travelcompany.city.search.CitySearchCondition;
-import travelcompany.city.search.CitySortByField;
->>>>>>> github/master
+import travelcompany.city.search.*;
 
 import java.util.Collections;
 import java.util.Comparator;

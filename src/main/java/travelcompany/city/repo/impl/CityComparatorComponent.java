@@ -1,9 +1,5 @@
 package travelcompany.city.repo.impl;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> github/master
 import travelcompany.city.domain.City;
 import travelcompany.city.domain.typesofcities.Beachable;
 import travelcompany.city.domain.typesofcities.Sightseeable;
@@ -13,14 +9,11 @@ import travelcompany.city.search.CitySortByField;
 import java.util.*;
 
 import static travelcompany.city.search.CitySortByField.*;
-<<<<<<< HEAD
-import static travelcompany.common.business.repo.CommonComparatorHolder.*;
-=======
 import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableBooleans;
 import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableIntegers;
 import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableStrings;
 
->>>>>>> github/master
+
 
 public final class CityComparatorComponent {
     public static final CityComparatorComponent INSTANCE = new CityComparatorComponent();
@@ -28,7 +21,7 @@ public final class CityComparatorComponent {
 
     //for complex
     private static Set<CitySortByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays
-            .asList(NAME, POPULATION, COUNTRY, CLIMATE, IS_CAPITAL, NUM_OF_BEACHES, NUM_OF_SIGHTS, NUM_OF_SKIRESORTS));
+            .asList(NAME, POPULATION, COUNTRY, CLIMATE, IS_CAPITAL, NUM_OF_BEACHES, NUM_OF_SIGHTS, NUM_OF_SKI_RESORTS));
 
     public static CityComparatorComponent getInstance() {
         return INSTANCE;
@@ -78,7 +71,7 @@ public final class CityComparatorComponent {
         comparatorByField.put(IS_CAPITAL, getComparatorForIsCapitalField());
         comparatorByField.put(NUM_OF_BEACHES, getComparatorForNumOfBeachesField());
         comparatorByField.put(NUM_OF_SIGHTS, getComparatorForNumOfSightsField());
-        comparatorByField.put(NUM_OF_SKIRESORTS, getComparatorForNumOfSkiResortsField());
+        comparatorByField.put(NUM_OF_SKI_RESORTS, getComparatorForNumOfSkiResortsField());
     }
 
     private static Comparator<City> getComparatorForNumOfBeachesField() {

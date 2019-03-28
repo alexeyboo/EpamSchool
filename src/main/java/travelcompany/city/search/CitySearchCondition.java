@@ -1,17 +1,14 @@
 package travelcompany.city.search;
 
-import travelcompany.city.domain.CityDiscriminator;
-import travelcompany.city.domain.Climate;
+import travelcompany.city.domain.*;
 import travelcompany.common.business.search.BaseSearchCondition;
 import travelcompany.country.domain.Country;
 
 import static travelcompany.common.solutions.utils.StringUtils.isNotBlank;
 
-<<<<<<< HEAD
+
 public class CitySearchCondition extends BaseSearchCondition <Long>{
-=======
-public class CitySearchCondition extends BaseSearchCondition<Long> {
->>>>>>> github/master
+
     private String name;
     private Integer population;
     private Boolean isCapital;
