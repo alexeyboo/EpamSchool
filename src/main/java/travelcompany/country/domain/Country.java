@@ -10,7 +10,11 @@ public class Country extends BaseDomain <Long> {
     private String language;
     private List<City> cities;
 
-    public Country() {
+    public Country() {}
+
+    public Country(String name, String language) {
+        this.name = name;
+        this.language = language;
     }
 
     public void setCities(List<City> cities) {
@@ -23,11 +27,6 @@ public class Country extends BaseDomain <Long> {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Country(String name, String language) {
-        this.name = name;
-        this.language = language;
     }
 
     public List<City> getCities() {
@@ -56,7 +55,7 @@ public class Country extends BaseDomain <Long> {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", language='" + language + '\'' +
-                ", \ncitiesArray:\n" + getCitiesAsStr();
+                ", \ncities:\n" + getCitiesAsStr();
     }
 
     private String getCitiesAsStr() {

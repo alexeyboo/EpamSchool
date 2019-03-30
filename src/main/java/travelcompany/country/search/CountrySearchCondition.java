@@ -10,6 +10,7 @@ public class CountrySearchCondition extends BaseSearchCondition <Long>{
     private String name;
     private String language;
     private City city;
+    private Integer numOfCities;
     private CountrySortByField sortByField;
 
     public boolean searchByName(){
@@ -21,6 +22,7 @@ public class CountrySearchCondition extends BaseSearchCondition <Long>{
     public boolean searchByCity(){
         return city != null;
     }
+    public boolean searchByNumOfCities(){ return numOfCities != null; }
 
     public String getName() {
         return name;
@@ -52,6 +54,14 @@ public class CountrySearchCondition extends BaseSearchCondition <Long>{
 
     public void setSortByField(CountrySortByField sortByField) {
         this.sortByField = sortByField;
+    }
+
+    public Integer getNumOfCities() {
+        return numOfCities;
+    }
+
+    public void setNumOfCities(Integer numOfCities) {
+        this.numOfCities = numOfCities;
     }
 
     @Override

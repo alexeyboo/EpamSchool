@@ -17,6 +17,7 @@ public abstract class BaseSearchCondition <ID>{
     public void setPaginator(Paginator paginator) {
         this.paginator = paginator;
     }
+
     public ID getId() {
         return id;
     }

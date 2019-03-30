@@ -1,24 +1,35 @@
 package travelcompany.country.repo.impl;
 
+import travelcompany.common.business.search.Paginator;
 import travelcompany.country.domain.Country;
 import travelcompany.country.repo.CountryRepo;
 import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.countriesList;
 
 public class CountryMemoryCollectionRepo implements CountryRepo {
-
     private CountrySortingComponent orderingComponent = new CountrySortingComponent();
 
     @Override
-    public void insert(Country country) {
+    public Country insert(Country country) {
         country.setId(SequenceGenerator.getNextValue());
         countriesList.add(country);
+
+        return country;
+    }
+
+    @Override
+    public void insert(Collection<Country> countries) {
+        for (Country country : countries) {
+            insert(country);
+        }
     }
 
     @Override
@@ -28,26 +39,25 @@ public class CountryMemoryCollectionRepo implements CountryRepo {
 
     @Override
     public void update(Country country) {
-
     }
 
     @Override
     public List<Country> search(CountrySearchCondition searchCondition) {
-        if (searchCondition.getId() != null) {
-            return Collections.singletonList(findById(searchCondition.getId()));
-        } else {
-            List<Country> result = doSearch(searchCondition);
-            boolean needOrdering = !result.isEmpty() && searchCondition.needSorting();
-            if (needOrdering) {
-                orderingComponent.applySorting(result, searchCondition);
-            }
-            return result;
+        List<Country> result = doSearch(searchCondition);
+        boolean needOrdering = !result.isEmpty() && searchCondition.needSorting();
+
+        if (needOrdering) {
+            orderingComponent.applySorting(result, searchCondition);
         }
+
+        if (!result.isEmpty() && searchCondition.shouldPaginate()) {
+            result = getPageableCountryData(result, searchCondition.getPaginator());
+        }
+
+        return result;
     }
 
-
     public List<Country> doSearch(CountrySearchCondition searchCondition) {
-
         List<Country> result = new ArrayList<>();
 
         for (Country country : countriesList) {
@@ -57,21 +67,31 @@ public class CountryMemoryCollectionRepo implements CountryRepo {
                 if (searchCondition.searchByName()) {
                     found = searchCondition.getName().equals(country.getName());
                 }
+
                 if (found && searchCondition.searchByLanguage()) {
                     found = searchCondition.getLanguage().equals(country.getLanguage());
                 }
+
                 if (found && searchCondition.searchByCity()) {
                     found = country.getCities().contains(searchCondition.getCity());
                 }
+
+                if (found && searchCondition.searchByNumOfCities()) {
+                    found = country.getCities().size() <= searchCondition.getNumOfCities();
+                }
+
                 if (found) {
                     result.add(country);
                 }
             }
         }
+
         return result;
     }
 
-
+    private List<Country> getPageableCountryData(List<Country> countries, Paginator paginator) {
+        return getPageableData(countries, paginator.getLimit(), paginator.getOffset());
+    }
 
     @Override
     public void deleteById(Long id) {
@@ -79,6 +99,16 @@ public class CountryMemoryCollectionRepo implements CountryRepo {
         if (found != null) {
             countriesList.remove(found);
         }
+    }
+
+    private Country findCountryById(long id) {
+        for (Country country : countriesList) {
+            if (Long.valueOf(id).equals(country.getId())) {
+                return country;
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -96,14 +126,5 @@ public class CountryMemoryCollectionRepo implements CountryRepo {
     @Override
     public int countAll() {
         return countriesList.size();
-    }
-
-    private Country findCountryById(long id) {
-        for (Country country : countriesList) {
-            if (Long.valueOf(id).equals(country.getId())) {
-                return country;
-            }
-        }
-        return null;
     }
 }

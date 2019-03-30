@@ -1,10 +1,12 @@
 package travelcompany.common.solutions.repo;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface BaseRepo <TYPE, ID>{
+    TYPE insert(TYPE entity);
 
-    void insert(TYPE entity);
+    void insert(Collection<TYPE> items);
 
     void update(TYPE entity);
 
@@ -17,5 +19,4 @@ public interface BaseRepo <TYPE, ID>{
     List<TYPE> findAll();
 
     int countAll();
-
 }

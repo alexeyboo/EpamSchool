@@ -7,8 +7,7 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.InputStream;
 
 public final class XmlStaxUtils {
-    private XmlStaxUtils() {
-    }
+    private XmlStaxUtils() {}
 
     public static XMLStreamReader getReader(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -17,6 +16,10 @@ public final class XmlStaxUtils {
 
     /**
      * read content between couple of tags
+     *
+     * @param reader
+     * @return content between couple of tags
+     * @throws XMLStreamException
      */
     public static String readContent(XMLStreamReader reader) throws XMLStreamException {
         StringBuilder content = new StringBuilder();
@@ -25,8 +28,8 @@ public final class XmlStaxUtils {
             int eventType = reader.next();
 
             switch (eventType) {
-
                 case XMLStreamConstants.CHARACTERS:
+                    /* falls through */
                 case XMLStreamConstants.CDATA: {
                     content.append(reader.getText());
                     break;

@@ -5,7 +5,7 @@ import travelcompany.user.search.UserSortByField;
 
 import java.util.*;
 
-import static travelcompany.common.business.repo.CommonComparatorHolder.getComparatorForNullableStrings;
+import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableStrings;
 import static travelcompany.user.search.UserSortByField.*;
 
 public class UserComporatorComponent {

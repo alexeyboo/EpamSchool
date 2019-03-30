@@ -2,11 +2,13 @@ package travelcompany.common.solutions.service;
 
 import travelcompany.common.business.exception.TravelCompanyUncheckedException;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface BaseService <TYPE, ID>{
+    TYPE insert(TYPE entity);
 
-    void insert(TYPE entity);
+    void insert(Collection<TYPE> entity);
 
     void update(TYPE entity);
 
@@ -21,5 +23,4 @@ public interface BaseService <TYPE, ID>{
     List<TYPE> findAll();
 
     int countAll();
-
 }

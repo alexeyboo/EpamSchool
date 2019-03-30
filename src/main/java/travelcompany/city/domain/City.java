@@ -10,6 +10,15 @@ public abstract class City extends BaseDomain <Long>{
     protected Country country;
     protected Climate climate;
     protected CityDiscriminator discriminator;
+    protected Long countryId;
+
+    public Long getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
+    }
 
     public City() {
         initDiscriminator();

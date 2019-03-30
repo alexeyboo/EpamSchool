@@ -18,7 +18,6 @@ import travelcompany.user.service.UserService;
 import travelcompany.user.service.impl.UserDefaultService;
 
 public class MemoryCollectionServiceFactory implements ServiceFactory {
-
     private CountryRepo countryRepo = new CountryMemoryCollectionRepo();
     private CityRepo cityRepo = new CityMemoryCollectionRepo();
     private OrderRepo orderRepo = new OrderMemoryCollectionRepo();

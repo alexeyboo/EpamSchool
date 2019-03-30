@@ -1,7 +1,6 @@
 package travelcompany.common.business.exception;
 
 public abstract class TravelCompanyCheckedException extends Exception {
-
     protected int code;
 
     public TravelCompanyCheckedException(int code, String message) {

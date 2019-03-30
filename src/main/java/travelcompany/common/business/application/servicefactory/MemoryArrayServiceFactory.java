@@ -18,7 +18,6 @@ import travelcompany.user.service.UserService;
 import travelcompany.user.service.impl.UserDefaultService;
 
 public class MemoryArrayServiceFactory implements ServiceFactory{
-
     private OrderRepo orderRepo = new OrderMemoryArrayRepo();
     private UserRepo userRepo = new UserMemoryArrayRepo();
     private CountryRepo countryRepo = new CountryMemoryArrayRepo();

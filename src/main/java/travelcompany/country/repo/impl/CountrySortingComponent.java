@@ -12,8 +12,8 @@ public class CountrySortingComponent {
 
     public void applySorting(List<Country> countries, CountrySearchCondition countrySearchCondition) {
         Comparator<Country> countryComparator = null;
-
         CountrySortByField field = countrySearchCondition.getSortByField();
+
         switch (countrySearchCondition.getSortType()) {
             case SIMPLE:
                 countryComparator = CountryComparatorComponent.getInstance().getComparatorForField(field);

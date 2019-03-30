@@ -3,6 +3,7 @@ package travelcompany.common.solutions.utils;
 import java.util.List;
 
 public final class CollectionUtils {
+    private CollectionUtils() {}
 
     public static <T> T getLast(List<T> list) {
         if (list.isEmpty()) {

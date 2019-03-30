@@ -10,8 +10,7 @@ public class Paginator {
         this.offset = offset;
     }
 
-    public Paginator() {
-    }
+    public Paginator() {}
 
     public int getLimit() {
         return limit;

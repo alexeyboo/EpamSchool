@@ -7,17 +7,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class CustomStaxReader implements AutoCloseable {
-
     private XMLStreamReader reader = null;
     private FileInputStream fileInputStream;
 
-    private CustomStaxReader() {
-    }
+    private CustomStaxReader() {}
 
-    public static CustomStaxReader newInstance(String file) throws FileNotFoundException, XMLStreamException {
+    public static CustomStaxReader newInstance(String file)
+            throws FileNotFoundException, XMLStreamException {
         CustomStaxReader instance = new CustomStaxReader();
         instance.fileInputStream = new FileInputStream(file);
-        instance.reader = XMLInputFactory.newInstance().createXMLStreamReader(instance.fileInputStream);
+        instance.reader = XMLInputFactory.newInstance()
+                .createXMLStreamReader(instance.fileInputStream);
         return instance;
     }
 

@@ -11,11 +11,11 @@ import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.country.service.CountryService;
 import travelcompany.order.repo.OrderRepo;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class CountryDefaultService implements CountryService {
-
     private final CityService cityService;
     private final CountryRepo countryRepo;
     private final OrderRepo orderRepo;
@@ -27,14 +27,37 @@ public class CountryDefaultService implements CountryService {
     }
 
     @Override
-    public void insert(Country country) {
+    public Country insert(Country country) {
         if (country != null) {
             countryRepo.insert(country);
-            if (country.getCities() != null) {
+
+            if (country.getCities() != null && !country.getCities().isEmpty()) {
                 for (City city : country.getCities()) {
                     if (city != null) {
                         cityService.insert(city);
+                        city.setCountryId(country.getId());
                     }
+                }
+            }
+        }
+
+        return country;
+    }
+
+    @Override
+    public void insert(Collection<Country> countries) {
+        if (countries != null & !countries.isEmpty()) {
+            for (Country country : countries) {
+                countryRepo.insert(country);
+
+                if (country.getCities() != null && !country.getCities().isEmpty()) {
+                    country.getCities().replaceAll(city -> {
+                        city.setCountryId(country.getId());
+
+                        return city;
+                    });
+
+                    cityService.insert(country.getCities());
                 }
             }
         }
@@ -77,7 +100,11 @@ public class CountryDefaultService implements CountryService {
 
     @Override
     public List<? extends Country> search(CountrySearchCondition searchCondition) {
-        return countryRepo.search(searchCondition);
+        if (searchCondition.getId() != null) {
+            return Collections.singletonList(countryRepo.findById(searchCondition.getId()));
+        } else {
+            return countryRepo.search(searchCondition);
+        }
     }
 
     @Override
@@ -90,15 +117,14 @@ public class CountryDefaultService implements CountryService {
     @Override
     public void removeAllCitiesFromCountry(Long countryId) throws TravelCompanyUncheckedException {
         Country country = findById(countryId);
+
         if (country != null) {
             List<City> cities = country.getCities() == null ? Collections.emptyList() : country.getCities();
 
             for (City city : cities) {
                 cityService.deleteById(city.getId());
             }
-
         }
-
     }
 
     @Override
@@ -110,5 +136,4 @@ public class CountryDefaultService implements CountryService {
     public int countAll() {
         return countryRepo.countAll();
     }
-
 }

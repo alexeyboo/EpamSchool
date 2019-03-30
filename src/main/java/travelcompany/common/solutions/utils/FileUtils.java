@@ -9,9 +9,7 @@ import java.nio.file.Path;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public final class FileUtils {
-
-    private FileUtils() {
-    }
+    private FileUtils() {}
 
     public static File createFileFromSource(String fileNamePrefix, String fileNameSuffix, String resourcePath) throws IOException {
         try (InputStream inputStream = File.class.getResourceAsStream(resourcePath)) {
@@ -21,3 +19,4 @@ public final class FileUtils {
         }
     }
 }
+

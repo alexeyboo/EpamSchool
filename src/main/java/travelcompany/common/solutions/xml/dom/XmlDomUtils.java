@@ -12,9 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 public final class XmlDomUtils {
-
-    private XmlDomUtils() {
-    }
+    private XmlDomUtils() {}
 
     public static String getOnlyElementTextContent(Element elementSource, String tagName) {
         NodeList elementsByTagName = elementSource.getElementsByTagName(tagName);
@@ -41,5 +39,4 @@ public final class XmlDomUtils {
     public static Element getOnlyElement(Element element, String tagName) {
         return (Element) element.getElementsByTagName(tagName).item(0);
     }
-
 }

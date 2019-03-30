@@ -2,6 +2,7 @@ package travelcompany;
 
 import travelcompany.city.repo.impl.CityMemoryArrayRepo;
 import travelcompany.city.service.impl.CityDefaultService;
+import travelcompany.common.solutions.utils.CollectionUtils;
 import travelcompany.country.domain.Country;
 import travelcompany.country.repo.impl.CountryMemoryArrayRepo;
 import travelcompany.country.service.impl.CountryDefaultService;
@@ -16,9 +17,9 @@ public class TravelCompany {
                 new CountryDefaultService(
                         new CountryMemoryArrayRepo(), new CityDefaultService(
                                 new CityMemoryArrayRepo(), new OrderMemoryArrayRepo()), new OrderMemoryArrayRepo()));
-        storageInitor.initStorageWithCountriesAndCities("src/main/resources/travelcompany/our-directions.xml", StorageInitor.DataSourceType.XML_FILE);
+        storageInitor.initStorageWithCountriesAndCities("src/main/resources/travelcompany/our-directions-part-1.xml", StorageInitor.DataSourceType.XML_FILE);
         for (Country country : countriesArray) {
-            System.out.println(country);
+            System.out.println(country.getAsStrWithoutCities());
         }
     }
 }
