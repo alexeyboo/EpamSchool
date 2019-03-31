@@ -1,23 +1,24 @@
-package travelcompany.order.repo.impl;
+package travelcompany.order.repo.impl.memory;
 
+import travelcompany.common.business.search.Paginator;
 import travelcompany.common.solutions.utils.ArrayUtils;
 import travelcompany.order.domain.Order;
 import travelcompany.order.repo.OrderRepo;
+import travelcompany.order.repo.impl.OrderSortingComponent;
 import travelcompany.order.search.OrderSearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
+import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.ordersArray;
 
-public class OrderMemoryArrayRepo implements OrderRepo {
+public class OrderArrayRepo implements OrderRepo {
     private int orderIndex = 0;
+    private OrderSortingComponent orderingComponent = new OrderSortingComponent();
 
-    public void insert(Order order) {
+    public Order insert(Order order) {
         if (orderIndex == ordersArray.length) {
             Order[] newOrders = new Order[ordersArray.length * 2];
             System.arraycopy(ordersArray, 0, newOrders, 0, ordersArray.length);
@@ -26,26 +27,37 @@ public class OrderMemoryArrayRepo implements OrderRepo {
         ordersArray[orderIndex] = order;
         order.setId(SequenceGenerator.getNextValue());
         orderIndex++;
+        
+        return order;
     }
 
     @Override
-    public void update(Order order) {
-
+    public void insert(Collection<Order> orders) {
+        for (Order order : orders) {
+            insert(order);
+        }
     }
+
+    @Override
+    public void update(Order order) {}
 
     public Order findById(Long id) {
         Integer orderIndex = findIndexById(id);
+
         if (orderIndex != null) {
             return ordersArray[orderIndex];
         }
+
         return null;
     }
 
     @Override
     public void deleteById(Long id) {
         Integer orderIndex = findIndexById(id);
-        if (orderIndex != null)
+
+        if (orderIndex != null) {
             deleteOrderByIndex(orderIndex);
+        }
     }
 
     private void deleteOrderByIndex(Integer orderIndex) {
@@ -71,43 +83,60 @@ public class OrderMemoryArrayRepo implements OrderRepo {
 
     private Integer findIndexById(long id) {
         for (int i = 0; i < ordersArray.length; i++) {
-            if (ordersArray[i].getId().equals(id))
+            if (ordersArray[i].getId().equals(id)) {
                 return i;
+            }
         }
+
         return null;
     }
 
-
-
     @Override
     public List<Order> search(OrderSearchCondition searchCondition) {
-        if (searchCondition.getId() != null) {
-            return Collections.singletonList(findById(searchCondition.getId()));
-        } else {
-            return doSearch(searchCondition);
+        List<Order> result = doSearch(searchCondition);
+
+        boolean needSorting = !result.isEmpty() && searchCondition.needSorting();
+        boolean shouldPaginate = !result.isEmpty() && searchCondition.shouldPaginate();
+
+        if (needSorting) {
+            orderingComponent.applySorting(result, searchCondition);
         }
+
+        if (shouldPaginate) {
+            result = getPageableOrderData(result, searchCondition.getPaginator());
+        }
+
+        return result;
+    }
+
+    private List<Order> getPageableOrderData(List<Order> result, Paginator paginator) {
+        return getPageableData(result, paginator.getLimit(), paginator.getOffset());
     }
 
     private List<Order> doSearch(OrderSearchCondition searchCondition) {
-
         Order[] result = new Order[ordersArray.length];
         int resultIndex = 0;
 
         for (Order order : ordersArray) {
             if (order != null) {
                 boolean found = true;
+
                 if (searchCondition.searchByCity()) {
                     found = searchCondition.getCity().equals(order.getCity());
                 }
+
                 if (found && searchCondition.searchByUser()) {
                     found = searchCondition.getUser().equals(order.getUser());
                 }
+
                 if (found && searchCondition.searchByCountry()) {
                     found = searchCondition.getCountry().equals(order.getCountry());
                 }
+
                 if (found && searchCondition.searchByPrice()) {
                     found = searchCondition.getPrice().equals(order.getPrice());
                 }
+
                 if (found) {
                     result[resultIndex] = order;
                     resultIndex++;
@@ -117,31 +146,36 @@ public class OrderMemoryArrayRepo implements OrderRepo {
         if (resultIndex > 0) {
             Order toReturn[] = new Order[resultIndex];
             System.arraycopy(result, 0, toReturn, 0, resultIndex);
-            return new ArrayList<>(Arrays.asList(toReturn));
 
+            return new ArrayList<>(Arrays.asList(toReturn));
         }
+
         return Collections.emptyList();
     }
 
     @Override
     public int countByCity(long cityId) {
         int count = 0;
+
         for (Order order : ordersArray) {
             if (order.getCity().getId().equals(cityId)) {
                 count++;
             }
         }
+
         return count;
     }
 
     @Override
     public int countByCountry(long countryId) {
         int count = 0;
+
         for (Order order : ordersArray) {
             if (order.getCountry().getId().equals(countryId)) {
                 count++;
             }
         }
+
         return count;
     }
 
@@ -154,6 +188,7 @@ public class OrderMemoryArrayRepo implements OrderRepo {
                 foundOrders.add(order);
             }
         }
+
         return foundOrders;
     }
 
@@ -163,6 +198,4 @@ public class OrderMemoryArrayRepo implements OrderRepo {
             ArrayUtils.removeElement(ordersArray, findIndexById(order.getId()));
         }
     }
-
-
 }

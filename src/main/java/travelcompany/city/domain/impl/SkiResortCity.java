@@ -4,7 +4,6 @@ import travelcompany.city.domain.*;
 import travelcompany.city.domain.typesofcities.SkiResortable;
 
 public class SkiResortCity extends City implements SkiResortable {
-
     private int numOfSkiResorts;
 
     public int getNumOfSkiResorts() {
@@ -18,5 +17,11 @@ public class SkiResortCity extends City implements SkiResortable {
     @Override
     protected void initDiscriminator() {
         discriminator = CityDiscriminator.SKI_RESORT;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", numOfSkiResorts=" + numOfSkiResorts + '\'';
     }
 }

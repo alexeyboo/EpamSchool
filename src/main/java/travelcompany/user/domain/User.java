@@ -6,12 +6,23 @@ import travelcompany.order.domain.Order;
 import java.util.List;
 
 public class User extends BaseDomain<Long> {
-
     private String firstName;
     private String lastName;
     private Passport passport;
     private ClientType clientType;
     private List<Order> orders;
+
+    public User() {}
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User(String firstName, String lastName, Passport passport, ClientType clientType) {
+        this(firstName, lastName);
+        this.passport = passport;
+    }
 
     public ClientType getClientType() {
         return clientType;
@@ -27,16 +38,6 @@ public class User extends BaseDomain<Long> {
 
     public List<Order> getOrders() {
         return orders;
-    }
-
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public User(String firstName, String lastName, Passport passport, ClientType clientType) {
-        this(firstName, lastName);
-        this.passport = passport;
     }
 
     public String getFirstName() {

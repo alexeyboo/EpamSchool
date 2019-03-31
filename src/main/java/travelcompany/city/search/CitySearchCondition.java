@@ -7,12 +7,10 @@ import travelcompany.country.domain.Country;
 import static travelcompany.common.solutions.utils.StringUtils.isNotBlank;
 
 
-public class CitySearchCondition extends BaseSearchCondition <Long>{
-
+public class CitySearchCondition extends BaseSearchCondition<Long> {
     private String name;
     private Integer population;
     private Boolean isCapital;
-    private Country country;
     private Climate climate;
     private CitySortByField sortByField;
     private CityDiscriminator cityDiscriminator;
@@ -23,17 +21,30 @@ public class CitySearchCondition extends BaseSearchCondition <Long>{
     public boolean searchByNumOfSkiResorts() {
         return numOfSkiResorts != null;
     }
-    public boolean searchByNumOfSights(){
+
+    public boolean searchByNumOfSights() {
         return numOfSights != null;
     }
+
     public boolean searchByNumOfBeaches() {
         return numOfBeaches != null;
     }
-    public boolean searchByName() {return isNotBlank(name);}
-    public boolean searchByPopulation() {return population != null;}
-    public boolean searchByCapital() {return isCapital != null;}
-    public boolean searchByCountry() {return country != null;}
-    public boolean searchByClimate() {return climate != null;}
+
+    public boolean searchByName() {
+        return isNotBlank(name);
+    }
+
+    public boolean searchByPopulation() {
+        return population != null;
+    }
+
+    public boolean searchByCapital() {
+        return isCapital != null;
+    }
+
+    public boolean searchByClimate() {
+        return climate != null;
+    }
 
     public Integer getNumOfSkiResorts() {
         return numOfSkiResorts;
@@ -50,8 +61,6 @@ public class CitySearchCondition extends BaseSearchCondition <Long>{
     public void setNumOfSights(Integer numOfSights) {
         this.numOfSights = numOfSights;
     }
-
-
 
     public Integer getNumOfBeaches() {
         return numOfBeaches;
@@ -91,14 +100,6 @@ public class CitySearchCondition extends BaseSearchCondition <Long>{
 
     public void setCapital(boolean capital) {
         isCapital = capital;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
     }
 
     public Climate getClimate() {

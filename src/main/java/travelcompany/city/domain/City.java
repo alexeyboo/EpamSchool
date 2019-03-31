@@ -7,7 +7,6 @@ public abstract class City extends BaseDomain <Long>{
     protected String name;
     protected int population;
     protected boolean isCapital;
-    protected Country country;
     protected Climate climate;
     protected CityDiscriminator discriminator;
     protected Long countryId;
@@ -48,14 +47,6 @@ public abstract class City extends BaseDomain <Long>{
         this.isCapital = isCapital;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     public Climate getClimate() {
         return climate;
     }
@@ -73,13 +64,10 @@ public abstract class City extends BaseDomain <Long>{
         return discriminator +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", country=" + country +
                 ", isCapital=" + isCapital +
                 ", population=" + population +
-                ", climate=" + climate +
-                '}';
+                ", climate=" + climate;
     }
 
     protected abstract void initDiscriminator();
-
 }

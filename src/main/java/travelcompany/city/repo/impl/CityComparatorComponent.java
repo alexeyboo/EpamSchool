@@ -13,22 +13,19 @@ import static travelcompany.common.business.repo.memory.CommonComparatorHolder.g
 import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableIntegers;
 import static travelcompany.common.business.repo.memory.CommonComparatorHolder.getComparatorForNullableStrings;
 
-
-
 public final class CityComparatorComponent {
     public static final CityComparatorComponent INSTANCE = new CityComparatorComponent();
     private static Map<CitySortByField, Comparator<City>> comparatorByField = new HashMap<>();
-
-    //for complex
+    /* for complex */
     private static Set<CitySortByField> fieldComparePriorityOrder = new LinkedHashSet<>(Arrays
-            .asList(NAME, POPULATION, COUNTRY, CLIMATE, IS_CAPITAL, NUM_OF_BEACHES, NUM_OF_SIGHTS, NUM_OF_SKI_RESORTS));
+            .asList(NAME, POPULATION, CLIMATE, IS_CAPITAL,
+                    NUM_OF_BEACHES, NUM_OF_SIGHTS, NUM_OF_SKI_RESORTS));
 
     public static CityComparatorComponent getInstance() {
         return INSTANCE;
     }
 
-    private CityComparatorComponent() {
-    }
+    private CityComparatorComponent() {}
 
     public Comparator<City> getComparatorForField(CitySortByField field) {
         return comparatorByField.get(field);
@@ -40,6 +37,7 @@ public final class CityComparatorComponent {
             public int compare(City o1, City o2) {
                 int result = 0;
                 Comparator<City> cityComparator = comparatorByField.get(field);
+
                 if (cityComparator != null) {
                     result = cityComparator.compare(o1, o2);
                     //if records have same order priority, i want to order them in their group
@@ -58,6 +56,7 @@ public final class CityComparatorComponent {
                         }
                     }
                 }
+
                 return result;
             }
         };
@@ -66,7 +65,6 @@ public final class CityComparatorComponent {
     static {
         comparatorByField.put(NAME, getComparatorForNameField());
         comparatorByField.put(POPULATION, getComparatorForPopulationField());
-        comparatorByField.put(COUNTRY, getComparatorForCountryField());
         comparatorByField.put(CLIMATE, getComparatorForClimateField());
         comparatorByField.put(IS_CAPITAL, getComparatorForIsCapitalField());
         comparatorByField.put(NUM_OF_BEACHES, getComparatorForNumOfBeachesField());
@@ -75,78 +73,34 @@ public final class CityComparatorComponent {
     }
 
     private static Comparator<City> getComparatorForNumOfBeachesField() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-                return getComparatorForNullableIntegers()
-                        .compare(((Beachable) o1).getNumOfBeaches(), ((Beachable) o2).getNumOfBeaches());
-            }
-        };
+        return (o1, o2) -> getComparatorForNullableIntegers()
+                .compare(((Beachable) o1).getNumOfBeaches(), ((Beachable) o2).getNumOfBeaches());
     }
 
     private static Comparator<City> getComparatorForNumOfSightsField() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-                return getComparatorForNullableIntegers()
-                        .compare(((Sightseeable) o1).getNumOfSights(), ((Sightseeable) o2).getNumOfSights());
-            }
-        };
+        return (o1, o2) -> getComparatorForNullableIntegers()
+                .compare(((Sightseeable) o1).getNumOfSights(), ((Sightseeable) o2).getNumOfSights());
     }
 
     private static Comparator<City> getComparatorForNumOfSkiResortsField() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-                return getComparatorForNullableIntegers()
-                        .compare(((SkiResortable) o1).getNumOfSkiResorts(), ((SkiResortable) o2).getNumOfSkiResorts());
-            }
-        };
+        return (o1, o2) -> getComparatorForNullableIntegers()
+                .compare(((SkiResortable) o1).getNumOfSkiResorts(), ((SkiResortable) o2).getNumOfSkiResorts());
     }
 
     private static Comparator<City> getComparatorForIsCapitalField() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-                return getComparatorForNullableBooleans().compare(o1.getIsCapital(), o2.getIsCapital());
-            }
-        };
+        return (o1, o2) -> getComparatorForNullableBooleans().compare(o1.getIsCapital(), o2.getIsCapital());
     }
 
     private static Comparator<City> getComparatorForClimateField() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-                return getComparatorForNullableStrings()
-                        .compare(o1.getClimate().getClass().getName(), o2.getClimate().getClass().getName());
-            }
-        };
-    }
-
-    private static Comparator<City> getComparatorForCountryField() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-                return getComparatorForNullableStrings().compare(o1.getCountry().getName(), o2.getCountry().getName());
-            }
-        };
+        return (o1, o2) -> getComparatorForNullableStrings()
+                .compare(o1.getClimate().getClass().getName(), o2.getClimate().getClass().getName());
     }
 
     private static Comparator<City> getComparatorForPopulationField() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-                return getComparatorForNullableIntegers().compare(o1.getPopulation(), o2.getPopulation());
-            }
-        };
+        return (o1, o2) -> getComparatorForNullableIntegers().compare(o1.getPopulation(), o2.getPopulation());
     }
 
     private static Comparator<City> getComparatorForNameField() {
-        return new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-                return getComparatorForNullableStrings().compare(o1.getName(), o2.getName());
-            }
-        };
+        return (o1, o2) -> getComparatorForNullableStrings().compare(o1.getName(), o2.getName());
     }
 }

@@ -8,6 +8,8 @@ import travelcompany.city.search.CitySearchCondition;
 import travelcompany.city.service.CityService;
 import travelcompany.order.repo.OrderRepo;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class CityDefaultService implements CityService {
@@ -21,9 +23,18 @@ public class CityDefaultService implements CityService {
     }
 
     @Override
-    public void insert(City city) {
+    public City insert(City city) {
         if (city != null) {
             cityRepo.insert(city);
+        }
+
+        return city;
+    }
+
+    @Override
+    public void insert(Collection<City> cities) {
+        if (cities != null && !cities.isEmpty()) {
+            cityRepo.insert(cities);
         }
     }
 
@@ -39,7 +50,7 @@ public class CityDefaultService implements CityService {
     @Override
     public void delete(City city) {
         if (city.getId() != null) {
-            this.deleteById(city.getId());
+            deleteById(city.getId());
         }
     }
 
@@ -47,6 +58,7 @@ public class CityDefaultService implements CityService {
     public void deleteById(Long id) {
         if (id != null) {
             boolean noOrders = orderRepo.countByCity(id) == 0;
+
             if (noOrders) {
                 cityRepo.deleteById(id);
             } else {
@@ -62,7 +74,11 @@ public class CityDefaultService implements CityService {
 
     @Override
     public List<? extends City> search(CitySearchCondition searchCondition) {
-        return cityRepo.search(searchCondition);
+        if (searchCondition.getId() != null)
+            return Collections.singletonList(findById(searchCondition.getId()));
+        else {
+            return cityRepo.search(searchCondition);
+        }
     }
 
     @Override

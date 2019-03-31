@@ -4,7 +4,6 @@ import travelcompany.city.domain.*;
 import travelcompany.city.domain.typesofcities.*;
 
 public class BeachAndSightseeAndSkiResortCity extends City implements Beachable, Sightseeable, SkiResortable {
-
     private int numOfBeaches;
     private int numOfSights;
     private int numOfSkiResorts;
@@ -36,5 +35,13 @@ public class BeachAndSightseeAndSkiResortCity extends City implements Beachable,
     @Override
     protected void initDiscriminator() {
         discriminator = CityDiscriminator.BEACH_N_SIGHTSEE_N_SKI_RESORT;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", numOfBeaches=" + numOfBeaches +
+                ", numOfSights=" + numOfSights +
+                ", numOfSkiResorts=" + numOfSkiResorts + '\'';
     }
 }

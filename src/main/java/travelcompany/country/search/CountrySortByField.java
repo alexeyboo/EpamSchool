@@ -1,7 +1,8 @@
 package travelcompany.country.search;
 
 public enum CountrySortByField {
-    NAME("countryname"), LANGUAGE("countrylanguage"), NUM_OF_CITIES("numofcities");
+    NAME("countryname"), LANGUAGE("countrylanguage"),
+    NUM_OF_CITIES("numofcities");
 
     private String requestParamName;
 

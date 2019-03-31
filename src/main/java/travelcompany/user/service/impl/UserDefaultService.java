@@ -6,10 +6,11 @@ import travelcompany.user.repo.UserRepo;
 import travelcompany.user.search.UserSearchCondition;
 import travelcompany.user.service.UserService;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class UserDefaultService implements UserService {
-
     private final UserRepo userRepo;
     private final OrderService orderService;
 
@@ -19,29 +20,44 @@ public class UserDefaultService implements UserService {
     }
 
     @Override
-    public void insert(User user) {
+    public User insert(User user) {
         if (user != null) {
             userRepo.insert(user);
         }
+
+        return user;
     }
+
+    @Override
+    public void insert(Collection<User> users) {
+        if (users != null && !users.isEmpty()) {
+            userRepo.insert(users);
+        }
+    }
+
     @Override
     public User findById(Long id) {
         if (id != null) {
             return userRepo.findById(id);
         }
+
         return null;
     }
 
     @Override
     public void delete(User user) {
         if (user != null) {
-            this.deleteById(user.getId());
+            deleteById(user.getId());
         }
     }
 
     @Override
     public List<? extends User> search(UserSearchCondition searchCondition) {
-        return userRepo.search(searchCondition);
+        if (searchCondition.getId() != null) {
+            return Collections.singletonList(findById(searchCondition.getId()));
+        } else {
+            return userRepo.search(searchCondition);
+        }
     }
 
     @Override

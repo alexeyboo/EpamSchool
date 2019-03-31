@@ -4,7 +4,6 @@ import travelcompany.city.domain.*;
 import travelcompany.city.domain.typesofcities.Beachable;
 
 public class BeachCity extends City implements Beachable {
-
     private int numOfBeaches;
 
     public int getNumOfBeaches() {
@@ -18,5 +17,11 @@ public class BeachCity extends City implements Beachable {
     @Override
     protected void initDiscriminator() {
         discriminator = CityDiscriminator.BEACH;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", numOfBeaches=" + numOfBeaches + '\'';
     }
 }

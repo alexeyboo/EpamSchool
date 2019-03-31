@@ -1,26 +1,26 @@
-package travelcompany.country.repo.impl;
+package travelcompany.country.repo.impl.memory;
 
 import travelcompany.common.business.search.Paginator;
 import travelcompany.country.domain.Country;
 import travelcompany.country.repo.CountryRepo;
+import travelcompany.country.repo.impl.CountrySortingComponent;
 import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.countriesList;
 
-public class CountryMemoryCollectionRepo implements CountryRepo {
+public class CountryCollectionRepo implements CountryRepo {
     private CountrySortingComponent orderingComponent = new CountrySortingComponent();
 
     @Override
     public Country insert(Country country) {
-        country.setId(SequenceGenerator.getNextValue());
         countriesList.add(country);
+        country.setId(SequenceGenerator.getNextValue());
 
         return country;
     }

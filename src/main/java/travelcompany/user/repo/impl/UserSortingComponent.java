@@ -10,8 +10,8 @@ import java.util.List;
 public class UserSortingComponent {
     public void applySorting(List<? extends User> users, UserSearchCondition searchCondition) {
         Comparator<User> userComparator = null;
-
         UserSortByField field = searchCondition.getSortByField();
+
         switch (searchCondition.getSortType()) {
             case SIMPLE: {
                 userComparator = UserComporatorComponent.getInstance().getComparatorForField(field);
@@ -22,6 +22,7 @@ public class UserSortingComponent {
                 break;
             }
         }
+
         if (userComparator != null) {
             switch (searchCondition.getSortDirection()) {
                 case ASC:

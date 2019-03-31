@@ -10,6 +10,19 @@ public class OrderSearchCondition extends BaseSearchCondition <Long>{
     private User user;
     private Country country;
     private City city;
+    private OrderSortByField sortByField;
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public OrderSortByField getSortByField() {
+        return sortByField;
+    }
+
+    public void setSortByField(OrderSortByField sortByField) {
+        this.sortByField = sortByField;
+    }
 
     public Integer getPrice() {
         return price;

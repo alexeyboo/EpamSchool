@@ -1,9 +1,10 @@
-package travelcompany.country.repo.impl;
+package travelcompany.country.repo.impl.memory;
 
 import travelcompany.common.business.search.Paginator;
 import travelcompany.common.solutions.utils.ArrayUtils;
 import travelcompany.country.domain.Country;
 import travelcompany.country.repo.CountryRepo;
+import travelcompany.country.repo.impl.CountrySortingComponent;
 import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
@@ -12,7 +13,7 @@ import java.util.*;
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.countriesArray;
 
-public class CountryMemoryArrayRepo implements CountryRepo {
+public class CountryArrayRepo implements CountryRepo {
     private int countryIndex = 0;
     private CountrySortingComponent sortingComponent = new CountrySortingComponent();
 

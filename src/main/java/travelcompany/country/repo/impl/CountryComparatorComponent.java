@@ -42,14 +42,11 @@ public final class CountryComparatorComponent {
 
                 //if records have the same order priority, i want to order them in their group
                 if (result == 0) {
-
                     //loop through all possible sorting fields
                     for (CountrySortByField otherField : fieldComparePriorityOrder) {
-
                         //if i haven't sorted by field which is taken from parameter in function, i do sorting
                         if (!otherField.equals(field)) {
                             result = comparatorsByField.get(otherField).compare(o1, o2);
-
                             //if sort result detected that records are not equal - we exit from loop
                             //else continue
                             if (result != 0) {

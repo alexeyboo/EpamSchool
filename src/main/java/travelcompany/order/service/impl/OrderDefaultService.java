@@ -5,11 +5,11 @@ import travelcompany.order.repo.OrderRepo;
 import travelcompany.order.search.OrderSearchCondition;
 import travelcompany.order.service.OrderService;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class OrderDefaultService implements OrderService {
-
     private final OrderRepo orderRepo;
 
     public OrderDefaultService(OrderRepo orderRepo) {
@@ -17,9 +17,18 @@ public class OrderDefaultService implements OrderService {
     }
 
     @Override
-    public void insert(Order order) {
+    public Order insert(Order order) {
         if (order != null) {
             orderRepo.insert(order);
+        }
+
+        return order;
+    }
+
+    @Override
+    public void insert(Collection<Order> orders) {
+        if (orders != null && !orders.isEmpty()) {
+            orderRepo.insert(orders);
         }
     }
 
@@ -42,13 +51,17 @@ public class OrderDefaultService implements OrderService {
     @Override
     public void delete(Order order) {
         if (order.getId() != null) {
-            this.deleteById(order.getId());
+            deleteById(order.getId());
         }
     }
 
     @Override
     public List<? extends Order> search(OrderSearchCondition searchCondition) {
-        return orderRepo.search(searchCondition);
+        if (searchCondition.getId() != null) {
+            return Collections.singletonList(findById(searchCondition.getId()));
+        } else {
+            return orderRepo.search(searchCondition);
+        }
     }
 
     @Override
@@ -58,20 +71,6 @@ public class OrderDefaultService implements OrderService {
         }
     }
 
-    @Override
-    public List<Order> getOrdersByUser(Long userId) {
-        if (userId != null) {
-            return orderRepo.findByUserId(userId);
-        }
-        return Collections.emptyList();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        if (id != null) {
-            orderRepo.deleteById(id);
-        }
-    }
 
     @Override
     public void printAll() {
@@ -81,6 +80,22 @@ public class OrderDefaultService implements OrderService {
     @Override
     public List<Order> findAll() {
         return orderRepo.findAll();
+    }
+
+    @Override
+    public List<Order> getOrdersByUser(Long userId) {
+        if (userId != null) {
+            return orderRepo.findByUserId(userId);
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if (id != null) {
+            orderRepo.deleteById(id);
+        }
     }
 
     @Override
