@@ -7,6 +7,8 @@ import travelcompany.storage.initor.datasourcereader.xml.dom.CountriesWithCities
 import travelcompany.storage.initor.datasourcereader.xml.sax.CountriesWithCitiesXmlSaxParser;
 import travelcompany.storage.initor.datasourcereader.xml.stax.CountriesWithCitiesXmlStaxParser;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StorageInitor {
@@ -17,21 +19,49 @@ public class StorageInitor {
     }
 
     public enum DataSourceType {
-        TXT_FILE, XML_FILE, JSON_FILE;
+        TXT_FILE, XML_FILE;
     }
 
-    public void initStorageWithCountriesAndCities(String filePath, DataSourceType dataSourceType) throws Exception {
-        List<Country> countriesToPersist = getCountriesFromStorage(filePath, dataSourceType);
-        
+    public void initStorageWithCountriesAndCities(List<File> files, DataSourceType dataSourceType) throws Exception {
+        List<CountryCityFileParser> countryCityFileParsers = prepareAsyncParsers(files, dataSourceType);
+        List<Country> countriesToPersist = asyncParseFilesAndWaitForResult(countryCityFileParsers);
+
         if (!countriesToPersist.isEmpty()) {
-            for (Country country : countriesToPersist) {
-                countryService.insert(country);
-            }
+            countryService.insert(countriesToPersist);
         }
     }
 
-    private List<Country> getCountriesFromStorage(String filePath, DataSourceType dataSourceType) throws Exception {
+    private List<Country> asyncParseFilesAndWaitForResult(List<CountryCityFileParser> countryCityFileParsers) throws InterruptedException {
+        for (CountryCityFileParser countryCityFileParser : countryCityFileParsers) {
+            countryCityFileParser.asyncParseCountries();
+        }
 
+        List<Country> countriesToPersist = new ArrayList<>();
+        for (CountryCityFileParser countryCityFileParser : countryCityFileParsers) {
+            countryCityFileParser.blockUntilWorkIsFinished();
+            if (countryCityFileParser.getParseException() != null) {
+                throw new CountryCityParseXmlFileException(
+                        PARSE_COUNTRY_CITY_ERROR.getCode(),
+                        PARSE_COUNTRY_CITY_ERROR.getDescription(),
+                        countryCityFileParser.getParseException());
+            }
+            countriesToPersist.addAll(countryCityFileParser.getCountries());
+        }
+
+        return countriesToPersist;
+    }
+
+    private List<CountryCityFileParser> prepareAsyncParsers(List<File> files, DataSourceType dataSourceType) {
+        List<CountryCityFileParser> countryCityFileParsers = new ArrayList<>();
+        
+        for (File file : files) {
+            countryCityFileParsers.add(new CountryCityFileParser(dataSourceType, file));
+        }
+        
+        return countryCityFileParsers;
+    }
+
+    private List<Country> getCountriesFromStorage(String filePath, DataSourceType dataSourceType) throws Exception {
         FileParser<List<Country>> dataSourceReader = null;
 
         switch (dataSourceType) {
@@ -41,13 +71,10 @@ public class StorageInitor {
             }
             case XML_FILE: {
                 dataSourceReader = new CountriesWithCitiesXmlSaxParser();
-                //dataSourceReader = new CountriesWithCitiesXmlDomParser();
-                //dataSourceReader = new CountriesWithCitiesXmlStaxParser();
+//                dataSourceReader = new CountriesWithCitiesXmlDomParser();
+//                dataSourceReader = new CountriesWithCitiesXmlStaxParser();
                 break;
-            }
-            case JSON_FILE: {
-                break;
-            }
+            }            
         }
 
         return dataSourceReader.parseFile(filePath);
