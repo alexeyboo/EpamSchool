@@ -1,7 +1,8 @@
 package travelcompany.storage.initor.exception;
 
 public enum InitDataExceptionMeta {
-    PARSE_CITY_DISCRIMINATOR_ERROR(1, "Unknown city discriminator '%s'.");
+    PARSE_CITY_DISCRIMINATOR_ERROR(1, "Unknown city discriminator '%s'."),
+    PARSE_COUNTRY_CITY_ERROR(2, "Error while parsing file with country city data.");
 
     private int code;
     private String description;

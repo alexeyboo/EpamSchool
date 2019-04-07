@@ -1,7 +1,7 @@
 package travelcompany.storage.initor;
 
 import travelcompany.country.domain.Country;
-import travelcompany.storage.initor.datasourcereader.FileParser;
+import travelcompany.common.solutions.parser.FileParser;
 import travelcompany.storage.initor.datasourcereader.xml.sax.CountriesWithCitiesXmlSaxParser;
 
 import java.io.File;

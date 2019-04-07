@@ -2,14 +2,15 @@ package travelcompany.storage.initor;
 
 import travelcompany.country.domain.Country;
 import travelcompany.country.service.CountryService;
-import travelcompany.storage.initor.datasourcereader.FileParser;
-import travelcompany.storage.initor.datasourcereader.xml.dom.CountriesWithCitiesXmlDomParser;
+import travelcompany.common.solutions.parser.FileParser;
 import travelcompany.storage.initor.datasourcereader.xml.sax.CountriesWithCitiesXmlSaxParser;
-import travelcompany.storage.initor.datasourcereader.xml.stax.CountriesWithCitiesXmlStaxParser;
+import travelcompany.storage.initor.exception.checked.CountryCityParseXmlFileException;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static travelcompany.storage.initor.exception.InitDataExceptionMeta.PARSE_COUNTRY_CITY_ERROR;
 
 public class StorageInitor {
     private CountryService countryService;
@@ -19,7 +20,7 @@ public class StorageInitor {
     }
 
     public enum DataSourceType {
-        TXT_FILE, XML_FILE;
+        TXT_FILE, XML_FILE
     }
 
     public void initStorageWithCountriesAndCities(List<File> files, DataSourceType dataSourceType) throws Exception {
@@ -31,7 +32,7 @@ public class StorageInitor {
         }
     }
 
-    private List<Country> asyncParseFilesAndWaitForResult(List<CountryCityFileParser> countryCityFileParsers) throws InterruptedException {
+    private List<Country> asyncParseFilesAndWaitForResult(List<CountryCityFileParser> countryCityFileParsers) throws Exception {
         for (CountryCityFileParser countryCityFileParser : countryCityFileParsers) {
             countryCityFileParser.asyncParseCountries();
         }

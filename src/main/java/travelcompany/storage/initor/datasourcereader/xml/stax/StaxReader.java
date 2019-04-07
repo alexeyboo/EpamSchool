@@ -10,12 +10,12 @@ public class StaxReader implements AutoCloseable {
 
     private XMLStreamReader reader;
 
-    private StaxReader(){
-    }
+    private StaxReader(){}
 
     public static StaxReader getStaxReader(InputStream inputStream) throws XMLStreamException {
         StaxReader staxReader = new StaxReader();
         staxReader.reader = XmlStaxUtils.getReader(inputStream);
+
         return staxReader;
     }
 

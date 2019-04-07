@@ -14,9 +14,15 @@ import java.io.IOException;
 public final class XmlDomUtils {
     private XmlDomUtils() {}
 
-    public static String getOnlyElementTextContent(Element elementSource, String tagName) {
-        NodeList elementsByTagName = elementSource.getElementsByTagName(tagName);
-        return elementsByTagName.item(0).getTextContent();
+    public static Document getDocument(String file) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = factory.newDocumentBuilder();
+
+        return documentBuilder.parse(new File(file));
+    }
+
+    public static Element getOnlyElement(Document document, String tagName) {
+        return (Element) document.getElementsByTagName(tagName).item(0);
     }
 
     public static String getOnlyElementTextContentOrNull(Element elementSource, String tagName) {
@@ -27,13 +33,11 @@ public final class XmlDomUtils {
             return null;
         }
     }
-    public static Document getDocument(String file) throws ParserConfigurationException, IOException, SAXException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-        return documentBuilder.parse(new File(file));
-    }
-    public static Element getOnlyElement(Document document, String tagName) {
-        return (Element) document.getElementsByTagName(tagName).item(0);
+
+    public static String getOnlyElementTextContent(Element elementSource, String tagName) {
+        NodeList elementsByTagName = elementSource.getElementsByTagName(tagName);
+
+        return elementsByTagName.item(0).getTextContent();
     }
 
     public static Element getOnlyElement(Element element, String tagName) {

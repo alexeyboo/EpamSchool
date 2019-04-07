@@ -2,6 +2,7 @@ package travelcompany.city.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public enum CityDiscriminator {
     BEACH, SKI_RESORT, SIGHTSEE, BEACH_N_SKI_RESORT, BEACH_N_SIGHTSEE,
@@ -15,15 +16,7 @@ public enum CityDiscriminator {
         }
     }
 
-    public static CityDiscriminator getDiscriminatorByName(String discriminatorName) {
-        return stringCityDiscriminatorMap.get(discriminatorName);
-    }
-
-    public static boolean isDisciminatorExist(String discriminator) {
-        return getDiscriminatorByName(discriminator) != null;
-    }
-
-    public static boolean isDisciminatorNotExist(String discriminator) {
-        return !isDisciminatorExist(discriminator);
+    public static Optional<CityDiscriminator> getDiscriminatorByName(String discriminatorName) {
+        return Optional.ofNullable(stringCityDiscriminatorMap.get(discriminatorName));
     }
 }

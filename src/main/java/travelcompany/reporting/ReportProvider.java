@@ -32,6 +32,7 @@ public class ReportProvider {
                 countryService,
                 cityService);
     }
+
     public File getUserOrdersToTextFileReport() throws Exception {
         return userOrdersTextFileReport.generateReport();
     }

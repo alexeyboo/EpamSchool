@@ -22,6 +22,7 @@ public class ServiceSupplier {
                 }
             }
         }
+
         return INSTANCE;
     }
 

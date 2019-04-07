@@ -44,8 +44,10 @@ public class UserOrdersToTextFileReport implements ReportComponent {
                 writer.write(reportLine);
                 writer.newLine();
             }
+
             writer.flush();
         }
+
         return tempFile;
     }
 
@@ -60,14 +62,24 @@ public class UserOrdersToTextFileReport implements ReportComponent {
                 report.addAll(getOrderInformation(user));
             }
         }
+
         return report;
+    }
+
+    private String userToReportLine(User user) {
+        StringBuilder userAsStr = new StringBuilder();
+        userAsStr.append("User:").append(LINE_SEPARATOR)
+                .append("Full name: ").append(user.getFirstName())
+                .append(user.getLastName());
+
+        return userAsStr.toString();
     }
 
     private List<String> getOrderInformation(User user) {
         List<String> reportData = new ArrayList<>();
+
         List<Order> orders = orderService.getOrdersByUser(user.getId());
         reportData.add("Total orders: " + orders.size());
-        reportData.add("Total ordersArray: " + orders.size());
 
         if (!orders.isEmpty()) {
             reportData.add("Orders");
@@ -75,6 +87,7 @@ public class UserOrdersToTextFileReport implements ReportComponent {
                 reportData.add(orderToReportLine(order));
             }
         }
+
         return reportData;
     }
 
@@ -87,13 +100,4 @@ public class UserOrdersToTextFileReport implements ReportComponent {
 
         return orderAsStr.toString();
     }
-
-    private String userToReportLine(User user) {
-        StringBuilder userAsStr = new StringBuilder();
-        userAsStr.append("User:").append(LINE_SEPARATOR)
-                .append("Full name: ").append(user.getFirstName())
-                .append(user.getLastName());
-        return userAsStr.toString();
-    }
-
 }

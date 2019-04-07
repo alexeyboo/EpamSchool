@@ -9,7 +9,7 @@ import travelcompany.city.domain.typesofcities.Sightseeable;
 import travelcompany.city.domain.typesofcities.SkiResortable;
 import travelcompany.common.solutions.xml.stax.parse.CustomStaxReader;
 import travelcompany.country.domain.Country;
-import travelcompany.storage.initor.datasourcereader.FileParser;
+import travelcompany.common.solutions.parser.FileParser;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -20,8 +20,8 @@ import java.util.List;
 import static travelcompany.common.solutions.xml.stax.XmlStaxUtils.readContent;
 
 public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country>> {
-
     private final RuntimeException NO_END_TAG_FOUND_EXCEPTION = new RuntimeException("Suitable end tag NOT found");
+
     @Override
     public List<Country> parseFile(String file) throws Exception {
 
@@ -47,6 +47,7 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
                 }
             }
         }
+
         throw NO_END_TAG_FOUND_EXCEPTION;
     }
 
@@ -55,6 +56,7 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
 
         while (reader.hasNext()) {
             int eventType = reader.next();
+
             switch (eventType) {
                 case XMLStreamReader.START_ELEMENT: {
                     String tagName = reader.getLocalName();
@@ -68,6 +70,7 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
                 }
             }
         }
+
         throw NO_END_TAG_FOUND_EXCEPTION;
     }
 
@@ -75,6 +78,7 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
         Country country = new Country();
         while (reader.hasNext()){
             int eventType = reader.next();
+
             switch (eventType) {
                 case XMLStreamReader.START_ELEMENT: {
                     String tagName = reader.getLocalName();
@@ -87,7 +91,6 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
                     }
                     break;
                 }
-
                 case XMLStreamConstants.END_ELEMENT: {
                     return country;
                 }
@@ -101,17 +104,20 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
 
         while (reader.hasNext()) {
             int eventType = reader.next();
+
             switch (eventType) {
-                case XMLStreamReader.START_ELEMENT:
-                if ("city".equals(reader.getLocalName())) {
-                    cities.add(readCity(reader));
+                case XMLStreamReader.START_ELEMENT: {
+                    if ("city".equals(reader.getLocalName())) {
+                        cities.add(readCity(reader));
+                    }
+                    break;
                 }
-                break;
                 case XMLStreamConstants.END_ELEMENT: {
                     return cities;
                 }
             }
         }
+
         throw NO_END_TAG_FOUND_EXCEPTION;
     }
 
@@ -135,6 +141,10 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
                     if (city instanceof SkiResortable) {
                         appendSkiResortableAttributes((SkiResortable) city, tagName, reader);
                     }
+                    break;
+                }
+                case XMLStreamConstants.END_ELEMENT: {
+                    return city;
                 }
             }
         }
@@ -173,6 +183,7 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
 
     private City createCity(String type) {
         CityDiscriminator cityDiscriminator = CityDiscriminator.valueOf(type);
+
         switch (cityDiscriminator) {
             case SIGHTSEE_N_SKI_RESORT:
                 return new SightseeAndSkiResortCity();
@@ -189,8 +200,7 @@ public class CountriesWithCitiesXmlStaxParser implements FileParser<List<Country
             case BEACH_N_SIGHTSEE_N_SKI_RESORT:
                 return new BeachAndSightseeAndSkiResortCity();
         }
+
         return null;
     }
-
-
 }

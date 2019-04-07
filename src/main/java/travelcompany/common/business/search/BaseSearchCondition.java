@@ -6,20 +6,12 @@ public abstract class BaseSearchCondition <ID>{
     protected SortType sortType = SortType.SIMPLE;
     protected Paginator paginator;
 
-    public boolean shouldPaginate() {
-        return paginator != null && paginator.getLimit() > 0 && paginator.getOffset() >= 0;
-    }
-
-    public Paginator getPaginator() {
-        return paginator;
-    }
-
-    public void setPaginator(Paginator paginator) {
-        this.paginator = paginator;
-    }
-
     public ID getId() {
         return id;
+    }
+
+    public void setId(ID id) {
+        this.id = id;
     }
 
     public SortDirection getSortDirection() {
@@ -38,11 +30,19 @@ public abstract class BaseSearchCondition <ID>{
         this.sortType = sortType;
     }
 
-    public void setId(ID id) {
-        this.id = id;
-    }
-
     public boolean needSorting() {
         return sortDirection != null && sortType != null;
+    }
+
+    public boolean shouldPaginate() {
+        return paginator != null && paginator.getLimit() > 0 && paginator.getOffset() >= 0;
+    }
+
+    public Paginator getPaginator() {
+        return paginator;
+    }
+
+    public void setPaginator(Paginator paginator) {
+        this.paginator = paginator;
     }
 }

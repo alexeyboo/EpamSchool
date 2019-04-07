@@ -1,16 +1,15 @@
 <our-directions>
     <countries>
         <country>
-            <name>Russia</name>
-            <language>Russian</language>
+            <name>Japan</name>
+            <language>Japanese</language>
             <cities>
-                <city type="BEACH_N_SKI_RESORT">
-                    <name>Sochi</name>
-                    <population>500000</population>
-                    <isCapital>false</isCapital>
-                    <climate>TROPICAL</climate>
-                    <numOfBeaches>2</numOfBeaches>
-                    <numOfSkiResorts>2</numOfSkiResorts>
+                <city type="SIGHTSEE">
+                    <name>Tokyo</name>
+                    <population>9000000</population>
+                    <isCapital>true</isCapital>
+                    <climate>TEMPERATE</climate>
+                    <numOfSights>2</numOfSights>
                 </city>
             </cities>
         </country>
@@ -20,30 +19,30 @@
             <name>USA</name>
             <language>English</language>
             <cities>
-                <city type="SIGHTSEE">
-                    <name>New York</name>
-                    <population>10000000</population>
+                <city type="BEACH_N_SIGHTSEE">
+                    <name>Los Angeles</name>
+                    <population>4000000</population>
                     <isCapital>false</isCapital>
-                    <climate>TEMPERATE</climate>
+                    <climate>TROPICAL</climate>
+                    <numOfBeaches>3</numOfBeaches>
                     <numOfSights>20</numOfSights>
                 </city>
             </cities>
         </country>
 
         <country>
-            <name>Brazil</name>
-            <language>Portuguese</language>
+            <name>USA</name>
+            <language>English</language>
             <cities>
-                <city type="BEACH_N_SIGHT">
-                    <name>Rio de Janeiro</name>
-                    <population>Big like a gym</population>
+                <city type="BEACH_N_SIGHTSEE">
+                    <name>San Francisco</name>
+                    <population>1000000</population>
                     <isCapital>false</isCapital>
-                    <climate>TROPICAL</climate>
-                    <numOfBeaches>5</numOfBeaches>
-                    <numOfSights>2</numOfSights>
+                    <climate>TEMPERATE</climate>
+                    <numOfBeaches>2</numOfBeaches>
+                    <numOfSights>50</numOfSights>
                 </city>
             </cities>
         </country>
-
     </countries>
 </our-directions>
