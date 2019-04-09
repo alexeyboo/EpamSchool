@@ -8,9 +8,11 @@ import travelcompany.city.search.CitySearchCondition;
 
 import travelcompany.common.business.search.Paginator;
 import travelcompany.common.solutions.utils.ArrayUtils;
+import travelcompany.common.solutions.utils.OptionalUtils;
 import travelcompany.storage.SequenceGenerator;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.citiesArray;
@@ -43,18 +45,12 @@ public class CityArrayRepo implements CityRepo {
     }
 
     @Override
-    public City findById(Long id) {
-        Integer cityIndex = findCityIndexById(id);
-        if (cityIndex != null) {
-            return citiesArray[cityIndex];
-        }
-
-        return null;
+    public Optional<City> findById(Long id) {
+        return findCityIndexById(id).map(cityIndex -> citiesArray[cityIndex]);
     }
 
     @Override
-    public void update(City city) {
-    }
+    public void update(City city) {}
 
     @Override
     public List<? extends City> search(CitySearchCondition searchCondition) {
@@ -237,11 +233,7 @@ public class CityArrayRepo implements CityRepo {
 
     @Override
     public void deleteById(Long id) {
-        Integer cityIndex = findCityIndexById(id);
-
-        if (cityIndex != null) {
-            deleteCityByIndex(cityIndex);
-        }
+        findCityIndexById(id).ifPresent(this::deleteCityByIndex);
     }
 
     private void deleteCityByIndex(int index) {
@@ -257,13 +249,12 @@ public class CityArrayRepo implements CityRepo {
         }
     }
 
-    private Integer findCityIndexById(Long cityId) {
-        for (int i = 0; i < citiesArray.length; i++) {
-            if (citiesArray[i].getId().equals(cityId))
-                return i;
-        }
+    private Optional<Integer> findCityIndexById(Long cityId) {
+        OptionalInt optionalInt = IntStream.range(0, citiesArray.length).filter(i ->
+                citiesArray[i] != null && Long.valueOf(cityId).equals(citiesArray[i].getId())
+        ).findAny();
 
-        return null;
+        return OptionalUtils.valueOf(optionalInt);
     }
 
     @Override

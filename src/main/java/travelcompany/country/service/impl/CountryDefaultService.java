@@ -14,6 +14,7 @@ import travelcompany.order.repo.OrderRepo;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CountryDefaultService implements CountryService {
     private final CityService cityService;
@@ -64,11 +65,11 @@ public class CountryDefaultService implements CountryService {
     }
 
     @Override
-    public Country findById(Long id) {
+    public Optional<Country> findById(Long id) {
         if (id != null) {
             return countryRepo.findById(id);
         } else {
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -101,7 +102,7 @@ public class CountryDefaultService implements CountryService {
     @Override
     public List<? extends Country> search(CountrySearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
-            return Collections.singletonList(countryRepo.findById(searchCondition.getId()));
+            return countryRepo.findById(searchCondition.getId()).map(Collections::singletonList).orElse(Collections.emptyList());
         } else {
             return countryRepo.search(searchCondition);
         }
@@ -116,15 +117,11 @@ public class CountryDefaultService implements CountryService {
 
     @Override
     public void removeAllCitiesFromCountry(Long countryId) throws TravelCompanyUncheckedException {
-        Country country = findById(countryId);
-
-        if (country != null) {
-            List<City> cities = country.getCities() == null ? Collections.emptyList() : country.getCities();
-
-            for (City city : cities) {
-                cityService.deleteById(city.getId());
+        findById(countryId).ifPresent(country -> {
+            if (country.getCities() != null) {
+                country.getCities().forEach(city -> cityService.deleteById(city.getId()));
             }
-        }
+        });
     }
 
     @Override

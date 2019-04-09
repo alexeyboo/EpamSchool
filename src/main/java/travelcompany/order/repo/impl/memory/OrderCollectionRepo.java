@@ -7,10 +7,7 @@ import travelcompany.order.repo.impl.OrderSortingComponent;
 import travelcompany.order.search.OrderSearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.ordersList;
@@ -37,7 +34,7 @@ public class OrderCollectionRepo implements OrderRepo {
     public void update(Order entity) {}
 
     @Override
-    public Order findById(Long id) {
+    public Optional<Order> findById(Long id) {
         return findOrderById(id);
     }
 
@@ -97,11 +94,7 @@ public class OrderCollectionRepo implements OrderRepo {
 
     @Override
     public void deleteById(Long id) {
-        Order found = findOrderById(id);
-
-        if (found != null) {
-            ordersList.remove(found);
-        }
+        findOrderById(id).map(order -> ordersList.remove(order));
     }
 
     @Override
@@ -111,14 +104,8 @@ public class OrderCollectionRepo implements OrderRepo {
         }
     }
 
-    private Order findOrderById(long id) {
-        for (Order order : ordersList) {
-            if (order.getId().equals(id)) {
-                return order;
-            }
-        }
-
-        return null;
+    private Optional<Order> findOrderById(long id) {
+        return ordersList.stream().filter(order -> Long.valueOf(id).equals(order.getId())).findAny();
     }
 
     @Override

@@ -2,6 +2,7 @@ package travelcompany.country.repo.impl.memory;
 
 import travelcompany.common.business.search.Paginator;
 import travelcompany.common.solutions.utils.ArrayUtils;
+import travelcompany.common.solutions.utils.OptionalUtils;
 import travelcompany.country.domain.Country;
 import travelcompany.country.repo.CountryRepo;
 import travelcompany.country.repo.impl.CountrySortingComponent;
@@ -9,6 +10,7 @@ import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.countriesArray;
@@ -44,14 +46,8 @@ public class CountryArrayRepo implements CountryRepo {
     }
 
     @Override
-    public Country findById(Long id) {
-        Integer countryIndex = findCountryIndexById(id);
-
-        if (countryIndex != null) {
-            return countriesArray[countryIndex];
-        }
-
-        return null;
+    public Optional<Country> findById(Long id) {
+        return findCountryIndexById(id).map(countryIndex -> countriesArray[countryIndex]);
     }
 
     @Override
@@ -114,11 +110,7 @@ public class CountryArrayRepo implements CountryRepo {
 
     @Override
     public void deleteById(Long id) {
-        Integer countryIndex = findCountryIndexById(id);
-
-        if (countryIndex != null) {
-            deleteCountryByIndex(countryIndex);
-        }
+        findCountryIndexById(id).ifPresent(this::deleteCountryByIndex);
     }
 
     private void deleteCountryByIndex(Integer index) {
@@ -133,13 +125,11 @@ public class CountryArrayRepo implements CountryRepo {
         }
     }
 
-    private Integer findCountryIndexById(long id) {
-        for (int i = 0; i < countriesArray.length; i++) {
-            if (countriesArray[i].getId().equals(id))
-                return i;
-        }
+    private Optional<Integer> findCountryIndexById(long id) {
+        OptionalInt optionalInt = IntStream.range(0, countriesArray.length).filter(i ->
+                countriesArray[i] != null && Long.valueOf(id).equals(countriesArray[i].getId())).findAny();
 
-        return null;
+        return OptionalUtils.valueOf(optionalInt);
     }
 
     @Override

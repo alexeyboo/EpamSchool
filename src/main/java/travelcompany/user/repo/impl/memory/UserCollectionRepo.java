@@ -7,10 +7,7 @@ import travelcompany.user.repo.UserRepo;
 import travelcompany.user.repo.impl.UserSortingComponent;
 import travelcompany.user.search.UserSearchCondition;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.usersArray;
@@ -38,7 +35,7 @@ public class UserCollectionRepo implements UserRepo {
     public void update(User user) {}
 
     @Override
-    public User findById(Long id) {
+    public Optional<User> findById(Long id) {
         return findUserById(id);
     }
 
@@ -101,11 +98,7 @@ public class UserCollectionRepo implements UserRepo {
 
     @Override
     public void deleteById(Long id) {
-        User found = findUserById(id);
-
-        if (found != null) {
-            usersList.remove(found);
-        }
+        findUserById(id).map(user -> usersList.remove(user));
     }
 
     @Override
@@ -115,13 +108,8 @@ public class UserCollectionRepo implements UserRepo {
         }
     }
 
-    private User findUserById(long id) {
-        for (User user : usersList) {
-            if (user.getId().equals(id))
-                return user;
-        }
-
-        return null;
+    private Optional<User> findUserById(long id) {
+        return usersList.stream().filter(user -> Long.valueOf(id).equals(user.getId())).findAny();
     }
 
     @Override

@@ -2,6 +2,7 @@ package travelcompany.user.repo.impl.memory;
 
 import travelcompany.common.business.search.Paginator;
 import travelcompany.common.solutions.utils.ArrayUtils;
+import travelcompany.common.solutions.utils.OptionalUtils;
 import travelcompany.storage.SequenceGenerator;
 import travelcompany.user.domain.User;
 import travelcompany.user.repo.UserRepo;
@@ -9,6 +10,7 @@ import travelcompany.user.repo.impl.UserSortingComponent;
 import travelcompany.user.search.UserSearchCondition;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.usersArray;
@@ -43,14 +45,8 @@ public class UserArrayRepo implements UserRepo {
     }
 
     @Override
-    public User findById(Long id) {
-        Integer userIndex = findUserIndexById(id);
-
-        if (userIndex != null) {
-            return usersArray[userIndex];
-        }
-
-        return null;
+    public Optional<User> findById(Long id) {
+        return findUserIndexById(id).map(userIndex -> usersArray[userIndex]);
     }
 
     @Override
@@ -121,11 +117,7 @@ public class UserArrayRepo implements UserRepo {
 
     @Override
     public void deleteById(Long id) {
-        Integer userIndex = findUserIndexById(id);
-
-        if (userIndex != null) {
-            deleteUserByIndex(userIndex);
-        }
+        findUserIndexById(id).ifPresent(this::deleteUserByIndex);
     }
 
     private void deleteUserByIndex(Integer userIndex) {
@@ -140,14 +132,12 @@ public class UserArrayRepo implements UserRepo {
         }
     }
 
-    private Integer findUserIndexById(Long id) {
-        for (int i = 0; i < usersArray.length; i++) {
-            if (usersArray[i].getId().equals(id)) {
-                return i;
-            }
-        }
+    private Optional<Integer> findUserIndexById(Long id) {
+        OptionalInt optionalInt = IntStream.range(0, usersArray.length).filter(i ->
+                usersArray[i] != null && Long.valueOf(id).equals(usersArray[i].getId())
+        ).findAny();
 
-        return null;
+        return OptionalUtils.valueOf(optionalInt);
     }
 
     @Override

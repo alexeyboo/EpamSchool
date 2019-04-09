@@ -2,6 +2,7 @@ package travelcompany.order.repo.impl.memory;
 
 import travelcompany.common.business.search.Paginator;
 import travelcompany.common.solutions.utils.ArrayUtils;
+import travelcompany.common.solutions.utils.OptionalUtils;
 import travelcompany.order.domain.Order;
 import travelcompany.order.repo.OrderRepo;
 import travelcompany.order.repo.impl.OrderSortingComponent;
@@ -9,6 +10,7 @@ import travelcompany.order.search.OrderSearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
@@ -41,23 +43,13 @@ public class OrderArrayRepo implements OrderRepo {
     @Override
     public void update(Order order) {}
 
-    public Order findById(Long id) {
-        Integer orderIndex = findIndexById(id);
-
-        if (orderIndex != null) {
-            return ordersArray[orderIndex];
-        }
-
-        return null;
+    public Optional<Order> findById(Long id) {
+        return findIndexById(id).map(orderIndex -> ordersArray[orderIndex]);
     }
 
     @Override
     public void deleteById(Long id) {
-        Integer orderIndex = findIndexById(id);
-
-        if (orderIndex != null) {
-            deleteOrderByIndex(orderIndex);
-        }
+        findIndexById(id).ifPresent(this::deleteOrderByIndex);
     }
 
     private void deleteOrderByIndex(Integer orderIndex) {
@@ -81,14 +73,12 @@ public class OrderArrayRepo implements OrderRepo {
         return ordersArray.length;
     }
 
-    private Integer findIndexById(long id) {
-        for (int i = 0; i < ordersArray.length; i++) {
-            if (ordersArray[i].getId().equals(id)) {
-                return i;
-            }
-        }
+    private Optional<Integer> findIndexById(long id) {
+        OptionalInt optionalInt = IntStream.range(0, ordersArray.length).filter(i ->
+                ordersArray[i] != null && Long.valueOf(id).equals(ordersArray[i].getId())
+        ).findAny();
 
-        return null;
+        return OptionalUtils.valueOf(optionalInt);
     }
 
     @Override
@@ -193,9 +183,5 @@ public class OrderArrayRepo implements OrderRepo {
     }
 
     @Override
-    public void deleteByUserId(long userId) {
-        for (Order order : findByUserId(userId)) {
-            ArrayUtils.removeElement(ordersArray, findIndexById(order.getId()));
-        }
-    }
+    public void deleteByUserId(long userId) {}
 }

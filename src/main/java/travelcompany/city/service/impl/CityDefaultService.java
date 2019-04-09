@@ -11,9 +11,9 @@ import travelcompany.order.repo.OrderRepo;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CityDefaultService implements CityService {
-
     private final CityRepo cityRepo;
     private final OrderRepo orderRepo;
 
@@ -39,7 +39,7 @@ public class CityDefaultService implements CityService {
     }
 
     @Override
-    public City findById(Long id) {
+    public Optional<City> findById(Long id) {
         if (id != null) {
             return cityRepo.findById(id);
         } else {
@@ -75,7 +75,7 @@ public class CityDefaultService implements CityService {
     @Override
     public List<? extends City> search(CitySearchCondition searchCondition) {
         if (searchCondition.getId() != null)
-            return Collections.singletonList(findById(searchCondition.getId()));
+            return cityRepo.findById(searchCondition.getId()).map(Collections::singletonList).orElse(Collections.emptyList());
         else {
             return cityRepo.search(searchCondition);
         }

@@ -7,9 +7,7 @@ import travelcompany.country.repo.impl.CountrySortingComponent;
 import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.countriesList;
@@ -33,7 +31,7 @@ public class CountryCollectionRepo implements CountryRepo {
     }
 
     @Override
-    public Country findById(Long id) {
+    public Optional<Country> findById(Long id) {
         return findCountryById(id);
     }
 
@@ -95,20 +93,11 @@ public class CountryCollectionRepo implements CountryRepo {
 
     @Override
     public void deleteById(Long id) {
-        Country found = findCountryById(id);
-        if (found != null) {
-            countriesList.remove(found);
-        }
+        countriesList.forEach(System.out::println);
     }
 
-    private Country findCountryById(long id) {
-        for (Country country : countriesList) {
-            if (Long.valueOf(id).equals(country.getId())) {
-                return country;
-            }
-        }
-
-        return null;
+    private Optional<Country> findCountryById(long id) {
+        return countriesList.stream().filter(country -> Long.valueOf(id).equals(country.getId())).findAny();
     }
 
     @Override

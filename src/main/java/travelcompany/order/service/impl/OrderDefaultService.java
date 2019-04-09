@@ -8,6 +8,7 @@ import travelcompany.order.service.OrderService;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class OrderDefaultService implements OrderService {
     private final OrderRepo orderRepo;
@@ -40,11 +41,11 @@ public class OrderDefaultService implements OrderService {
     }
 
     @Override
-    public Order findById(Long id) {
+    public Optional<Order> findById(Long id) {
         if (id != null) {
             return orderRepo.findById(id);
         } else {
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -58,7 +59,7 @@ public class OrderDefaultService implements OrderService {
     @Override
     public List<? extends Order> search(OrderSearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
-            return Collections.singletonList(findById(searchCondition.getId()));
+            return orderRepo.findById(searchCondition.getId()).map(Collections::singletonList).orElse(Collections.emptyList());
         } else {
             return orderRepo.search(searchCondition);
         }

@@ -8,10 +8,7 @@ import travelcompany.city.search.CitySearchCondition;
 import travelcompany.common.business.search.Paginator;
 import travelcompany.storage.SequenceGenerator;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static travelcompany.common.solutions.utils.CollectionUtils.getPageableData;
 import static travelcompany.storage.Storage.citiesList;
@@ -36,7 +33,7 @@ public class CityCollectionRepo implements CityRepo {
     }
 
     @Override
-    public City findById(Long id) {
+    public Optional<City> findById(Long id) {
         return findCityById(id);
     }
 
@@ -191,11 +188,7 @@ public class CityCollectionRepo implements CityRepo {
 
     @Override
     public void deleteById(Long id) {
-        City found = findCityById(id);
-
-        if (found != null) {
-            citiesList.remove(found);
-        }
+        findCityById(id).map(city -> citiesList.remove(city));
     }
 
     @Override
@@ -215,13 +208,7 @@ public class CityCollectionRepo implements CityRepo {
         return citiesList.size();
     }
 
-    private City findCityById(long cityId) {
-        for (City city : citiesList) {
-            if (city.getId().equals(cityId)) {
-                return city;
-            }
-        }
-
-        return null;
+    private Optional<City> findCityById(long cityId) {
+        return citiesList.stream().filter(city -> Long.valueOf(cityId).equals(city.getId())).findAny();
     }
 }

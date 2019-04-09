@@ -9,6 +9,7 @@ import travelcompany.user.service.UserService;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDefaultService implements UserService {
     private final UserRepo userRepo;
@@ -36,12 +37,12 @@ public class UserDefaultService implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public Optional<User> findById(Long id) {
         if (id != null) {
             return userRepo.findById(id);
+        } else {
+            return Optional.empty();
         }
-
-        return null;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class UserDefaultService implements UserService {
     @Override
     public List<? extends User> search(UserSearchCondition searchCondition) {
         if (searchCondition.getId() != null) {
-            return Collections.singletonList(findById(searchCondition.getId()));
+            return userRepo.findById(searchCondition.getId()).map(Collections::singletonList).orElse(Collections.emptyList());
         } else {
             return userRepo.search(searchCondition);
         }
