@@ -5,7 +5,6 @@ import travelcompany.common.solutions.utils.ArrayUtils;
 import travelcompany.common.solutions.utils.OptionalUtils;
 import travelcompany.country.domain.Country;
 import travelcompany.country.repo.CountryRepo;
-import travelcompany.country.repo.impl.CountrySortingComponent;
 import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
@@ -36,14 +35,11 @@ public class CountryArrayRepo implements CountryRepo {
 
     @Override
     public void insert(Collection<Country> countries) {
-        for (Country country : countries) {
-            insert(country);
-        }
+        countries.forEach(country -> insert(country));
     }
 
     @Override
-    public void update(Country country) {
-    }
+    public void update(Country country) {}
 
     @Override
     public Optional<Country> findById(Long id) {
@@ -64,6 +60,11 @@ public class CountryArrayRepo implements CountryRepo {
         }
 
         return result;
+    }
+
+    @Override
+    public List<? extends Country> findAllCountriesFetchingModels() {
+        return new ArrayList<>(Arrays.asList(countriesArray));
     }
 
     private List<Country> doSearch(CountrySearchCondition searchCondition) {

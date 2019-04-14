@@ -238,7 +238,7 @@ public class QueryWrapper {
         }
     }
 
-    public static <T> Optional<T> executeUpdateGenerateReturningGeneratedKey(String sql, PreparedStatementConsumer psConsumer,
+    public static <T> Optional<T> executeUpdateReturningGeneratedKey(String sql, PreparedStatementConsumer psConsumer,
                                                                              ResultSetExtractor<T> ketExtractor) throws Exception {
         try (Connection connection = HikariCpDataSource.getInstance().getConnection()) {
             return executeUpdateReturningGeneratedKey(sql, connection, psConsumer, ketExtractor);

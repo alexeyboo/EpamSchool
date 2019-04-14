@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CountryRepo extends BaseRepo <Country, Long> {
     List<? extends Country> search(CountrySearchCondition searchCondition);
+
+    List<? extends Country> findAllCountriesFetchingModels();
 }

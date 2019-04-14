@@ -3,7 +3,6 @@ package travelcompany.country.repo.impl.memory;
 import travelcompany.common.business.search.Paginator;
 import travelcompany.country.domain.Country;
 import travelcompany.country.repo.CountryRepo;
-import travelcompany.country.repo.impl.CountrySortingComponent;
 import travelcompany.country.search.CountrySearchCondition;
 import travelcompany.storage.SequenceGenerator;
 
@@ -25,9 +24,7 @@ public class CountryCollectionRepo implements CountryRepo {
 
     @Override
     public void insert(Collection<Country> countries) {
-        for (Country country : countries) {
-            insert(country);
-        }
+        countries.forEach(this::insert);
     }
 
     @Override
@@ -36,8 +33,7 @@ public class CountryCollectionRepo implements CountryRepo {
     }
 
     @Override
-    public void update(Country country) {
-    }
+    public void update(Country country) {}
 
     @Override
     public List<Country> search(CountrySearchCondition searchCondition) {
@@ -53,6 +49,11 @@ public class CountryCollectionRepo implements CountryRepo {
         }
 
         return result;
+    }
+
+    @Override
+    public List<? extends Country> findAllCountriesFetchingModels() {
+        return countriesList;
     }
 
     public List<Country> doSearch(CountrySearchCondition searchCondition) {

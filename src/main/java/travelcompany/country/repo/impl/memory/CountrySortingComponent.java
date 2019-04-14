@@ -1,4 +1,4 @@
-package travelcompany.country.repo.impl;
+package travelcompany.country.repo.impl.memory;
 
 import travelcompany.country.domain.Country;
 import travelcompany.country.search.CountrySortByField;
